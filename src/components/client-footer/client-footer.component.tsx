@@ -1,5 +1,5 @@
 import { Layout } from 'antd';
-import styles from './clientFooter.module.css';
+import styles from './client-footer.module.scss';
 
 const { Footer } = Layout;
 

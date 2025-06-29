@@ -1,9 +1,9 @@
 import { Link, Outlet } from 'react-router-dom';
 import ProLayout from '@ant-design/pro-layout';
 import { DashboardOutlined, UserOutlined } from '@ant-design/icons';
-import styles from 'styles/layout/admin.layout.module.css';
+import styles from './admin.layout.module.scss';
 
-const AdminLayout = () => {
+const AdminLayout: React.FC = () => {
     return (
         <div className={styles.container}>
             <ProLayout
@@ -11,30 +11,21 @@ const AdminLayout = () => {
                 title="Trang Quản Trị"
                 layout="mix"
                 menuDataRender={() => [
-                    {
-                        path: '/admin/dashboard',
-                        name: 'Dashboard',
-                        icon: <DashboardOutlined />,
-                    },
-                    {
-                        path: '/admin/users',
-                        name: 'Quản lý Người dùng',
-                        icon: <UserOutlined />,
-                    },
+                    { path: '/admin', name: 'Dashboard', icon: <DashboardOutlined /> },
+                    { path: '/admin/users', name: 'Quản lý Người dùng', icon: <UserOutlined /> },
                 ]}
                 menuItemRender={(menuItemProps, defaultDom) => {
-                    if (menuItemProps.isUrl || !menuItemProps.path) {
-                        return defaultDom;
-                    }
+                    if (menuItemProps.isUrl || !menuItemProps.path) return defaultDom;
                     return <Link to={menuItemProps.path}>{defaultDom}</Link>;
                 }}
                 avatarProps={{
                     src: 'https://gw.alipayobjects.com/zos/antfincdn/efFD%24IOql2/weixintupian_20170331104822.jpg',
-                    title: 'Admin',
-                    size: 'small',
+                    title: 'Admin', size: 'small',
                 }}
             >
-                <Outlet />
+                <div className={styles.content}>
+                    <Outlet />
+                </div>
             </ProLayout>
         </div>
     );
