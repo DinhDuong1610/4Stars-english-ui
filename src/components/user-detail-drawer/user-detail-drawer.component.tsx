@@ -31,7 +31,7 @@ const UserDetailDrawer = ({ open, onClose, user }: UserDetailDrawerProps) => {
                 <Tag color="blue" style={{ fontSize: 16, padding: '5px 10px', marginLeft: '5px' }}>{user.name}</Tag>
             </Space>
             <Divider />
-            <Descriptions title="Thông tin cá nhân" bordered column={1}>
+            <Descriptions title="Personal Information" bordered column={1}>
                 <Descriptions.Item label="Rank">
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
                         <Avatar size={40} src={badgeImageUrl} icon={<UserOutlined />} />
@@ -40,23 +40,23 @@ const UserDetailDrawer = ({ open, onClose, user }: UserDetailDrawerProps) => {
                 </Descriptions.Item>
                 <Descriptions.Item label="ID">{user.id}</Descriptions.Item>
                 <Descriptions.Item label="Email">{user.email}</Descriptions.Item>
-                <Descriptions.Item label="Vai trò">
+                <Descriptions.Item label="Role">
                     <Tag color={user.role.name === 'ADMIN' ? 'red' : user.role.name === 'USER' ? 'blue' : 'green'}>
                         {user.role.name}
                     </Tag>
                 </Descriptions.Item>
-                <Descriptions.Item label="Trạng thái">
+                <Descriptions.Item label="Status">
                     <Badge status={user.active ? 'success' : 'error'} text={user.active ? 'Active' : 'Inactive'} />
                 </Descriptions.Item>
-                <Descriptions.Item label="Điểm"><b>{user.point}</b></Descriptions.Item>
-                <Descriptions.Item label="Chuỗi streak">{user.streakCount}</Descriptions.Item>
+                <Descriptions.Item label="Point"><b>{user.point}</b></Descriptions.Item>
+                <Descriptions.Item label="Streak">{user.streakCount}</Descriptions.Item>
             </Descriptions>
             <Divider />
-            <Descriptions title="Lịch sử" bordered column={1}>
-                <Descriptions.Item label="Ngày tạo">{formatISODate(user.createdAt)}</Descriptions.Item>
-                <Descriptions.Item label="Tạo bởi">{user.createdBy || 'System'}</Descriptions.Item>
-                <Descriptions.Item label="Cập nhật gần nhất">{formatISODate(user.updatedAt)}</Descriptions.Item>
-                <Descriptions.Item label="Cập nhật bởi">{user.updatedBy || 'System'}</Descriptions.Item>
+            <Descriptions title="History" bordered column={1}>
+                <Descriptions.Item label="Created at">{formatISODate(user.createdAt)}</Descriptions.Item>
+                <Descriptions.Item label="Created by">{user.createdBy || 'System'}</Descriptions.Item>
+                <Descriptions.Item label="Updated at">{formatISODate(user.updatedAt)}</Descriptions.Item>
+                <Descriptions.Item label="Updated by">{user.updatedBy || 'System'}</Descriptions.Item>
             </Descriptions>
         </Drawer>
     );

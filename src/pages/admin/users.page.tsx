@@ -196,7 +196,7 @@ const UsersPage = () => {
                     </Button>,
                 ]}
                 scroll={{ x: 'max-content' }}
-                headerTitle="List of users"
+                headerTitle="User List"
             />
 
             <UserDetailDrawer
