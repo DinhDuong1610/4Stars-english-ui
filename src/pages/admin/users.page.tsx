@@ -9,6 +9,7 @@ import type { IMeta } from 'types/backend';
 import { formatISODate } from 'utils/format.util';
 import UserDetailDrawer from 'components/user-detail-drawer/user-detail-drawer.component';
 import CreateUserModal from 'components/create-user-modal/create-user-modal.component';
+import UpdateUserModal from 'components/update-user-modal/update-user-modal.component';
 
 const UsersPage = () => {
     const actionRef = useRef<ActionType>(null);
@@ -21,6 +22,18 @@ const UsersPage = () => {
     const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
     const [selectedUser, setSelectedUser] = useState<IUser | null>(null);
     const [isCreateModalOpen, setIsCreateModalOpen] = useState<boolean>(false);
+    const [isUpdateModalOpen, setIsUpdateModalOpen] = useState<boolean>(false);
+    const [userToUpdate, setUserToUpdate] = useState<IUser | null>(null);
+
+    const handleOpenUpdateModal = (record: IUser) => {
+        setUserToUpdate(record);
+        setIsUpdateModalOpen(true);
+    };
+
+    const handleFinishUpdate = () => {
+        setIsUpdateModalOpen(false);
+        actionRef.current?.reload();
+    };
 
     const handleFinishCreate = () => {
         setIsCreateModalOpen(false);
@@ -88,7 +101,7 @@ const UsersPage = () => {
                 false: { text: 'Inactive', status: 'Error' },
             },
             render: (_, record) => (
-                <Switch defaultChecked={record.active} />
+                <Switch defaultChecked={record.active} disabled />
             ),
         },
         {
@@ -131,7 +144,7 @@ const UsersPage = () => {
             search: false,
             render: (_, record) => (
                 <Space size="middle">
-                    <Button icon={<EditOutlined />} color="primary"></Button>
+                    <Button icon={<EditOutlined />} color="primary" onClick={() => handleOpenUpdateModal(record)}></Button>
                     <Button icon={<DeleteOutlined />} danger></Button>
                 </Space>
             ),
@@ -220,6 +233,13 @@ const UsersPage = () => {
                 open={isCreateModalOpen}
                 onClose={() => setIsCreateModalOpen(false)}
                 onFinish={handleFinishCreate}
+            />
+
+            <UpdateUserModal
+                open={isUpdateModalOpen}
+                onClose={() => setIsUpdateModalOpen(false)}
+                onFinish={handleFinishUpdate}
+                initialData={userToUpdate}
             />
         </div>
     );

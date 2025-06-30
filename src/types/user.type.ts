@@ -31,3 +31,12 @@ export interface ICreateUser {
     roleId: number;
     badgeId: number;
 }
+
+export interface IUpdateUser {
+    id: number;
+    email?: string;
+    name?: string;
+    roleId?: number;
+    password?: string;
+    active?: boolean;
+}
