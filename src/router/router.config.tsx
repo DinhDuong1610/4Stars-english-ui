@@ -6,6 +6,7 @@ import ClientLayout from 'layouts/client.layout';
 import HomePage from 'pages/client/home.page';
 import ProductsPage from 'pages/client/products.page';
 import DashboardPage from 'pages/admin/dashboard.page';
+import UsersPage from 'pages/admin/users.page';
 
 const routes = [
     {
@@ -29,6 +30,10 @@ const routes = [
             {
                 index: true,
                 element: <DashboardPage />,
+            },
+            {
+                path: 'users',
+                element: <UsersPage />,
             },
         ],
     },
