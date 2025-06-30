@@ -2,12 +2,13 @@ import { Link, Outlet } from 'react-router-dom';
 import ProLayout from '@ant-design/pro-layout';
 import { DashboardOutlined, UserOutlined } from '@ant-design/icons';
 import styles from './admin.layout.module.scss';
+import Logo from 'assets/images/logo.png';
 
 const AdminLayout: React.FC = () => {
     return (
         <div className={styles.container}>
             <ProLayout
-                logo="https://gw.alipayobjects.com/zos/antfincdn/PmY%24TNNDBI/logo.svg"
+                logo={Logo}
                 title="Trang Quản Trị"
                 layout="mix"
                 menuDataRender={() => [
@@ -20,7 +21,7 @@ const AdminLayout: React.FC = () => {
                 }}
                 avatarProps={{
                     src: 'https://gw.alipayobjects.com/zos/antfincdn/efFD%24IOql2/weixintupian_20170331104822.jpg',
-                    title: 'Admin', size: 'small',
+                    title: 'Admin', size: 'large',
                 }}
             >
                 <div className={styles.content}>
