@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import { Button, message, notification, Popconfirm, Space, Switch, Tag } from 'antd';
-import { PlusOutlined, EditOutlined, DeleteOutlined, QuestionCircleOutlined, CloudDownloadOutlined } from '@ant-design/icons';
+import { PlusOutlined, EditOutlined, DeleteOutlined, QuestionCircleOutlined, CloudDownloadOutlined, CloudUploadOutlined } from '@ant-design/icons';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
 import { deleteUserAPI, fetchUsersAPI } from 'services/user.service';
@@ -12,7 +12,7 @@ import CreateUserModal from 'components/create-user-modal/create-user-modal.comp
 import UpdateUserModal from 'components/update-user-modal/update-user-modal.component';
 import type { IconType } from 'antd/es/notification/interface';
 import Papa from 'papaparse';
-import { set } from 'date-fns';
+import ImportUserModal from 'components/import-user-modal/import-user-modal.component';
 
 const UsersPage = () => {
     const actionRef = useRef<ActionType>(null);
@@ -30,6 +30,12 @@ const UsersPage = () => {
     const [currentPageData, setCurrentPageData] = useState<IUser[]>([]);
     const [isExporting, setIsExporting] = useState<boolean>(false);
     const [api, contextHolder] = notification.useNotification();
+    const [isImportModalOpen, setIsImportModalOpen] = useState<boolean>(false);
+
+    const handleFinishImport = () => {
+        actionRef.current?.reload();
+    };
+
     const openNotification = (pauseOnHover: boolean, desc: string, type: IconType = 'success') => () => {
         api.open({
             message: 'Delete user',
@@ -300,6 +306,13 @@ const UsersPage = () => {
                     >
                         Export
                     </Button>,
+                    <Button
+                        key="import"
+                        icon={<CloudUploadOutlined />}
+                        onClick={() => setIsImportModalOpen(true)}
+                    >
+                        Import
+                    </Button>,
                     <Button type="primary" key="primary"
                         icon={<PlusOutlined />}
                         onClick={() => setIsCreateModalOpen(true)}
@@ -328,6 +341,12 @@ const UsersPage = () => {
                 onClose={() => setIsUpdateModalOpen(false)}
                 onFinish={handleFinishUpdate}
                 initialData={userToUpdate}
+            />
+
+            <ImportUserModal
+                open={isImportModalOpen}
+                onClose={() => setIsImportModalOpen(false)}
+                onFinish={handleFinishImport}
             />
             {contextHolder}
         </div>
