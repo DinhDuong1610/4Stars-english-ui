@@ -7,6 +7,7 @@ import { fetchUsersAPI } from 'services/user.service';
 import type { IUser } from 'types/user.type';
 import type { IMeta } from 'types/backend';
 import { formatISODate } from 'utils/format.util';
+import UserDetailDrawer from 'components/user-detail-drawer/user-detail-drawer.component';
 
 const UsersPage = () => {
     const [meta, setMeta] = useState<IMeta>({
@@ -15,6 +16,19 @@ const UsersPage = () => {
         pages: 1,
         total: 0
     })
+
+    const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
+    const [selectedUser, setSelectedUser] = useState<IUser | null>(null);
+
+    const handleViewUser = (user: IUser) => {
+        setSelectedUser(user);
+        setIsDrawerOpen(true);
+    };
+
+    const handleCloseDrawer = () => {
+        setIsDrawerOpen(false);
+        setSelectedUser(null);
+    };
 
     const columns: ProColumns<IUser>[] = [
         {
@@ -28,6 +42,11 @@ const UsersPage = () => {
             dataIndex: 'name',
             key: 'name',
             sorter: true,
+            render: (_, record) => (
+                <a onClick={() => handleViewUser(record)}>
+                    {record.name}
+                </a>
+            )
         },
         {
             title: 'Email',
@@ -40,6 +59,7 @@ const UsersPage = () => {
             title: 'Role',
             dataIndex: ['role', 'name'],
             key: 'role',
+            filters: true,
             valueEnum: {
                 ADMIN: { text: 'Admin', color: 'red' },
                 USER: { text: 'User', color: 'blue' },
@@ -55,6 +75,7 @@ const UsersPage = () => {
             title: 'Status',
             dataIndex: 'active',
             key: 'active',
+            filters: true,
             valueEnum: {
                 true: { text: 'Active', status: 'Success' },
                 false: { text: 'Inactive', status: 'Error' },
@@ -176,6 +197,12 @@ const UsersPage = () => {
                 ]}
                 scroll={{ x: 'max-content' }}
                 headerTitle="List of users"
+            />
+
+            <UserDetailDrawer
+                open={isDrawerOpen}
+                onClose={handleCloseDrawer}
+                user={selectedUser}
             />
         </div>
     );
