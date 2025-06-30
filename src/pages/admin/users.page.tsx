@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import { Button, message, notification, Popconfirm, Space, Switch, Tag } from 'antd';
-import { PlusOutlined, EditOutlined, DeleteOutlined, QuestionCircleOutlined } from '@ant-design/icons';
+import { PlusOutlined, EditOutlined, DeleteOutlined, QuestionCircleOutlined, CloudDownloadOutlined, CloudUploadOutlined } from '@ant-design/icons';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
 import { deleteUserAPI, fetchUsersAPI } from 'services/user.service';
@@ -11,6 +11,8 @@ import UserDetailDrawer from 'components/user-detail-drawer/user-detail-drawer.c
 import CreateUserModal from 'components/create-user-modal/create-user-modal.component';
 import UpdateUserModal from 'components/update-user-modal/update-user-modal.component';
 import type { IconType } from 'antd/es/notification/interface';
+import Papa from 'papaparse';
+import ImportUserModal from 'components/import-user-modal/import-user-modal.component';
 
 const UsersPage = () => {
     const actionRef = useRef<ActionType>(null);
@@ -25,7 +27,15 @@ const UsersPage = () => {
     const [isCreateModalOpen, setIsCreateModalOpen] = useState<boolean>(false);
     const [isUpdateModalOpen, setIsUpdateModalOpen] = useState<boolean>(false);
     const [userToUpdate, setUserToUpdate] = useState<IUser | null>(null);
+    const [currentPageData, setCurrentPageData] = useState<IUser[]>([]);
+    const [isExporting, setIsExporting] = useState<boolean>(false);
     const [api, contextHolder] = notification.useNotification();
+    const [isImportModalOpen, setIsImportModalOpen] = useState<boolean>(false);
+
+    const handleFinishImport = () => {
+        actionRef.current?.reload();
+    };
+
     const openNotification = (pauseOnHover: boolean, desc: string, type: IconType = 'success') => () => {
         api.open({
             message: 'Delete user',
@@ -74,6 +84,43 @@ const UsersPage = () => {
         } catch (error) {
             message.error('An error occurred while deleting user.');
         }
+    };
+
+    const handleExportUsers = () => {
+        if (currentPageData.length === 0) {
+            openNotification(true, 'No data to export.', 'error')();
+            return;
+        }
+        setIsExporting(true);
+
+        const dataToExport = currentPageData.map(user => {
+            const { role, badge, ...restOfUser } = user;
+
+            return {
+                ...restOfUser,
+                role: role.name,
+                badge: badge.name,
+            };
+        });
+
+        const csv = Papa.unparse(dataToExport, {
+            header: true,
+        });
+
+        const blob = new Blob([`\uFEFF${csv}`], { type: 'text/csv;charset=utf-8;' });
+
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        const fileName = `users.csv`;
+        link.setAttribute('download', fileName);
+        document.body.appendChild(link);
+        link.click();
+
+        link.parentNode?.removeChild(link);
+        window.URL.revokeObjectURL(url);
+
+        setIsExporting(false);
     };
 
     const columns: ProColumns<IUser>[] = [
@@ -227,6 +274,7 @@ const UsersPage = () => {
 
                     if (res && res.data) {
                         setMeta(res.data.meta);
+                        setCurrentPageData(res.data.result);
                         return {
                             data: res.data.result,
                             page: 1,
@@ -234,6 +282,7 @@ const UsersPage = () => {
                             total: res.data.meta.total,
                         };
                     } else {
+                        setCurrentPageData([]);
                         return {
                             data: [],
                             success: false,
@@ -249,6 +298,21 @@ const UsersPage = () => {
                     total: meta.total
                 }}
                 toolBarRender={() => [
+                    <Button
+                        key="export"
+                        icon={<CloudDownloadOutlined />}
+                        loading={isExporting}
+                        onClick={handleExportUsers}
+                    >
+                        Export
+                    </Button>,
+                    <Button
+                        key="import"
+                        icon={<CloudUploadOutlined />}
+                        onClick={() => setIsImportModalOpen(true)}
+                    >
+                        Import
+                    </Button>,
                     <Button type="primary" key="primary"
                         icon={<PlusOutlined />}
                         onClick={() => setIsCreateModalOpen(true)}
@@ -277,6 +341,12 @@ const UsersPage = () => {
                 onClose={() => setIsUpdateModalOpen(false)}
                 onFinish={handleFinishUpdate}
                 initialData={userToUpdate}
+            />
+
+            <ImportUserModal
+                open={isImportModalOpen}
+                onClose={() => setIsImportModalOpen(false)}
+                onFinish={handleFinishImport}
             />
             {contextHolder}
         </div>

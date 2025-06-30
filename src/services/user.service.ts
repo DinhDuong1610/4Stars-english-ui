@@ -21,3 +21,8 @@ export const deleteUserAPI = (id: number) => {
     const url_backend = `/api/v1/admin/users/${id}`;
     return instance.delete(url_backend);
 }
+
+export const bulkCreateUsersAPI = (data: ICreateUser[]) => {
+    const url_backend = `/api/v1/admin/users/bulk`;
+    return instance.post<IBackendRes<IUser[]>>(url_backend, data);
+}
