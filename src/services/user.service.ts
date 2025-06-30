@@ -19,5 +19,5 @@ export const updateUserAPI = (data: IUpdateUser) => {
 
 export const deleteUserAPI = (id: number) => {
     const url_backend = `/api/v1/admin/users/${id}`;
-    return instance.delete<IBackendRes<IUser>>(url_backend);
+    return instance.delete(url_backend);
 }

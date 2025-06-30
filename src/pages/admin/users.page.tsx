@@ -1,15 +1,16 @@
 import { useRef, useState } from 'react';
-import { Button, Space, Switch, Tag } from 'antd';
-import { PlusOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import { Button, message, notification, Popconfirm, Space, Switch, Tag } from 'antd';
+import { PlusOutlined, EditOutlined, DeleteOutlined, QuestionCircleOutlined } from '@ant-design/icons';
 import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
-import { fetchUsersAPI } from 'services/user.service';
+import { deleteUserAPI, fetchUsersAPI } from 'services/user.service';
 import type { IUser } from 'types/user.type';
 import type { IMeta } from 'types/backend';
 import { formatISODate } from 'utils/format.util';
 import UserDetailDrawer from 'components/user-detail-drawer/user-detail-drawer.component';
 import CreateUserModal from 'components/create-user-modal/create-user-modal.component';
 import UpdateUserModal from 'components/update-user-modal/update-user-modal.component';
+import type { IconType } from 'antd/es/notification/interface';
 
 const UsersPage = () => {
     const actionRef = useRef<ActionType>(null);
@@ -24,6 +25,17 @@ const UsersPage = () => {
     const [isCreateModalOpen, setIsCreateModalOpen] = useState<boolean>(false);
     const [isUpdateModalOpen, setIsUpdateModalOpen] = useState<boolean>(false);
     const [userToUpdate, setUserToUpdate] = useState<IUser | null>(null);
+    const [api, contextHolder] = notification.useNotification();
+    const openNotification = (pauseOnHover: boolean, desc: string, type: IconType = 'success') => () => {
+        api.open({
+            message: 'Delete user',
+            description: desc,
+            showProgress: true,
+            pauseOnHover,
+            duration: 3,
+            type: type
+        });
+    };
 
     const handleOpenUpdateModal = (record: IUser) => {
         setUserToUpdate(record);
@@ -48,6 +60,20 @@ const UsersPage = () => {
     const handleCloseDrawer = () => {
         setIsDrawerOpen(false);
         setSelectedUser(null);
+    };
+
+    const handleDeleteUser = async (id: number) => {
+        try {
+            const res = await deleteUserAPI(id);
+            if (res.status === 204) {
+                openNotification(true, res.message || 'User deleted successfully!', 'success')();
+                actionRef.current?.reload();
+            } else {
+                openNotification(true, 'Failed to delete user.', 'error')();
+            }
+        } catch (error) {
+            message.error('An error occurred while deleting user.');
+        }
     };
 
     const columns: ProColumns<IUser>[] = [
@@ -145,7 +171,18 @@ const UsersPage = () => {
             render: (_, record) => (
                 <Space size="middle">
                     <Button icon={<EditOutlined />} color="primary" onClick={() => handleOpenUpdateModal(record)}></Button>
-                    <Button icon={<DeleteOutlined />} danger></Button>
+                    <Popconfirm
+                        title="Delete the user"
+                        description={`Are you sure to delete user: ${record.name}?`}
+                        onConfirm={() => handleDeleteUser(record.id)}
+                        icon={<QuestionCircleOutlined />}
+                        okText="Yes"
+                        cancelText="No"
+                        placement="leftTop"
+                    >
+                        <Button icon={<DeleteOutlined />} danger>
+                        </Button>
+                    </Popconfirm>
                 </Space>
             ),
         },
@@ -241,6 +278,7 @@ const UsersPage = () => {
                 onFinish={handleFinishUpdate}
                 initialData={userToUpdate}
             />
+            {contextHolder}
         </div>
     );
 };
