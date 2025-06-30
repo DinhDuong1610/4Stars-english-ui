@@ -1,24 +1,31 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Button, Space, Switch, Tag } from 'antd';
 import { PlusOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
-import type { ProColumns } from '@ant-design/pro-table';
+import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
 import { fetchUsersAPI } from 'services/user.service';
 import type { IUser } from 'types/user.type';
 import type { IMeta } from 'types/backend';
 import { formatISODate } from 'utils/format.util';
 import UserDetailDrawer from 'components/user-detail-drawer/user-detail-drawer.component';
+import CreateUserModal from 'components/create-user-modal/create-user-modal.component';
 
 const UsersPage = () => {
+    const actionRef = useRef<ActionType>(null);
     const [meta, setMeta] = useState<IMeta>({
         page: 1,
         pageSize: 10,
         pages: 1,
         total: 0
-    })
-
+    });
     const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
     const [selectedUser, setSelectedUser] = useState<IUser | null>(null);
+    const [isCreateModalOpen, setIsCreateModalOpen] = useState<boolean>(false);
+
+    const handleFinishCreate = () => {
+        setIsCreateModalOpen(false);
+        actionRef.current?.reload();
+    };
 
     const handleViewUser = (user: IUser) => {
         setSelectedUser(user);
@@ -135,6 +142,7 @@ const UsersPage = () => {
         <div>
             <ProTable<IUser>
                 columns={columns}
+                actionRef={actionRef}
                 request={async (params, sort, filter) => {
                     const queryParts: string[] = [];
                     queryParts.push(`page=${params.current}`);
@@ -191,7 +199,10 @@ const UsersPage = () => {
                     total: meta.total
                 }}
                 toolBarRender={() => [
-                    <Button type="primary" key="primary" icon={<PlusOutlined />}>
+                    <Button type="primary" key="primary"
+                        icon={<PlusOutlined />}
+                        onClick={() => setIsCreateModalOpen(true)}
+                    >
                         Create
                     </Button>,
                 ]}
@@ -203,6 +214,12 @@ const UsersPage = () => {
                 open={isDrawerOpen}
                 onClose={handleCloseDrawer}
                 user={selectedUser}
+            />
+
+            <CreateUserModal
+                open={isCreateModalOpen}
+                onClose={() => setIsCreateModalOpen(false)}
+                onFinish={handleFinishCreate}
             />
         </div>
     );

@@ -23,3 +23,11 @@ export interface IUser {
     role: IRole;
     badge: IBadge;
 }
+
+export interface ICreateUser {
+    name: string;
+    email: string;
+    password?: string;
+    roleId: number;
+    badgeId: number;
+}
