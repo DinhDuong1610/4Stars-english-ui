@@ -1,7 +1,7 @@
-import React, { useRef, useState } from 'react';
+import { useState } from 'react';
 import { Button, Space, Switch, Tag } from 'antd';
 import { PlusOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
-import type { ProColumns, ActionType } from '@ant-design/pro-table';
+import type { ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
 import { fetchUsersAPI } from 'services/user.service';
 import type { IUser } from 'types/user.type';
@@ -81,8 +81,8 @@ const UsersPage = () => {
             search: {
                 transform: (value) => {
                     return {
-                        startTime: value[0],
-                        endTime: value[1],
+                        startCreatedAt: value[0],
+                        endCreatedAt: value[1],
                     };
                 },
             },
@@ -115,15 +115,34 @@ const UsersPage = () => {
             <ProTable<IUser>
                 columns={columns}
                 request={async (params, sort, filter) => {
-                    console.log('params: ', params, 'sort: ', sort, 'filter: ', filter);
-                    let query = `page=${params.current}&size=${params.pageSize}`;
+                    const queryParts: string[] = [];
+                    queryParts.push(`page=${params.current}`);
+                    queryParts.push(`size=${params.pageSize}`);
+
+                    for (const key in filter) {
+                        if (filter[key]) {
+                            queryParts.push(`${key}=${filter[key]}`);
+                        }
+                    }
+
+                    const searchParams = { ...params };
+                    delete searchParams.current;
+                    delete searchParams.pageSize;
+
+                    for (const key in searchParams) {
+                        if (searchParams[key]) {
+                            queryParts.push(`${key}=${searchParams[key]}`);
+                        }
+                    }
 
                     if (sort) {
                         for (const key in sort) {
                             const value = sort[key];
-                            query += `&sort=${key},${value === 'ascend' ? 'asc' : 'desc'}`;
+                            queryParts.push(`sort=${key},${value === 'ascend' ? 'asc' : 'desc'}`);
                         }
                     }
+
+                    const query = queryParts.join('&');
 
                     const res = await fetchUsersAPI(query);
 
