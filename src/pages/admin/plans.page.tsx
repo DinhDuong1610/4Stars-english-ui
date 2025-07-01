@@ -1,14 +1,15 @@
 import { ProTable, type ActionType, type ProColumns } from "@ant-design/pro-components";
-import { PlusOutlined, EditOutlined, DeleteOutlined, QuestionCircleOutlined, CloudDownloadOutlined, CloudUploadOutlined } from '@ant-design/icons';
+import { PlusOutlined, EditOutlined, DeleteOutlined, QuestionCircleOutlined } from '@ant-design/icons';
 import { useRef, useState } from "react";
 import type { IMeta } from "types/backend";
 import type { IPlan } from "types/plan.type";
-import { Button, Popconfirm, Space, Switch } from "antd";
+import { Button, notification, Popconfirm, Space, Switch } from "antd";
 import { formatCurrency, formatISODate } from "utils/format.util";
-import { fetchPlansAPI } from "services/plan.service";
+import { deletePlanAPI, fetchPlansAPI } from "services/plan.service";
 import CreatePlanModal from "components/plan/create-plan-modal.component";
 import PlanDetailDrawer from "components/plan/plan-detail-drawer.component";
 import UpdatePlanModal from "components/plan/update-plan-modal.component";
+import type { IconType } from "antd/es/notification/interface";
 
 const PlanPage = () => {
     const actionRef = useRef<ActionType>(null);
@@ -23,6 +24,18 @@ const PlanPage = () => {
     const [selectedPlan, setSelectedPlan] = useState<IPlan | null>(null);
     const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
     const [isUpdateModalOpen, setIsUpdateModalOpen] = useState<boolean>(false);
+
+    const [api, contextHolder] = notification.useNotification();
+    const openNotification = (pauseOnHover: boolean, desc: string, type: IconType = 'success') => () => {
+        api.open({
+            message: 'Delete plan',
+            description: desc,
+            showProgress: true,
+            pauseOnHover,
+            duration: 3,
+            type: type
+        });
+    };
 
     const handleFinishCreate = () => {
         setIsCreateModalOpen(false);
@@ -47,6 +60,20 @@ const PlanPage = () => {
     const handleFinishUpdate = () => {
         setIsUpdateModalOpen(false);
         actionRef.current?.reload();
+    };
+
+    const handleDeleteUser = async (id: number) => {
+        try {
+            const res = await deletePlanAPI(id);
+            if (res.status === 204) {
+                openNotification(true, res.message || 'Plan deleted successfully!', 'success')();
+                actionRef.current?.reload();
+            } else {
+                openNotification(true, res.message || 'Failed to delete plan.', 'error')();
+            }
+        } catch (error) {
+            openNotification(true, 'An error occurred while deleting user.', 'error')();
+        }
     };
 
     const columns: ProColumns<IPlan>[] = [
@@ -171,8 +198,18 @@ const PlanPage = () => {
                     <Button icon={<EditOutlined />} color="primary"
                         onClick={() => handleOpenUpdateModal(record)}>
                     </Button>
-                    <Button icon={<DeleteOutlined />} danger>
-                    </Button>
+                    <Popconfirm
+                        title="Delete the plan"
+                        description={`Are you sure to delete plan: ${record.name}?`}
+                        onConfirm={() => handleDeleteUser(record.id)}
+                        icon={<QuestionCircleOutlined />}
+                        okText="Yes"
+                        cancelText="No"
+                        placement="leftTop"
+                    >
+                        <Button icon={<DeleteOutlined />} danger>
+                        </Button>
+                    </Popconfirm>
                 </Space>
             ),
         },
@@ -270,6 +307,8 @@ const PlanPage = () => {
                 onFinish={handleFinishUpdate}
                 initialData={selectedPlan}
             />
+
+            {contextHolder}
         </>
     );
 }

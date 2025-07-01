@@ -16,3 +16,8 @@ export const updatePlanAPI = (data: IUpdatePlan) => {
     const url_backend = `/api/v1/admin/plans/${data.id}`;
     return instance.put<IBackendRes<IPlan>>(url_backend, data);
 }
+
+export const deletePlanAPI = (id: number) => {
+    const url_backend = `/api/v1/admin/plans/${id}`;
+    return instance.delete<any>(url_backend);
+}
