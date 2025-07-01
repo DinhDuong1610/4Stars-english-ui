@@ -8,6 +8,7 @@ import { formatCurrency, formatISODate } from "utils/format.util";
 import { fetchPlansAPI } from "services/plan.service";
 import CreatePlanModal from "components/plan/create-plan-modal.component";
 import PlanDetailDrawer from "components/plan/plan-detail-drawer.component";
+import UpdatePlanModal from "components/plan/update-plan-modal.component";
 
 const PlanPage = () => {
     const actionRef = useRef<ActionType>(null);
@@ -21,6 +22,7 @@ const PlanPage = () => {
     const [isCreateModalOpen, setIsCreateModalOpen] = useState<boolean>(false);
     const [selectedPlan, setSelectedPlan] = useState<IPlan | null>(null);
     const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
+    const [isUpdateModalOpen, setIsUpdateModalOpen] = useState<boolean>(false);
 
     const handleFinishCreate = () => {
         setIsCreateModalOpen(false);
@@ -35,6 +37,16 @@ const PlanPage = () => {
     const handleCloseDrawer = () => {
         setIsDrawerOpen(false);
         setSelectedPlan(null);
+    };
+
+    const handleOpenUpdateModal = (record: IPlan) => {
+        setSelectedPlan(record);
+        setIsUpdateModalOpen(true);
+    };
+
+    const handleFinishUpdate = () => {
+        setIsUpdateModalOpen(false);
+        actionRef.current?.reload();
     };
 
     const columns: ProColumns<IPlan>[] = [
@@ -156,7 +168,9 @@ const PlanPage = () => {
             search: false,
             render: (_, record) => (
                 <Space size="middle">
-                    <Button icon={<EditOutlined />} color="primary"></Button>
+                    <Button icon={<EditOutlined />} color="primary"
+                        onClick={() => handleOpenUpdateModal(record)}>
+                    </Button>
                     <Button icon={<DeleteOutlined />} danger>
                     </Button>
                 </Space>
@@ -248,6 +262,13 @@ const PlanPage = () => {
                 open={isDrawerOpen}
                 onClose={handleCloseDrawer}
                 plan={selectedPlan}
+            />
+
+            <UpdatePlanModal
+                open={isUpdateModalOpen}
+                onClose={() => setIsUpdateModalOpen(false)}
+                onFinish={handleFinishUpdate}
+                initialData={selectedPlan}
             />
         </>
     );
