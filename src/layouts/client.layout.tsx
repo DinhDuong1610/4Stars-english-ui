@@ -1,7 +1,7 @@
 import { Layout } from 'antd';
 import { Outlet } from 'react-router-dom';
-import ClientHeader from 'components/client-header/client-header.component';
-import ClientFooter from 'components/client-footer/client-footer.component';
+import ClientHeader from 'components/layout/client-header/client-header.component';
+import ClientFooter from 'components/layout/client-footer/client-footer.component';
 import styles from './client.layout.module.scss';
 
 const { Content } = Layout;

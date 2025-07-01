@@ -7,6 +7,7 @@ import HomePage from 'pages/client/home.page';
 import ProductsPage from 'pages/client/products.page';
 import DashboardPage from 'pages/admin/dashboard.page';
 import UsersPage from 'pages/admin/users.page';
+import PlanPage from 'pages/admin/plans.page';
 
 const routes = [
     {
@@ -34,6 +35,10 @@ const routes = [
             {
                 path: 'users',
                 element: <UsersPage />,
+            },
+            {
+                path: 'plans',
+                element: <PlanPage />,
             },
         ],
     },

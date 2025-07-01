@@ -1,20 +1,17 @@
-import { useRef, useState } from 'react';
-import { Button, message, notification, Popconfirm, Space, Switch, Tag } from 'antd';
-import { PlusOutlined, EditOutlined, DeleteOutlined, QuestionCircleOutlined, CloudDownloadOutlined, CloudUploadOutlined } from '@ant-design/icons';
-import type { ActionType, ProColumns } from '@ant-design/pro-table';
-import ProTable from '@ant-design/pro-table';
-import { deleteUserAPI, fetchUsersAPI } from 'services/user.service';
-import type { IUser } from 'types/user.type';
-import type { IMeta } from 'types/backend';
-import { formatISODate } from 'utils/format.util';
-import UserDetailDrawer from '@/components/user/user-detail-drawer.component';
-import CreateUserModal from '@/components/user/create-user-modal.component';
-import UpdateUserModal from '@/components/user/update-user-modal.component';
-import type { IconType } from 'antd/es/notification/interface';
-import Papa from 'papaparse';
-import ImportUserModal from '@/components/user/import-user-modal.component';
+import { ProTable, type ActionType, type ProColumns } from "@ant-design/pro-components";
+import { PlusOutlined, EditOutlined, DeleteOutlined, QuestionCircleOutlined } from '@ant-design/icons';
+import { useRef, useState } from "react";
+import type { IMeta } from "types/backend";
+import type { IPlan } from "types/plan.type";
+import { Button, notification, Popconfirm, Space, Switch } from "antd";
+import { formatCurrency, formatISODate } from "utils/format.util";
+import { deletePlanAPI, fetchPlansAPI } from "services/plan.service";
+import CreatePlanModal from "components/plan/create-plan-modal.component";
+import PlanDetailDrawer from "components/plan/plan-detail-drawer.component";
+import UpdatePlanModal from "components/plan/update-plan-modal.component";
+import type { IconType } from "antd/es/notification/interface";
 
-const UsersPage = () => {
+const PlanPage = () => {
     const actionRef = useRef<ActionType>(null);
     const [meta, setMeta] = useState<IMeta>({
         page: 1,
@@ -22,23 +19,16 @@ const UsersPage = () => {
         pages: 1,
         total: 0
     });
-    const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
-    const [selectedUser, setSelectedUser] = useState<IUser | null>(null);
+    const [currentPageData, setCurrentPageData] = useState<IPlan[]>([]);
     const [isCreateModalOpen, setIsCreateModalOpen] = useState<boolean>(false);
+    const [selectedPlan, setSelectedPlan] = useState<IPlan | null>(null);
+    const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
     const [isUpdateModalOpen, setIsUpdateModalOpen] = useState<boolean>(false);
-    const [userToUpdate, setUserToUpdate] = useState<IUser | null>(null);
-    const [currentPageData, setCurrentPageData] = useState<IUser[]>([]);
-    const [isExporting, setIsExporting] = useState<boolean>(false);
+
     const [api, contextHolder] = notification.useNotification();
-    const [isImportModalOpen, setIsImportModalOpen] = useState<boolean>(false);
-
-    const handleFinishImport = () => {
-        actionRef.current?.reload();
-    };
-
     const openNotification = (pauseOnHover: boolean, desc: string, type: IconType = 'success') => () => {
         api.open({
-            message: 'Delete user',
+            message: 'Delete plan',
             description: desc,
             showProgress: true,
             pauseOnHover,
@@ -47,8 +37,23 @@ const UsersPage = () => {
         });
     };
 
-    const handleOpenUpdateModal = (record: IUser) => {
-        setUserToUpdate(record);
+    const handleFinishCreate = () => {
+        setIsCreateModalOpen(false);
+        actionRef.current?.reload();
+    };
+
+    const handleViewPlan = (plan: IPlan) => {
+        setSelectedPlan(plan);
+        setIsDrawerOpen(true);
+    };
+
+    const handleCloseDrawer = () => {
+        setIsDrawerOpen(false);
+        setSelectedPlan(null);
+    };
+
+    const handleOpenUpdateModal = (record: IPlan) => {
+        setSelectedPlan(record);
         setIsUpdateModalOpen(true);
     };
 
@@ -57,73 +62,21 @@ const UsersPage = () => {
         actionRef.current?.reload();
     };
 
-    const handleFinishCreate = () => {
-        setIsCreateModalOpen(false);
-        actionRef.current?.reload();
-    };
-
-    const handleViewUser = (user: IUser) => {
-        setSelectedUser(user);
-        setIsDrawerOpen(true);
-    };
-
-    const handleCloseDrawer = () => {
-        setIsDrawerOpen(false);
-        setSelectedUser(null);
-    };
-
     const handleDeleteUser = async (id: number) => {
         try {
-            const res = await deleteUserAPI(id);
+            const res = await deletePlanAPI(id);
             if (res.status === 204) {
-                openNotification(true, res.message || 'User deleted successfully!', 'success')();
+                openNotification(true, res.message || 'Plan deleted successfully!', 'success')();
                 actionRef.current?.reload();
             } else {
-                openNotification(true, 'Failed to delete user.', 'error')();
+                openNotification(true, res.message || 'Failed to delete plan.', 'error')();
             }
         } catch (error) {
-            message.error('An error occurred while deleting user.');
+            openNotification(true, 'An error occurred while deleting user.', 'error')();
         }
     };
 
-    const handleExportUsers = () => {
-        if (currentPageData.length === 0) {
-            openNotification(true, 'No data to export.', 'error')();
-            return;
-        }
-        setIsExporting(true);
-
-        const dataToExport = currentPageData.map(user => {
-            const { role, badge, ...restOfUser } = user;
-
-            return {
-                ...restOfUser,
-                role: role.name,
-                badge: badge.name,
-            };
-        });
-
-        const csv = Papa.unparse(dataToExport, {
-            header: true,
-        });
-
-        const blob = new Blob([`\uFEFF${csv}`], { type: 'text/csv;charset=utf-8;' });
-
-        const url = window.URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.href = url;
-        const fileName = `users.csv`;
-        link.setAttribute('download', fileName);
-        document.body.appendChild(link);
-        link.click();
-
-        link.parentNode?.removeChild(link);
-        window.URL.revokeObjectURL(url);
-
-        setIsExporting(false);
-    };
-
-    const columns: ProColumns<IUser>[] = [
+    const columns: ProColumns<IPlan>[] = [
         {
             title: 'ID',
             dataIndex: 'id',
@@ -136,33 +89,58 @@ const UsersPage = () => {
             key: 'name',
             sorter: true,
             render: (_, record) => (
-                <a onClick={() => handleViewUser(record)}>
+                <a onClick={() => handleViewPlan(record)}>
                     {record.name}
                 </a>
             )
         },
         {
-            title: 'Email',
-            dataIndex: 'email',
-            key: 'email',
+            title: 'Duration',
+            dataIndex: 'durationInDays',
+            key: 'durationInDays',
             sorter: true,
-            copyable: true,
+            hideInSearch: true,
+            render: (_, record) => (
+                <b> {record.durationInDays} days</b>
+            ),
         },
         {
-            title: 'Role',
-            dataIndex: ['role', 'name'],
-            key: 'role',
-            filters: true,
-            valueEnum: {
-                ADMIN: { text: 'Admin', color: 'red' },
-                USER: { text: 'User', color: 'blue' },
-                PREMIUM: { text: 'Premium', color: 'green' },
+            title: 'Duration',
+            dataIndex: 'durationInDays',
+            valueType: 'digitRange',
+            hideInTable: true,
+            search: {
+                transform: (value) => {
+                    return {
+                        minDuration: value[0],
+                        maxDuration: value[1],
+                    };
+                },
             },
+        },
+        {
+            title: 'Price',
+            dataIndex: 'price',
+            key: 'price',
+            sorter: true,
+            hideInSearch: true,
             render: (_, record) => (
-                <Tag color={record.role.name === 'ADMIN' ? 'red' : record.role.name === 'USER' ? 'blue' : 'green'}>
-                    {record.role.name}
-                </Tag>
-            ),
+                <b> {formatCurrency(record.price)}</b>
+            )
+        },
+        {
+            title: 'Price',
+            dataIndex: 'price',
+            valueType: 'digitRange',
+            hideInTable: true,
+            search: {
+                transform: (value) => {
+                    return {
+                        minPrice: value[0],
+                        maxPrice: value[1],
+                    };
+                },
+            },
         },
         {
             title: 'Status',
@@ -217,10 +195,12 @@ const UsersPage = () => {
             search: false,
             render: (_, record) => (
                 <Space size="middle">
-                    <Button icon={<EditOutlined />} color="primary" onClick={() => handleOpenUpdateModal(record)}></Button>
+                    <Button icon={<EditOutlined />} color="primary"
+                        onClick={() => handleOpenUpdateModal(record)}>
+                    </Button>
                     <Popconfirm
-                        title="Delete the user"
-                        description={`Are you sure to delete user: ${record.name}?`}
+                        title="Delete the plan"
+                        description={`Are you sure to delete plan: ${record.name}?`}
                         onConfirm={() => handleDeleteUser(record.id)}
                         icon={<QuestionCircleOutlined />}
                         okText="Yes"
@@ -236,8 +216,8 @@ const UsersPage = () => {
     ];
 
     return (
-        <div>
-            <ProTable<IUser>
+        <>
+            <ProTable<IPlan>
                 columns={columns}
                 actionRef={actionRef}
                 request={async (params, sort, filter) => {
@@ -270,7 +250,7 @@ const UsersPage = () => {
 
                     const query = queryParts.join('&');
 
-                    const res = await fetchUsersAPI(query);
+                    const res = await fetchPlansAPI(query);
 
                     if (res && res.data) {
                         setMeta(res.data.meta);
@@ -298,21 +278,6 @@ const UsersPage = () => {
                     total: meta.total
                 }}
                 toolBarRender={() => [
-                    <Button
-                        key="export"
-                        icon={<CloudDownloadOutlined />}
-                        loading={isExporting}
-                        onClick={handleExportUsers}
-                    >
-                        Export
-                    </Button>,
-                    <Button
-                        key="import"
-                        icon={<CloudUploadOutlined />}
-                        onClick={() => setIsImportModalOpen(true)}
-                    >
-                        Import
-                    </Button>,
                     <Button type="primary" key="primary"
                         icon={<PlusOutlined />}
                         onClick={() => setIsCreateModalOpen(true)}
@@ -321,36 +286,31 @@ const UsersPage = () => {
                     </Button>,
                 ]}
                 scroll={{ x: 'max-content' }}
-                headerTitle="User List"
+                headerTitle="Plan Management"
             />
 
-            <UserDetailDrawer
-                open={isDrawerOpen}
-                onClose={handleCloseDrawer}
-                user={selectedUser}
-            />
-
-            <CreateUserModal
+            <CreatePlanModal
                 open={isCreateModalOpen}
                 onClose={() => setIsCreateModalOpen(false)}
                 onFinish={handleFinishCreate}
             />
 
-            <UpdateUserModal
+            <PlanDetailDrawer
+                open={isDrawerOpen}
+                onClose={handleCloseDrawer}
+                plan={selectedPlan}
+            />
+
+            <UpdatePlanModal
                 open={isUpdateModalOpen}
                 onClose={() => setIsUpdateModalOpen(false)}
                 onFinish={handleFinishUpdate}
-                initialData={userToUpdate}
+                initialData={selectedPlan}
             />
 
-            <ImportUserModal
-                open={isImportModalOpen}
-                onClose={() => setIsImportModalOpen(false)}
-                onFinish={handleFinishImport}
-            />
             {contextHolder}
-        </div>
+        </>
     );
-};
+}
 
-export default UsersPage;
+export default PlanPage
