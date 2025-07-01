@@ -41,15 +41,45 @@ const PlanPage = () => {
             dataIndex: 'durationInDays',
             key: 'durationInDays',
             sorter: true,
+            hideInSearch: true,
             render: (_, record) => (
                 <b> {record.durationInDays} days</b>
             ),
+        },
+        {
+            title: 'Duration',
+            dataIndex: 'durationInDays',
+            valueType: 'digitRange',
+            hideInTable: true,
+            search: {
+                transform: (value) => {
+                    return {
+                        minDuration: value[0],
+                        maxDuration: value[1],
+                    };
+                },
+            },
         },
         {
             title: 'Price',
             dataIndex: 'price',
             key: 'price',
             sorter: true,
+            hideInSearch: true,
+        },
+        {
+            title: 'Price',
+            dataIndex: 'price',
+            valueType: 'digitRange',
+            hideInTable: true,
+            search: {
+                transform: (value) => {
+                    return {
+                        minPrice: value[0],
+                        maxPrice: value[1],
+                    };
+                },
+            },
         },
         {
             title: 'Status',
