@@ -4,10 +4,10 @@ import { useRef, useState } from "react";
 import type { IMeta } from "types/backend";
 import type { IPlan } from "types/plan.type";
 import { Button, Popconfirm, Space, Switch } from "antd";
-import { formatISODate } from "utils/format.util";
+import { formatCurrency, formatISODate } from "utils/format.util";
 import { fetchPlansAPI } from "services/plan.service";
-import CreatePlanModal from "../../components/plan/create-plan-modal.component";
-import { is } from "date-fns/locale";
+import CreatePlanModal from "components/plan/create-plan-modal.component";
+import PlanDetailDrawer from "components/plan/plan-detail-drawer.component";
 
 const PlanPage = () => {
     const actionRef = useRef<ActionType>(null);
@@ -19,10 +19,22 @@ const PlanPage = () => {
     });
     const [currentPageData, setCurrentPageData] = useState<IPlan[]>([]);
     const [isCreateModalOpen, setIsCreateModalOpen] = useState<boolean>(false);
+    const [selectedPlan, setSelectedPlan] = useState<IPlan | null>(null);
+    const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
 
     const handleFinishCreate = () => {
         setIsCreateModalOpen(false);
         actionRef.current?.reload();
+    };
+
+    const handleViewPlan = (plan: IPlan) => {
+        setSelectedPlan(plan);
+        setIsDrawerOpen(true);
+    };
+
+    const handleCloseDrawer = () => {
+        setIsDrawerOpen(false);
+        setSelectedPlan(null);
     };
 
     const columns: ProColumns<IPlan>[] = [
@@ -38,7 +50,7 @@ const PlanPage = () => {
             key: 'name',
             sorter: true,
             render: (_, record) => (
-                <a>
+                <a onClick={() => handleViewPlan(record)}>
                     {record.name}
                 </a>
             )
@@ -73,6 +85,9 @@ const PlanPage = () => {
             key: 'price',
             sorter: true,
             hideInSearch: true,
+            render: (_, record) => (
+                <b> {formatCurrency(record.price)}</b>
+            )
         },
         {
             title: 'Price',
@@ -227,6 +242,12 @@ const PlanPage = () => {
                 open={isCreateModalOpen}
                 onClose={() => setIsCreateModalOpen(false)}
                 onFinish={handleFinishCreate}
+            />
+
+            <PlanDetailDrawer
+                open={isDrawerOpen}
+                onClose={handleCloseDrawer}
+                plan={selectedPlan}
             />
         </>
     );
