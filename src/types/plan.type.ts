@@ -16,7 +16,7 @@ export interface ICreatePlan {
     price: number;
     durationInDays: number;
     description: string;
-    isActive: boolean;
+    active: boolean;
 }
 
 export interface IUpdatePlan extends ICreatePlan {

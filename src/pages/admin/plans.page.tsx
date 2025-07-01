@@ -2,10 +2,12 @@ import { ProTable, type ActionType, type ProColumns } from "@ant-design/pro-comp
 import { PlusOutlined, EditOutlined, DeleteOutlined, QuestionCircleOutlined, CloudDownloadOutlined, CloudUploadOutlined } from '@ant-design/icons';
 import { useRef, useState } from "react";
 import type { IMeta } from "types/backend";
-import type { IPlan } from "../../types/plan.type";
+import type { IPlan } from "types/plan.type";
 import { Button, Popconfirm, Space, Switch } from "antd";
-import { formatISODate } from "../../utils/format.util";
-import { fetchPlansAPI } from "../../services/plan.service";
+import { formatISODate } from "utils/format.util";
+import { fetchPlansAPI } from "services/plan.service";
+import CreatePlanModal from "../../components/plan/create-plan-modal.component";
+import { is } from "date-fns/locale";
 
 const PlanPage = () => {
     const actionRef = useRef<ActionType>(null);
@@ -16,7 +18,12 @@ const PlanPage = () => {
         total: 0
     });
     const [currentPageData, setCurrentPageData] = useState<IPlan[]>([]);
+    const [isCreateModalOpen, setIsCreateModalOpen] = useState<boolean>(false);
 
+    const handleFinishCreate = () => {
+        setIsCreateModalOpen(false);
+        actionRef.current?.reload();
+    };
 
     const columns: ProColumns<IPlan>[] = [
         {
@@ -207,12 +214,19 @@ const PlanPage = () => {
                 toolBarRender={() => [
                     <Button type="primary" key="primary"
                         icon={<PlusOutlined />}
+                        onClick={() => setIsCreateModalOpen(true)}
                     >
                         Create
                     </Button>,
                 ]}
                 scroll={{ x: 'max-content' }}
                 headerTitle="Plan Management"
+            />
+
+            <CreatePlanModal
+                open={isCreateModalOpen}
+                onClose={() => setIsCreateModalOpen(false)}
+                onFinish={handleFinishCreate}
             />
         </>
     );

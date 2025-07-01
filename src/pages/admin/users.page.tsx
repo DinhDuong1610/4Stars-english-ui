@@ -7,12 +7,12 @@ import { deleteUserAPI, fetchUsersAPI } from 'services/user.service';
 import type { IUser } from 'types/user.type';
 import type { IMeta } from 'types/backend';
 import { formatISODate } from 'utils/format.util';
-import UserDetailDrawer from 'components/user-detail-drawer/user-detail-drawer.component';
-import CreateUserModal from 'components/create-user-modal/create-user-modal.component';
-import UpdateUserModal from 'components/update-user-modal/update-user-modal.component';
+import UserDetailDrawer from '@/components/user/user-detail-drawer.component';
+import CreateUserModal from '@/components/user/create-user-modal.component';
+import UpdateUserModal from '@/components/user/update-user-modal.component';
 import type { IconType } from 'antd/es/notification/interface';
 import Papa from 'papaparse';
-import ImportUserModal from 'components/import-user-modal/import-user-modal.component';
+import ImportUserModal from '@/components/user/import-user-modal.component';
 
 const UsersPage = () => {
     const actionRef = useRef<ActionType>(null);
