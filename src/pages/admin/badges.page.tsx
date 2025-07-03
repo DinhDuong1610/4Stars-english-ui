@@ -1,0 +1,182 @@
+import { ProTable, type ActionType, type ProColumns } from "@ant-design/pro-components";
+import { useRef, useState } from "react";
+import type { IMeta } from "types/backend";
+import { Button, notification, Popconfirm, Space } from "antd";
+import { PlusOutlined, EditOutlined, DeleteOutlined, QuestionCircleOutlined } from '@ant-design/icons';
+import type { IconType } from "antd/es/notification/interface";
+import type { IBadge } from "types/user.type";
+import { formatISODate } from "utils/format.util";
+import { fetchBadgesAPI } from "services/badge.service";
+
+const BadgePage = () => {
+    const actionRef = useRef<ActionType>(null);
+    const [meta, setMeta] = useState<IMeta>({
+        page: 1,
+        pageSize: 10,
+        pages: 1,
+        total: 0
+    });
+
+    const columns: ProColumns<IBadge>[] = [
+        {
+            title: 'ID',
+            dataIndex: 'id',
+            key: 'id',
+            search: false,
+        },
+        {
+            title: 'Name',
+            dataIndex: 'name',
+            key: 'name',
+            sorter: true,
+            render: (_, record) => (
+                <a>
+                    {record.name}
+                </a>
+            )
+        },
+        {
+            title: 'Image',
+            dataIndex: 'image',
+            key: 'image',
+            hideInSearch: true,
+            render: (_, record) => (
+                <img src={`${import.meta.env.VITE_BACKEND_URL}${record.image}`} alt={record.name} style={{ width: '50px', height: '50px' }} />
+            ),
+        },
+        {
+            title: 'Created at',
+            dataIndex: 'createdAt',
+            key: 'createdAt',
+            sorter: true,
+            hideInSearch: true,
+            render: (value) => {
+                return formatISODate(value?.toString() || '');
+            },
+        },
+        {
+            title: 'Created at',
+            dataIndex: 'createdAt',
+            valueType: 'dateRange',
+            hideInTable: true,
+            search: {
+                transform: (value) => {
+                    return {
+                        startCreatedAt: value[0],
+                        endCreatedAt: value[1],
+                    };
+                },
+            },
+        },
+        {
+            title: 'Updated at',
+            dataIndex: 'updatedAt',
+            key: 'updatedAt',
+            sorter: true,
+            hideInSearch: true,
+            render: (value) => {
+                return formatISODate(value?.toString() || '');
+            },
+        },
+        {
+            title: 'Action',
+            key: 'action',
+            search: false,
+            render: (_, record) => (
+                <Space size="middle">
+                    <Button icon={<EditOutlined />} color="primary"
+                        onClick={() => ''}>
+                    </Button>
+                    <Popconfirm
+                        title="Delete the plan"
+                        description={`Are you sure to delete plan: ${record.name}?`}
+                        onConfirm={() => ''}
+                        icon={<QuestionCircleOutlined />}
+                        okText="Yes"
+                        cancelText="No"
+                        placement="leftTop"
+                    >
+                        <Button icon={<DeleteOutlined />} danger>
+                        </Button>
+                    </Popconfirm>
+                </Space>
+            ),
+        },
+    ];
+
+    return (
+        <>
+            <ProTable<IBadge>
+                columns={columns}
+                actionRef={actionRef}
+                request={async (params, sort, filter) => {
+                    const queryParts: string[] = [];
+                    queryParts.push(`page=${params.current}`);
+                    queryParts.push(`size=${params.pageSize}`);
+
+                    for (const key in filter) {
+                        if (filter[key]) {
+                            queryParts.push(`${key}=${filter[key]}`);
+                        }
+                    }
+
+                    const searchParams = { ...params };
+                    delete searchParams.current;
+                    delete searchParams.pageSize;
+
+                    for (const key in searchParams) {
+                        if (searchParams[key]) {
+                            queryParts.push(`${key}=${searchParams[key]}`);
+                        }
+                    }
+
+                    if (sort) {
+                        for (const key in sort) {
+                            const value = sort[key];
+                            queryParts.push(`sort=${key},${value === 'ascend' ? 'asc' : 'desc'}`);
+                        }
+                    }
+
+                    const query = queryParts.join('&');
+
+                    const res = await fetchBadgesAPI(query);
+
+                    if (res && res.data) {
+                        setMeta(res.data.meta);
+                        return {
+                            data: res.data.result,
+                            page: 1,
+                            success: true,
+                            total: res.data.meta.total,
+                        };
+                    } else {
+                        return {
+                            data: [],
+                            success: false,
+                            total: 0,
+                        };
+                    }
+                }}
+                rowKey="id"
+                pagination={{
+                    current: meta.page,
+                    pageSize: meta.pageSize,
+                    showSizeChanger: true,
+                    total: meta.total
+                }}
+                toolBarRender={() => [
+                    <Button type="primary" key="primary"
+                        icon={<PlusOutlined />}
+                        onClick={() => ''}
+                    >
+                        Create
+                    </Button>,
+                ]}
+                scroll={{ x: 'max-content' }}
+                headerTitle="Badge Management"
+            />
+        </>
+    )
+}
+
+export default BadgePage

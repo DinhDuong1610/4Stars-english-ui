@@ -1,6 +1,6 @@
 import { Link, Outlet } from 'react-router-dom';
 import ProLayout from '@ant-design/pro-layout';
-import { AppstoreOutlined, DashboardOutlined, UserOutlined } from '@ant-design/icons';
+import { AppstoreOutlined, DashboardOutlined, TrophyOutlined, UserOutlined } from '@ant-design/icons';
 import styles from './admin.layout.module.scss';
 import Logo from 'assets/images/logo.png';
 
@@ -15,6 +15,7 @@ const AdminLayout: React.FC = () => {
                     { path: '/admin', name: 'Dashboard', icon: <DashboardOutlined /> },
                     { path: '/admin/users', name: 'Quản lý Người dùng', icon: <UserOutlined /> },
                     { path: '/admin/plans', name: 'Plan Management', icon: <AppstoreOutlined /> },
+                    { path: '/admin/badges', name: 'Badge Management', icon: <TrophyOutlined /> },
                 ]}
                 menuItemRender={(menuItemProps, defaultDom) => {
                     if (menuItemProps.isUrl || !menuItemProps.path) return defaultDom;
