@@ -8,6 +8,7 @@ import type { IBadge } from "types/badge.type";
 import { ProTable, type ActionType, type ProColumns } from "@ant-design/pro-components";
 import BadgeDetailDrawer from "components/badge/badge-detail-drawer.component";
 import CreateBadgeModal from "components/badge/create-badge-modal.component";
+import UpdateBadgeModal from "components/badge/update-badge-modal.component";
 
 const BadgePage = () => {
     const actionRef = useRef<ActionType>(null);
@@ -20,6 +21,7 @@ const BadgePage = () => {
     const [selectedBadge, setSelectedBadge] = useState<IBadge | null>(null);
     const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
     const [isCreateModalOpen, setIsCreateModalOpen] = useState<boolean>(false);
+    const [isUpdateModalOpen, setIsUpdateModalOpen] = useState<boolean>(false);
 
     const handleViewBadge = (plan: IBadge) => {
         setSelectedBadge(plan);
@@ -33,6 +35,16 @@ const BadgePage = () => {
 
     const handleFinishCreate = () => {
         setIsCreateModalOpen(false);
+        actionRef.current?.reload();
+    };
+
+    const handleOpenUpdateModal = (record: IBadge) => {
+        setSelectedBadge(record);
+        setIsUpdateModalOpen(true);
+    };
+
+    const handleFinishUpdate = () => {
+        setIsUpdateModalOpen(false);
         actionRef.current?.reload();
     };
 
@@ -116,7 +128,7 @@ const BadgePage = () => {
             render: (_, record) => (
                 <Space size="middle">
                     <Button icon={<EditOutlined />} color="primary"
-                        onClick={() => ''}>
+                        onClick={() => handleOpenUpdateModal(record)}>
                     </Button>
                     <Popconfirm
                         title="Delete the plan"
@@ -217,6 +229,13 @@ const BadgePage = () => {
                 open={isCreateModalOpen}
                 onClose={() => setIsCreateModalOpen(false)}
                 onFinish={handleFinishCreate}
+            />
+
+            <UpdateBadgeModal
+                open={isUpdateModalOpen}
+                onClose={() => setIsUpdateModalOpen(false)}
+                onFinish={handleFinishUpdate}
+                initialData={selectedBadge}
             />
         </>
     )
