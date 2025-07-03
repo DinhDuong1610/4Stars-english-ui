@@ -1,12 +1,14 @@
-import { ProTable, type ActionType, type ProColumns } from "@ant-design/pro-components";
 import { useRef, useState } from "react";
 import type { IMeta } from "types/backend";
 import { Button, notification, Popconfirm, Space } from "antd";
 import { PlusOutlined, EditOutlined, DeleteOutlined, QuestionCircleOutlined } from '@ant-design/icons';
 import type { IconType } from "antd/es/notification/interface";
-import type { IBadge } from "types/user.type";
 import { formatISODate } from "utils/format.util";
 import { fetchBadgesAPI } from "services/badge.service";
+import type { IBadge } from "types/badge.type";
+import { ProTable, type ActionType, type ProColumns } from "@ant-design/pro-components";
+import BadgeDetailDrawer from "components/badge/badge-detail-drawer.component";
+import { is } from "date-fns/locale";
 
 const BadgePage = () => {
     const actionRef = useRef<ActionType>(null);
@@ -16,6 +18,19 @@ const BadgePage = () => {
         pages: 1,
         total: 0
     });
+    const [selectedBadge, setSelectedBadge] = useState<IBadge | null>(null);
+    const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
+
+    const handleViewBadge = (plan: IBadge) => {
+        setSelectedBadge(plan);
+        setIsDrawerOpen(true);
+    };
+
+    const handleCloseDrawer = () => {
+        setIsDrawerOpen(false);
+        setSelectedBadge(null);
+    };
+
 
     const columns: ProColumns<IBadge>[] = [
         {
@@ -30,7 +45,7 @@ const BadgePage = () => {
             key: 'name',
             sorter: true,
             render: (_, record) => (
-                <a>
+                <a onClick={() => handleViewBadge(record)}>
                     {record.name}
                 </a>
             )
@@ -43,6 +58,17 @@ const BadgePage = () => {
             render: (_, record) => (
                 <img src={`${import.meta.env.VITE_BACKEND_URL}${record.image}`} alt={record.name} style={{ width: '50px', height: '50px' }} />
             ),
+        },
+        {
+            title: 'Point',
+            dataIndex: 'point',
+            key: 'point',
+            hideInSearch: true,
+            render: (_, record) => (
+                <b>
+                    {record.point}
+                </b>
+            )
         },
         {
             title: 'Created at',
@@ -174,6 +200,12 @@ const BadgePage = () => {
                 ]}
                 scroll={{ x: 'max-content' }}
                 headerTitle="Badge Management"
+            />
+
+            <BadgeDetailDrawer
+                open={isDrawerOpen}
+                onClose={handleCloseDrawer}
+                badge={selectedBadge}
             />
         </>
     )

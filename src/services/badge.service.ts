@@ -1,5 +1,5 @@
 import type { IBackendRes } from "types/backend";
-import type { IBadge } from "types/user.type";
+import type { IBadge } from "types/badge.type";
 import instance from "services/axios.customize";
 
 export const fetchBadgesAPI = (query: string) => {
