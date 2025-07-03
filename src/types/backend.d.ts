@@ -14,3 +14,10 @@ export interface IBackendRes<T> {
         result: T;
     };
 }
+
+export interface IResponse<T> {
+    statusCode: number;
+    error: string | null;
+    message: string;
+    data: T;
+}

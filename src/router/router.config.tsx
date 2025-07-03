@@ -8,6 +8,7 @@ import ProductsPage from 'pages/client/products.page';
 import DashboardPage from 'pages/admin/dashboard.page';
 import UsersPage from 'pages/admin/users.page';
 import PlanPage from 'pages/admin/plans.page';
+import BadgePage from 'pages/admin/badges.page';
 
 const routes = [
     {
@@ -40,6 +41,10 @@ const routes = [
                 path: 'plans',
                 element: <PlanPage />,
             },
+            {
+                path: 'badges',
+                element: <BadgePage />,
+            }
         ],
     },
 ];
