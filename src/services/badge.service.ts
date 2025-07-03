@@ -15,3 +15,7 @@ export const updateBadgeAPI = (data: IUpdateBadge) => {
     const url_backend = `/api/v1/admin/badges/${data.id}`;
     return instance.put<IBackendRes<IBadge>>(url_backend, data);
 }
+
+export const deleteBadgeAPI = (id: number) => {
+    return instance.delete<any>(`/api/v1/admin/badges/${id}`);
+}

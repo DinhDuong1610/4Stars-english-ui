@@ -3,12 +3,13 @@ import type { IMeta } from "types/backend";
 import { Button, notification, Popconfirm, Space } from "antd";
 import { PlusOutlined, EditOutlined, DeleteOutlined, QuestionCircleOutlined } from '@ant-design/icons';
 import { formatISODate } from "utils/format.util";
-import { fetchBadgesAPI } from "services/badge.service";
+import { deleteBadgeAPI, fetchBadgesAPI } from "services/badge.service";
 import type { IBadge } from "types/badge.type";
 import { ProTable, type ActionType, type ProColumns } from "@ant-design/pro-components";
 import BadgeDetailDrawer from "components/badge/badge-detail-drawer.component";
 import CreateBadgeModal from "components/badge/create-badge-modal.component";
 import UpdateBadgeModal from "components/badge/update-badge-modal.component";
+import type { IconType } from "antd/es/notification/interface";
 
 const BadgePage = () => {
     const actionRef = useRef<ActionType>(null);
@@ -23,6 +24,17 @@ const BadgePage = () => {
     const [isCreateModalOpen, setIsCreateModalOpen] = useState<boolean>(false);
     const [isUpdateModalOpen, setIsUpdateModalOpen] = useState<boolean>(false);
 
+    const [api, contextHolder] = notification.useNotification();
+    const openNotification = (pauseOnHover: boolean, desc: string, type: IconType = 'success') => () => {
+        api.open({
+            message: 'Delete badge',
+            description: desc,
+            showProgress: true,
+            pauseOnHover,
+            duration: 3,
+            type: type
+        });
+    };
     const handleViewBadge = (plan: IBadge) => {
         setSelectedBadge(plan);
         setIsDrawerOpen(true);
@@ -46,6 +58,20 @@ const BadgePage = () => {
     const handleFinishUpdate = () => {
         setIsUpdateModalOpen(false);
         actionRef.current?.reload();
+    };
+
+    const handleDeleteUser = async (id: number) => {
+        try {
+            const res = await deleteBadgeAPI(id);
+            if (res.status === 204) {
+                openNotification(true, res.message || 'Plan deleted successfully!', 'success')();
+                actionRef.current?.reload();
+            } else {
+                openNotification(true, res.message || 'Failed to delete plan.', 'error')();
+            }
+        } catch (error) {
+            openNotification(true, 'An error occurred while deleting user.', 'error')();
+        }
     };
 
 
@@ -131,9 +157,9 @@ const BadgePage = () => {
                         onClick={() => handleOpenUpdateModal(record)}>
                     </Button>
                     <Popconfirm
-                        title="Delete the plan"
-                        description={`Are you sure to delete plan: ${record.name}?`}
-                        onConfirm={() => ''}
+                        title="Delete the badge"
+                        description={`Are you sure to delete badge": ${record.name}?`}
+                        onConfirm={() => handleDeleteUser(record.id)}
                         icon={<QuestionCircleOutlined />}
                         okText="Yes"
                         cancelText="No"
@@ -237,6 +263,8 @@ const BadgePage = () => {
                 onFinish={handleFinishUpdate}
                 initialData={selectedBadge}
             />
+
+            {contextHolder}
         </>
     )
 }
