@@ -2,13 +2,12 @@ import { useRef, useState } from "react";
 import type { IMeta } from "types/backend";
 import { Button, notification, Popconfirm, Space } from "antd";
 import { PlusOutlined, EditOutlined, DeleteOutlined, QuestionCircleOutlined } from '@ant-design/icons';
-import type { IconType } from "antd/es/notification/interface";
 import { formatISODate } from "utils/format.util";
 import { fetchBadgesAPI } from "services/badge.service";
 import type { IBadge } from "types/badge.type";
 import { ProTable, type ActionType, type ProColumns } from "@ant-design/pro-components";
 import BadgeDetailDrawer from "components/badge/badge-detail-drawer.component";
-import { is } from "date-fns/locale";
+import CreateBadgeModal from "components/badge/create-badge-modal.component";
 
 const BadgePage = () => {
     const actionRef = useRef<ActionType>(null);
@@ -20,6 +19,7 @@ const BadgePage = () => {
     });
     const [selectedBadge, setSelectedBadge] = useState<IBadge | null>(null);
     const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
+    const [isCreateModalOpen, setIsCreateModalOpen] = useState<boolean>(false);
 
     const handleViewBadge = (plan: IBadge) => {
         setSelectedBadge(plan);
@@ -29,6 +29,11 @@ const BadgePage = () => {
     const handleCloseDrawer = () => {
         setIsDrawerOpen(false);
         setSelectedBadge(null);
+    };
+
+    const handleFinishCreate = () => {
+        setIsCreateModalOpen(false);
+        actionRef.current?.reload();
     };
 
 
@@ -193,7 +198,7 @@ const BadgePage = () => {
                 toolBarRender={() => [
                     <Button type="primary" key="primary"
                         icon={<PlusOutlined />}
-                        onClick={() => ''}
+                        onClick={() => setIsCreateModalOpen(true)}
                     >
                         Create
                     </Button>,
@@ -206,6 +211,12 @@ const BadgePage = () => {
                 open={isDrawerOpen}
                 onClose={handleCloseDrawer}
                 badge={selectedBadge}
+            />
+
+            <CreateBadgeModal
+                open={isCreateModalOpen}
+                onClose={() => setIsCreateModalOpen(false)}
+                onFinish={handleFinishCreate}
             />
         </>
     )
