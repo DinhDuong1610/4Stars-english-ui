@@ -16,6 +16,7 @@ const AdminLayout: React.FC = () => {
                     { path: '/admin/users', name: 'Quản lý Người dùng', icon: <UserOutlined /> },
                     { path: '/admin/plans', name: 'Plan Management', icon: <AppstoreOutlined /> },
                     { path: '/admin/badges', name: 'Badge Management', icon: <TrophyOutlined /> },
+                    { path: '/admin/categories', name: 'Category Management', icon: <AppstoreOutlined /> },
                 ]}
                 menuItemRender={(menuItemProps, defaultDom) => {
                     if (menuItemProps.isUrl || !menuItemProps.path) return defaultDom;
