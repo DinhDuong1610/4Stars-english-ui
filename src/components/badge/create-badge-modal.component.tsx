@@ -1,5 +1,3 @@
-// src/components/create-badge-modal/create-badge-modal.component.tsx
-
 import React, { useState } from 'react';
 import { ModalForm, ProFormText, ProFormTextArea, ProFormDigit } from '@ant-design/pro-form';
 import { Form, Upload, notification, Input } from 'antd';
