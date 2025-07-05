@@ -12,6 +12,7 @@ import { fetchArticlesAPI } from "services/article.service";
 import type { IMeta } from "types/backend";
 import CreateArticleModal from "components/article/create-article-modal.component";
 import UpdateArticleModal from "components/article/update-article-modal.component";
+import ArticleDetailDrawer from "components/article/article-detail-drawer.component";
 
 const ArticlePage = () => {
     const actionRef = useRef<ActionType>(null);
@@ -27,6 +28,8 @@ const ArticlePage = () => {
     const [isCreateModalOpen, setIsCreateModalOpen] = useState<boolean>(false);
     const [selectedArticle, setSelectedArticle] = useState<IArticle | null>(null);
     const [isUpdateModalOpen, setIsUpdateModalOpen] = useState<boolean>(false);
+    const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
+
     const [api, contextHolder] = notification.useNotification();
 
     const openNotification = (pauseOnHover: boolean, message: string, desc: string, type: IconType = 'success') => () => {
@@ -96,6 +99,16 @@ const ArticlePage = () => {
         actionRef.current?.reload();
     };
 
+    const handleViewArticle = (article: IArticle) => {
+        setSelectedArticle(article);
+        setIsDrawerOpen(true);
+    };
+
+    const handleCloseDrawer = () => {
+        setIsDrawerOpen(false);
+        setSelectedArticle(null);
+    };
+
     const columns: ProColumns<IArticle>[] = [
         {
             title: 'ID',
@@ -119,7 +132,7 @@ const ArticlePage = () => {
             ellipsis: true,
             sorter: true,
             render: (_, record) => (
-                <a onClick={() => ''}>
+                <a onClick={() => handleViewArticle(record)}>
                     {record.title}
                 </a>
             )
@@ -289,6 +302,12 @@ const ArticlePage = () => {
                 onClose={() => setIsUpdateModalOpen(false)}
                 onFinish={handleFinishUpdate}
                 initialData={selectedArticle}
+            />
+
+            <ArticleDetailDrawer
+                open={isDrawerOpen}
+                onClose={() => setIsDrawerOpen(false)}
+                article={selectedArticle}
             />
 
             {contextHolder}
