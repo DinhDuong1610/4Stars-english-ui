@@ -9,6 +9,7 @@ import DashboardPage from 'pages/admin/dashboard.page';
 import UsersPage from 'pages/admin/users.page';
 import PlanPage from 'pages/admin/plans.page';
 import BadgePage from 'pages/admin/badges.page';
+import ArticlePage from 'pages/admin/articles.page';
 
 const routes = [
     {
@@ -44,6 +45,10 @@ const routes = [
             {
                 path: 'badges',
                 element: <BadgePage />,
+            },
+            {
+                path: 'articles',
+                element: <ArticlePage />,
             }
         ],
     },
