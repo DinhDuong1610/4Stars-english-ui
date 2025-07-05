@@ -1,26 +1,25 @@
-import { useRef, useMemo, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ModalForm, ProFormText } from '@ant-design/pro-form';
 import { Button, Form, notification, Upload } from 'antd';
-import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import { createArticleAPI } from 'services/article.service';
+import { updateArticleAPI } from 'services/article.service';
 import { uploadFileAPI } from 'services/file.service';
-import type { ICreateArticle } from 'types/article.type';
+import type { IArticle, IUpdateArticle } from 'types/article.type';
 import type { IconType } from 'antd/es/notification/interface';
 import type { UploadProps } from 'antd/lib';
 import type { RcFile } from 'antd/es/upload';
 import { LoadingOutlined, PlusOutlined, UploadOutlined } from "@ant-design/icons";
+import TiptapEditor from 'components/tiptap-editor/tiptap-editor.component';
 
-interface CreateArticleModalProps {
+interface UpdateArticleModalProps {
     open: boolean;
     onClose: () => void;
     onFinish: () => void;
-    categoryId: number | null;
+    initialData: IArticle | null;
 }
 
-const CreateArticleModal = ({ open, onClose, onFinish, categoryId }: CreateArticleModalProps) => {
-    const [form] = Form.useForm<ICreateArticle>();
-    const quillRef = useRef<ReactQuill>(null);
+const UpdateArticleModal = ({ open, onClose, onFinish, initialData }: UpdateArticleModalProps) => {
+    const [form] = Form.useForm<IUpdateArticle>();
     const [loadingThumbnail, setLoadingThumbnail] = useState(false);
     const [thumbnailUrl, setThumbnailUrl] = useState<string>();
     const [loadingAudio, setLoadingAudio] = useState(false);
@@ -30,7 +29,7 @@ const CreateArticleModal = ({ open, onClose, onFinish, categoryId }: CreateArtic
 
     const openNotification = (pauseOnHover: boolean, desc: string, type: IconType = 'success') => () => {
         api.open({
-            message: 'Create article',
+            message: 'Update article',
             description: desc,
             showProgress: true,
             pauseOnHover,
@@ -39,25 +38,43 @@ const CreateArticleModal = ({ open, onClose, onFinish, categoryId }: CreateArtic
         });
     };
 
-    const handleFinish = async (values: ICreateArticle) => {
-        if (!categoryId) {
-            openNotification(true, 'Please select a category.', 'error')();
-            return false;
+    useEffect(() => {
+        if (initialData) {
+            console.log(initialData);
+            form.setFieldsValue({
+                ...initialData,
+            });
+            if (initialData.category) {
+                form.setFieldsValue({
+                    categoryId: initialData.category.id
+                });
+            }
+            if (initialData.image) {
+                setThumbnailUrl(`${import.meta.env.VITE_BACKEND_URL}${initialData.image}`);
+            }
+            if (initialData.audio) {
+                setAudioName(initialData.audio.split('/').pop());
+            }
         }
-        const dataToSubmit = { ...values, categoryId };
+    }, [initialData, open]);
+
+
+    const handleFinish = async (values: IUpdateArticle) => {
+        if (!initialData) return false;
+        const dataToSubmit = { ...values, id: initialData.id };
 
         try {
-            const res = await createArticleAPI(dataToSubmit);
-            if (res && res.statusCode === 201) {
-                openNotification(true, res.message || 'Article created successfully!', 'success')();
+            const res = await updateArticleAPI(dataToSubmit);
+            if (res && res.statusCode === 200) {
+                openNotification(true, res.message || 'Article updated successfully!', 'success');
                 onFinish();
                 return true;
             } else {
-                openNotification(true, res.message || 'Failed to create article.', 'error')();
+                openNotification(true, res.message || 'Failed to update article.', 'error');
                 return false;
             }
         } catch (error) {
-            openNotification(true, 'An error occurred while creating article.', 'error')();
+            openNotification(true, 'An error occurred.', 'error');
             return false;
         }
     };
@@ -88,65 +105,10 @@ const CreateArticleModal = ({ open, onClose, onFinish, categoryId }: CreateArtic
         finally { setLoadingAudio(false); }
     };
 
-
-    const imageHandler = () => {
-        const input = document.createElement('input');
-        input.setAttribute('type', 'file');
-        input.setAttribute('accept', 'image/*');
-        input.click();
-
-        input.onchange = async () => {
-            const file = input.files?.[0];
-            if (file) {
-                try {
-                    const res = await uploadFileAPI(file);
-                    if (res && res.data) {
-                        const imageUrl = `${import.meta.env.VITE_BACKEND_URL}${res.data.fileUrl}`;
-                        const editor = quillRef.current?.getEditor();
-                        const range = editor?.getSelection();
-                        if (range) {
-                            editor?.insertEmbed(range.index, 'image', imageUrl);
-                        }
-                    }
-                } catch (error) {
-                    console.error('Error uploading image:', error);
-                }
-            }
-        };
-    };
-
-    const modules = useMemo(() => ({
-        toolbar: {
-            container: [
-                [{ 'font': [] }],
-                [{ 'size': ['small', false, 'large', 'huge'] }],
-                [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-
-                [{ 'color': [] }, { 'background': [] }],
-
-                ['bold', 'italic', 'underline', 'strike'],
-                ['blockquote', 'code-block'],
-
-                [{ 'script': 'sub' }, { 'script': 'super' }],
-                [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-                [{ 'indent': '-1' }, { 'indent': '+1' }],
-                [{ 'direction': 'rtl' }],
-                [{ 'align': [] }],
-
-                ['link', 'image', 'video'],
-
-                ['clean']
-            ],
-            handlers: {
-                image: imageHandler,
-            },
-        },
-    }), []);
-
     return (
         <>
             <ModalForm
-                title="Create a new Article"
+                title="Update a new Article"
                 form={form}
                 open={open}
                 onFinish={handleFinish}
@@ -183,18 +145,14 @@ const CreateArticleModal = ({ open, onClose, onFinish, categoryId }: CreateArtic
 
                 <ProFormText name="image" hidden />
                 <ProFormText name="audio" hidden />
+                <ProFormText name="categoryId" hidden />
 
                 <Form.Item
                     label="Content"
                     name="content"
                     rules={[{ required: true, message: 'Please enter the content!' }]}
                 >
-                    <ReactQuill
-                        ref={quillRef}
-                        theme="snow"
-                        modules={modules}
-                        style={{ minHeight: '500px' }}
-                    />
+                    <TiptapEditor onChange={(content) => form.setFieldsValue({ content })} value={form.getFieldValue('content')} />
                 </Form.Item>
             </ModalForm>
             {contextHolder}
@@ -202,4 +160,4 @@ const CreateArticleModal = ({ open, onClose, onFinish, categoryId }: CreateArtic
     );
 };
 
-export default CreateArticleModal;
+export default UpdateArticleModal;

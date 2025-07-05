@@ -11,6 +11,7 @@ import { formatISODate } from "utils/format.util";
 import { fetchArticlesAPI } from "services/article.service";
 import type { IMeta } from "types/backend";
 import CreateArticleModal from "components/article/create-article-modal.component";
+import UpdateArticleModal from "components/article/update-article-modal.component";
 
 const ArticlePage = () => {
     const actionRef = useRef<ActionType>(null);
@@ -24,6 +25,8 @@ const ArticlePage = () => {
     const [categories, setCategories] = useState<DataNode[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [isCreateModalOpen, setIsCreateModalOpen] = useState<boolean>(false);
+    const [selectedArticle, setSelectedArticle] = useState<IArticle | null>(null);
+    const [isUpdateModalOpen, setIsUpdateModalOpen] = useState<boolean>(false);
     const [api, contextHolder] = notification.useNotification();
 
     const openNotification = (pauseOnHover: boolean, message: string, desc: string, type: IconType = 'success') => () => {
@@ -80,6 +83,16 @@ const ArticlePage = () => {
 
     const handleFinishCreate = () => {
         setIsCreateModalOpen(false);
+        actionRef.current?.reload();
+    };
+
+    const handleOpenUpdateModal = (record: IArticle) => {
+        setSelectedArticle(record);
+        setIsUpdateModalOpen(true);
+    };
+
+    const handleFinishUpdate = () => {
+        setIsUpdateModalOpen(false);
         actionRef.current?.reload();
     };
 
@@ -152,7 +165,7 @@ const ArticlePage = () => {
             render: (_, record) => (
                 <Space size="middle">
                     <Button icon={<EditOutlined />} color="primary"
-                        onClick={() => ''}>
+                        onClick={() => handleOpenUpdateModal(record)}>
                     </Button>
                     <Popconfirm
                         title="Delete the article"
@@ -269,6 +282,13 @@ const ArticlePage = () => {
                 onClose={() => setIsCreateModalOpen(false)}
                 onFinish={handleFinishCreate}
                 categoryId={selectedCategoryId}
+            />
+
+            <UpdateArticleModal
+                open={isUpdateModalOpen}
+                onClose={() => setIsUpdateModalOpen(false)}
+                onFinish={handleFinishUpdate}
+                initialData={selectedArticle}
             />
 
             {contextHolder}

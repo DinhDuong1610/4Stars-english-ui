@@ -1,4 +1,4 @@
-import type { IArticle, ICreateArticle } from "types/article.type";
+import type { IArticle, ICreateArticle, IUpdateArticle } from "types/article.type";
 import type { IBackendRes, IResponse } from "types/backend";
 import instance from "services/axios.customize";
 
@@ -10,4 +10,9 @@ export const fetchArticlesAPI = (query: string) => {
 export const createArticleAPI = (data: ICreateArticle) => {
     const url_backend = `/api/v1/admin/articles`;
     return instance.post<IResponse<IArticle>>(url_backend, data);
+}
+
+export const updateArticleAPI = (data: IUpdateArticle) => {
+    const url_backend = `/api/v1/admin/articles/${data.id}`;
+    return instance.put<IBackendRes<IArticle>>(url_backend, data);
 }
