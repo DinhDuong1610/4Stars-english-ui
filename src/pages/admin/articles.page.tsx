@@ -306,7 +306,7 @@ const ArticlePage = () => {
 
             <ArticleDetailDrawer
                 open={isDrawerOpen}
-                onClose={() => setIsDrawerOpen(false)}
+                onClose={handleCloseDrawer}
                 article={selectedArticle}
             />
 
