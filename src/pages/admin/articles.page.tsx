@@ -10,6 +10,7 @@ import type { IArticle } from "types/article.type";
 import { formatISODate } from "utils/format.util";
 import { fetchArticlesAPI } from "services/article.service";
 import type { IMeta } from "types/backend";
+import CreateArticleModal from "components/article/create-article-modal.component";
 
 const ArticlePage = () => {
     const actionRef = useRef<ActionType>(null);
@@ -22,6 +23,7 @@ const ArticlePage = () => {
     const [selectedCategoryId, setSelectedCategoryId] = useState<number | null>(null);
     const [categories, setCategories] = useState<DataNode[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);
+    const [isCreateModalOpen, setIsCreateModalOpen] = useState<boolean>(false);
     const [api, contextHolder] = notification.useNotification();
 
     const openNotification = (pauseOnHover: boolean, message: string, desc: string, type: IconType = 'success') => () => {
@@ -74,6 +76,11 @@ const ArticlePage = () => {
         } else {
             setSelectedCategoryId(null);
         }
+    };
+
+    const handleFinishCreate = () => {
+        setIsCreateModalOpen(false);
+        actionRef.current?.reload();
     };
 
     const columns: ProColumns<IArticle>[] = [
@@ -243,7 +250,7 @@ const ArticlePage = () => {
                             toolBarRender={() => [
                                 <Button type="primary" key="primary"
                                     icon={<PlusOutlined />}
-                                    onClick={() => ''}
+                                    onClick={() => setIsCreateModalOpen(true)}
                                 >
                                     Create
                                 </Button>,
@@ -256,6 +263,15 @@ const ArticlePage = () => {
                     )}
                 </Col>
             </Row>
+
+            <CreateArticleModal
+                open={isCreateModalOpen}
+                onClose={() => setIsCreateModalOpen(false)}
+                onFinish={handleFinishCreate}
+                categoryId={selectedCategoryId}
+            />
+
+            {contextHolder}
         </>
     )
 }
