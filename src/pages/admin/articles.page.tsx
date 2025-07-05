@@ -8,7 +8,7 @@ import { DeleteOutlined, EditOutlined, PlusOutlined, QuestionCircleOutlined } fr
 import { ProTable, type ActionType, type ProColumns } from "@ant-design/pro-components";
 import type { IArticle } from "types/article.type";
 import { formatISODate } from "utils/format.util";
-import { fetchArticlesAPI } from "services/article.service";
+import { deleteArticleAPI, fetchArticlesAPI } from "services/article.service";
 import type { IMeta } from "types/backend";
 import CreateArticleModal from "components/article/create-article-modal.component";
 import UpdateArticleModal from "components/article/update-article-modal.component";
@@ -109,6 +109,20 @@ const ArticlePage = () => {
         setSelectedArticle(null);
     };
 
+    const handleDeleteUser = async (id: number) => {
+        try {
+            const res = await deleteArticleAPI(id);
+            if (res.status === 204) {
+                openNotification(true, res.message || 'Article deleted successfully!', 'success')();
+                actionRef.current?.reload();
+            } else {
+                openNotification(true, res.message || 'Failed to delete Article.', 'error')();
+            }
+        } catch (error) {
+            openNotification(true, 'An error occurred while deleting Article.', 'error')();
+        }
+    };
+
     const columns: ProColumns<IArticle>[] = [
         {
             title: 'ID',
@@ -183,7 +197,7 @@ const ArticlePage = () => {
                     <Popconfirm
                         title="Delete the article"
                         description={`Are you sure to delete article": ${record.title}?`}
-                        onConfirm={() => ''}
+                        onConfirm={() => handleDeleteUser(record.id)}
                         icon={<QuestionCircleOutlined />}
                         okText="Yes"
                         cancelText="No"

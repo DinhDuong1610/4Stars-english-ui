@@ -16,3 +16,8 @@ export const updateArticleAPI = (data: IUpdateArticle) => {
     const url_backend = `/api/v1/admin/articles/${data.id}`;
     return instance.put<IBackendRes<IArticle>>(url_backend, data);
 }
+
+export const deleteArticleAPI = (id: number) => {
+    const url_backend = `/api/v1/admin/articles/${id}`;
+    return instance.delete<any>(url_backend);
+}
