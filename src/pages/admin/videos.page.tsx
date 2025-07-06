@@ -1,18 +1,21 @@
-import { Button, Card, Col, notification, Row, Spin, Tree } from "antd";
+import { Button, Card, Col, notification, Row, Space, Spin, Tree } from "antd";
 import type { DataNode } from "antd/es/tree";
 import { useEffect, useRef, useState, type Key } from "react";
 import type { ICategory } from "types/category.type";
 import { fetchCategoriesAPI } from "services/category.service";
 import type { IconType } from "antd/es/notification/interface";
 import type { ActionType } from "@ant-design/pro-components";
-import { PlusOutlined } from "@ant-design/icons";
+import { EditOutlined, PlusOutlined } from "@ant-design/icons";
 import CreateCategoryModal from "components/category/create-category-modal.component";
+import UpdateCategoryModal from "components/category/update-category-modal.component";
 
 const VideoPage = () => {
     const actionRef = useRef<ActionType>(null);
     const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
     const [selectedCategoryId, setSelectedCategoryId] = useState<number | null>(null);
     const [categories, setCategories] = useState<DataNode[]>([]);
+    const [isUpdateCategoryModalOpen, setIsUpdateCategoryModalOpen] = useState(false);
+    const [categoryToUpdate, setCategoryToUpdate] = useState<ICategory | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [api, contextHolder] = notification.useNotification();
 
@@ -29,7 +32,12 @@ const VideoPage = () => {
 
     const mapToDataNode = (cats: ICategory[]): DataNode[] => {
         return cats.map(cat => ({
-            title: cat.name,
+            title: (
+                <Space>
+                    <span>{cat.name}</span>
+                    <Button icon={<EditOutlined />} size="small" type="text" onClick={() => handleOpenUpdateModal(cat)} />
+                </Space>
+            ),
             key: cat.id,
             value: cat.id,
             children: cat.subCategories ? mapToDataNode(cat.subCategories) : [],
@@ -75,6 +83,16 @@ const VideoPage = () => {
         fetchCategories();
     };
 
+    const handleOpenUpdateModal = (category: ICategory) => {
+        setCategoryToUpdate(category);
+        setIsUpdateCategoryModalOpen(true);
+    };
+
+    const handleFinishUpdateCategory = () => {
+        setIsUpdateCategoryModalOpen(false);
+        fetchCategories();
+    };
+
     return (
         <>
             <Row gutter={[16, 16]}>
@@ -100,6 +118,14 @@ const VideoPage = () => {
                 onClose={() => setIsCategoryModalOpen(false)}
                 onFinish={handleFinishCreateCategory}
                 treeData={categories}
+            />
+
+            <UpdateCategoryModal
+                open={isUpdateCategoryModalOpen}
+                onClose={() => setIsUpdateCategoryModalOpen(false)}
+                onFinish={handleFinishUpdateCategory}
+                treeData={categories}
+                initialData={categoryToUpdate}
             />
 
             {contextHolder}

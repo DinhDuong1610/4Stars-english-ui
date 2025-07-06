@@ -2,7 +2,7 @@ export interface ICategory {
     id: number;
     name: string;
     description: string;
-    type: string;
+    type: 'VIDEO' | 'ARTICLE' | 'GRAMMAR' | 'VOCABULARY';
     orderIndex?: number | null;
     parentId: number | null;
     subCategories: ICategory[];
