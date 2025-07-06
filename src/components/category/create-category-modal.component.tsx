@@ -9,13 +9,14 @@ interface CreateCategoryModalProps {
     onClose: () => void;
     onFinish: () => void;
     treeData: DataNode[];
+    type: 'VIDEO' | 'ARTICLE' | 'GRAMMAR' | 'VOCABULARY';
 }
 
-const CreateCategoryModal = ({ open, onClose, onFinish, treeData }: CreateCategoryModalProps) => {
+const CreateCategoryModal = ({ open, onClose, onFinish, treeData, type }: CreateCategoryModalProps) => {
     const [form] = Form.useForm<ICreateCategory>();
 
     const handleFinish = async (values: ICreateCategory) => {
-        const dataToSubmit = { ...values, type: 'VIDEO' as const };
+        const dataToSubmit = { ...values, type: type };
         try {
             const res = await createCategoryAPI(dataToSubmit);
             if (res && res.statusCode === 201) {
