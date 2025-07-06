@@ -13,6 +13,7 @@ import type { IMeta } from "types/backend";
 import CreateArticleModal from "components/article/create-article-modal.component";
 import UpdateArticleModal from "components/article/update-article-modal.component";
 import ArticleDetailDrawer from "components/article/article-detail-drawer.component";
+import CreateCategoryModal from "components/category/create-category-modal.component";
 
 const ArticlePage = () => {
     const actionRef = useRef<ActionType>(null);
@@ -24,6 +25,7 @@ const ArticlePage = () => {
     });
     const [selectedCategoryId, setSelectedCategoryId] = useState<number | null>(null);
     const [categories, setCategories] = useState<DataNode[]>([]);
+    const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [isCreateModalOpen, setIsCreateModalOpen] = useState<boolean>(false);
     const [selectedArticle, setSelectedArticle] = useState<IArticle | null>(null);
@@ -47,26 +49,12 @@ const ArticlePage = () => {
         return cats.map(cat => ({
             title: cat.name,
             key: cat.id,
+            value: cat.id,
             children: cat.subCategories ? mapToDataNode(cat.subCategories) : [],
         }));
     };
 
     useEffect(() => {
-        const fetchCategories = async () => {
-            setIsLoading(true);
-            try {
-                const query: string = 'type=ARTICLE';
-                const res = await fetchCategoriesAPI(query);
-                if (res && res.data) {
-                    const dataNode = mapToDataNode(res.data.result);
-                    setCategories(dataNode);
-                }
-            } catch (error) {
-                openNotification(true, 'Error fetching categories', 'An error occurred while fetching categories.', 'error')();
-            } finally {
-                setIsLoading(false);
-            }
-        };
         fetchCategories();
     }, []);
 
@@ -82,6 +70,27 @@ const ArticlePage = () => {
         } else {
             setSelectedCategoryId(null);
         }
+    };
+
+    const fetchCategories = async () => {
+        setIsLoading(true);
+        try {
+            const query: string = 'type=ARTICLE';
+            const res = await fetchCategoriesAPI(query);
+            if (res && res.data) {
+                const dataNode = mapToDataNode(res.data.result);
+                setCategories(dataNode);
+            }
+        } catch (error) {
+            openNotification(true, 'Error fetching categories', 'An error occurred while fetching categories.', 'error')();
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    const handleFinishCreateCategory = () => {
+        setIsCategoryModalOpen(false);
+        fetchCategories();
     };
 
     const handleFinishCreate = () => {
@@ -215,7 +224,7 @@ const ArticlePage = () => {
         <>
             <Row gutter={[16, 16]}>
                 <Col span={6}>
-                    <Card title="Categories" bordered={false} extra={<Button icon={<PlusOutlined />} />}>
+                    <Card title="Categories" bordered={false} extra={<Button icon={<PlusOutlined />} onClick={() => setIsCategoryModalOpen(true)} />}>
                         {isLoading ? <Spin /> : (
                             <Tree
                                 defaultExpandAll
@@ -303,6 +312,14 @@ const ArticlePage = () => {
                     )}
                 </Col>
             </Row>
+
+            <CreateCategoryModal
+                open={isCategoryModalOpen}
+                onClose={() => setIsCategoryModalOpen(false)}
+                onFinish={handleFinishCreateCategory}
+                treeData={categories}
+                type="ARTICLE"
+            />
 
             <CreateArticleModal
                 open={isCreateModalOpen}

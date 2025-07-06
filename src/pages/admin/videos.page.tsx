@@ -118,6 +118,7 @@ const VideoPage = () => {
                 onClose={() => setIsCategoryModalOpen(false)}
                 onFinish={handleFinishCreateCategory}
                 treeData={categories}
+                type="VIDEO"
             />
 
             <UpdateCategoryModal
