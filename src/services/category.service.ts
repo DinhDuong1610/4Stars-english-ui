@@ -16,3 +16,8 @@ export const updateCategoryAPI = (data: IUpdateCategory) => {
     const url_backend = `/api/v1/admin/categories/${data.id}`;
     return instance.put<IResponse<ICategory>>(url_backend, data);
 }
+
+export const deleteCategoryAPI = (id: number) => {
+    const url_backend = `/api/v1/admin/categories/${id}`;
+    return instance.delete<IResponse<any>>(url_backend);
+}

@@ -1,10 +1,11 @@
 import { useEffect, useMemo } from 'react';
 import { ModalForm, ProFormText, ProFormTextArea, ProFormDigit } from '@ant-design/pro-form';
-import { Form, TreeSelect, notification } from 'antd';
+import { Button, Form, Popconfirm, TreeSelect, notification } from 'antd';
 import type { DataNode } from 'antd/es/tree';
-import { updateCategoryAPI } from 'services/category.service';
+import { deleteCategoryAPI, updateCategoryAPI } from 'services/category.service';
 import type { ICategory, IUpdateCategory } from 'types/category.type';
 import type { IconType } from 'antd/es/notification/interface';
+import { QuestionCircleOutlined } from '@ant-design/icons';
 
 interface UpdateCategoryModalProps {
     open: boolean;
@@ -65,6 +66,22 @@ const UpdateCategoryModal = ({ open, onClose, onFinish, treeData, initialData }:
         }
     };
 
+    const handleDelete = async () => {
+        if (!initialData) return;
+        try {
+            const res = await deleteCategoryAPI(initialData.id);
+            if (res) {
+                openNotification(true, 'Delete Category', res.message || 'Category deleted successfully!', 'success')();
+                onFinish();
+                onClose();
+            } else {
+                openNotification(true, 'Delete Category', 'Failed to delete category.', 'error')();
+            }
+        } catch (error) {
+            openNotification(true, 'Delete Category', 'Failed to delete category.', 'error')();
+        }
+    };
+
     const disableNodeAndDescendants = (nodes: DataNode[], selfId: number): DataNode[] => {
         return nodes.map(node => {
             const isDisabled = node.key === selfId;
@@ -93,6 +110,26 @@ const UpdateCategoryModal = ({ open, onClose, onFinish, treeData, initialData }:
                 onFinish={handleFinish}
                 onOpenChange={(visible) => !visible && onClose()}
                 modalProps={{ destroyOnClose: true }}
+                submitter={{
+                    render: (props, defaultDoms) => [
+                        <Popconfirm
+                            key="delete"
+                            title="Delete the category"
+                            description={`Are you sure to delete "${initialData?.name}"? This action cannot be undone.`}
+                            onConfirm={handleDelete}
+                            okText="Yes"
+                            okButtonProps={{ danger: true }}
+                            cancelText="No"
+                            icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
+                        >
+                            <Button type="primary" danger>
+                                Delete
+                            </Button>
+                        </Popconfirm>,
+
+                        ...defaultDoms,
+                    ],
+                }}
             >
                 <ProFormText name="name" label="Category Name" rules={[{ required: true }]} />
                 <ProFormTextArea name="description" label="Description" />
