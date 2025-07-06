@@ -10,6 +10,7 @@ import UsersPage from 'pages/admin/users.page';
 import PlanPage from 'pages/admin/plans.page';
 import BadgePage from 'pages/admin/badges.page';
 import ArticlePage from 'pages/admin/articles.page';
+import VideoPage from 'pages/admin/videos.page';
 
 const routes = [
     {
@@ -49,6 +50,10 @@ const routes = [
             {
                 path: 'articles',
                 element: <ArticlePage />,
+            },
+            {
+                path: 'videos',
+                element: <VideoPage />,
             }
         ],
     },
