@@ -48,7 +48,7 @@ const UpdateCategoryModal = ({ open, onClose, onFinish, treeData, initialData }:
         const dataToSubmit = {
             ...values,
             id: initialData.id,
-            type: 'VIDEO' as const
+            type: initialData.type
         };
         try {
             const res = await updateCategoryAPI(dataToSubmit);
