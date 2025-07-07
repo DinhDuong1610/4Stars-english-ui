@@ -20,7 +20,6 @@ export interface ICreateVideo {
     title: string;
     description: string;
     url: string;
-    duration: number;
     subtitle: string;
     categoryId: number;
 }
