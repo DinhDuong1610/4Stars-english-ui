@@ -1,5 +1,5 @@
 import type { IBackendRes, IResponse } from "types/backend";
-import type { ICreateVideo, IVideo } from "types/video.type";
+import type { ICreateVideo, IUpdateVideo, IVideo } from "types/video.type";
 import instance from "services/axios.customize";
 
 export const fetchVideosAPI = (query: string) => {
@@ -10,4 +10,9 @@ export const fetchVideosAPI = (query: string) => {
 export const createVideoAPI = (data: ICreateVideo) => {
     const url_backend = `/api/v1/admin/videos`;
     return instance.post<IResponse<IVideo>>(url_backend, data);
+}
+
+export const updateVideoAPI = (data: IUpdateVideo) => {
+    const url_backend = `/api/v1/admin/videos/${data.id}`;
+    return instance.put<IResponse<IVideo>>(url_backend, data);
 }

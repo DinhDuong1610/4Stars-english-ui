@@ -14,6 +14,7 @@ import { formatISODate } from "utils/format.util";
 import { fetchVideosAPI } from "services/video.service";
 import VideoDetailDrawer from "components/video/video-detail-drawer.component";
 import CreateVideoModal from "components/video/create-video-modal.component";
+import UpdateVideoModal from "components/video/update-video-modal.component";
 
 const VideoPage = () => {
     const actionRef = useRef<ActionType>(null);
@@ -32,6 +33,7 @@ const VideoPage = () => {
     const [selectedVideo, setSelectedVideo] = useState<IVideo | null>(null);
     const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
     const [isCreateModalOpen, setIsCreateModalOpen] = useState<boolean>(false);
+    const [isUpdateModalOpen, setIsUpdateModalOpen] = useState<boolean>(false);
 
     const [api, contextHolder] = notification.useNotification();
 
@@ -124,6 +126,17 @@ const VideoPage = () => {
         actionRef.current?.reload();
     };
 
+    const handleOpenUpdateVideoModal = (record: IVideo) => {
+        setSelectedVideo(record);
+        setIsUpdateModalOpen(true);
+    };
+
+    const handleFinishUpdate = () => {
+        setIsUpdateModalOpen(false);
+        actionRef.current?.reload();
+    };
+
+
     const columns: ProColumns<IVideo>[] = [
         {
             title: 'ID',
@@ -196,7 +209,7 @@ const VideoPage = () => {
             render: (_, record) => (
                 <Space size="middle">
                     <Button icon={<EditOutlined />} color="primary"
-                        onClick={() => ''}>
+                        onClick={() => handleOpenUpdateVideoModal(record)}>
                     </Button>
                     <Popconfirm
                         title="Delete the article"
@@ -335,6 +348,13 @@ const VideoPage = () => {
                 onClose={() => setIsCreateModalOpen(false)}
                 onFinish={handleFinishCreate}
                 categoryId={selectedCategoryId}
+            />
+
+            <UpdateVideoModal
+                open={isUpdateModalOpen}
+                onClose={() => setIsUpdateModalOpen(false)}
+                onFinish={handleFinishUpdate}
+                initialData={selectedVideo}
             />
 
             {contextHolder}
