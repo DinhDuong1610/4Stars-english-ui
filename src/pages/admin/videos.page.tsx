@@ -13,6 +13,7 @@ import type { IMeta } from "types/backend";
 import { formatISODate } from "utils/format.util";
 import { fetchVideosAPI } from "services/video.service";
 import VideoDetailDrawer from "components/video/video-detail-drawer.component";
+import CreateVideoModal from "components/video/create-video-modal.component";
 
 const VideoPage = () => {
     const actionRef = useRef<ActionType>(null);
@@ -30,6 +31,7 @@ const VideoPage = () => {
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [selectedVideo, setSelectedVideo] = useState<IVideo | null>(null);
     const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
+    const [isCreateModalOpen, setIsCreateModalOpen] = useState<boolean>(false);
 
     const [api, contextHolder] = notification.useNotification();
 
@@ -115,6 +117,11 @@ const VideoPage = () => {
     const handleCloseDrawer = () => {
         setIsDrawerOpen(false);
         setSelectedVideo(null);
+    };
+
+    const handleFinishCreate = () => {
+        setIsCreateModalOpen(false);
+        actionRef.current?.reload();
     };
 
     const columns: ProColumns<IVideo>[] = [
@@ -287,7 +294,7 @@ const VideoPage = () => {
                             toolBarRender={() => [
                                 <Button type="primary" key="primary"
                                     icon={<PlusOutlined />}
-                                    onClick={() => ''}
+                                    onClick={() => setIsCreateModalOpen(true)}
                                 >
                                     Create
                                 </Button>,
@@ -321,6 +328,13 @@ const VideoPage = () => {
                 open={isDrawerOpen}
                 onClose={handleCloseDrawer}
                 video={selectedVideo}
+            />
+
+            <CreateVideoModal
+                open={isCreateModalOpen}
+                onClose={() => setIsCreateModalOpen(false)}
+                onFinish={handleFinishCreate}
+                categoryId={selectedCategoryId}
             />
 
             {contextHolder}
