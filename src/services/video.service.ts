@@ -16,3 +16,8 @@ export const updateVideoAPI = (data: IUpdateVideo) => {
     const url_backend = `/api/v1/admin/videos/${data.id}`;
     return instance.put<IResponse<IVideo>>(url_backend, data);
 }
+
+export const deleteVideoAPI = (id: number) => {
+    const url_backend = `/api/v1/admin/videos/${id}`;
+    return instance.delete<any>(url_backend);
+}

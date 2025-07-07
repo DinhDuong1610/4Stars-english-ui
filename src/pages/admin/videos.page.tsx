@@ -11,7 +11,7 @@ import UpdateCategoryModal from "components/category/update-category-modal.compo
 import type { IVideo } from "types/video.type";
 import type { IMeta } from "types/backend";
 import { formatISODate } from "utils/format.util";
-import { fetchVideosAPI } from "services/video.service";
+import { deleteVideoAPI, fetchVideosAPI } from "services/video.service";
 import VideoDetailDrawer from "components/video/video-detail-drawer.component";
 import CreateVideoModal from "components/video/create-video-modal.component";
 import UpdateVideoModal from "components/video/update-video-modal.component";
@@ -136,6 +136,20 @@ const VideoPage = () => {
         actionRef.current?.reload();
     };
 
+    const handleDeleteVideo = async (id: number) => {
+        try {
+            const res = await deleteVideoAPI(id);
+            if (res.status === 204) {
+                openNotification(true, 'Delete Video', res.message || 'Video deleted successfully!', 'success')();
+                actionRef.current?.reload();
+            } else {
+                openNotification(true, 'Delete Video', res.message || 'Failed to delete Video.', 'error')();
+            }
+        } catch (error) {
+            openNotification(true, 'Delete Video', 'An error occurred while deleting Video.', 'error')();
+        }
+    };
+
 
     const columns: ProColumns<IVideo>[] = [
         {
@@ -214,7 +228,7 @@ const VideoPage = () => {
                     <Popconfirm
                         title="Delete the article"
                         description={`Are you sure to delete video": ${record.title}?`}
-                        onConfirm={() => ''}
+                        onConfirm={() => handleDeleteVideo(record.id)}
                         icon={<QuestionCircleOutlined />}
                         okText="Yes"
                         cancelText="No"
