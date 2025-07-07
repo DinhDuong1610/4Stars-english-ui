@@ -24,3 +24,8 @@ export const formatCurrency = (amount: number): string => {
 
     return formatter.format(amount);
 };
+
+export const formatDuration = (seconds: number) => {
+    if (isNaN(seconds) || seconds < 0) return "00:00";
+    return new Date(seconds * 1000).toISOString().substr(14, 5);
+};

@@ -12,6 +12,7 @@ import type { IVideo } from "types/video.type";
 import type { IMeta } from "types/backend";
 import { formatISODate } from "utils/format.util";
 import { fetchVideosAPI } from "services/video.service";
+import VideoDetailDrawer from "components/video/video-detail-drawer.component";
 
 const VideoPage = () => {
     const actionRef = useRef<ActionType>(null);
@@ -27,6 +28,9 @@ const VideoPage = () => {
     const [isUpdateCategoryModalOpen, setIsUpdateCategoryModalOpen] = useState(false);
     const [categoryToUpdate, setCategoryToUpdate] = useState<ICategory | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(true);
+    const [selectedVideo, setSelectedVideo] = useState<IVideo | null>(null);
+    const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
+
     const [api, contextHolder] = notification.useNotification();
 
     const openNotification = (pauseOnHover: boolean, message: string, desc: string, type: IconType = 'success') => () => {
@@ -103,6 +107,16 @@ const VideoPage = () => {
         fetchCategories();
     };
 
+    const handleViewArticle = (video: IVideo) => {
+        setSelectedVideo(video);
+        setIsDrawerOpen(true);
+    };
+
+    const handleCloseDrawer = () => {
+        setIsDrawerOpen(false);
+        setSelectedVideo(null);
+    };
+
     const columns: ProColumns<IVideo>[] = [
         {
             title: 'ID',
@@ -117,7 +131,7 @@ const VideoPage = () => {
             ellipsis: true,
             sorter: true,
             render: (_, record) => (
-                <a onClick={() => ''}>
+                <a onClick={() => handleViewArticle(record)}>
                     {record.title}
                 </a>
             )
@@ -279,7 +293,7 @@ const VideoPage = () => {
                                 </Button>,
                             ]}
                             scroll={{ x: 'max-content' }}
-                            headerTitle="Article Management"
+                            headerTitle="Video Management"
                         />
                     ) : (
                         <Card><p>Please select a category to view videos.</p></Card>
@@ -301,6 +315,12 @@ const VideoPage = () => {
                 onFinish={handleFinishUpdateCategory}
                 treeData={categories}
                 initialData={categoryToUpdate}
+            />
+
+            <VideoDetailDrawer
+                open={isDrawerOpen}
+                onClose={handleCloseDrawer}
+                video={selectedVideo}
             />
 
             {contextHolder}
