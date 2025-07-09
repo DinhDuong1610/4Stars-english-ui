@@ -1,12 +1,13 @@
 import type { ActionType } from "@ant-design/pro-components";
 import { useEffect, useRef, useState, type Key } from "react";
-import type { IMeta } from "../../types/backend";
+import type { IMeta } from "types/backend";
 import type { DataNode } from "antd/es/tree";
 import { Button, Card, Col, notification, Row, Space, Spin, Tree } from "antd";
 import type { IconType } from "antd/es/notification/interface";
-import { fetchCategoriesAPI } from "../../services/category.service";
-import type { ICategory } from "../../types/category.type";
+import { fetchCategoriesAPI } from "services/category.service";
+import type { ICategory } from "types/category.type";
 import { EditOutlined, PlusOutlined } from "@ant-design/icons";
+import CreateCategoryModal from "components/category/create-category-modal.component";
 
 const GrammarPage = () => {
     const actionRef = useRef<ActionType>(null);
@@ -19,6 +20,7 @@ const GrammarPage = () => {
     const [selectedCategoryId, setSelectedCategoryId] = useState<number | null>(null);
     const [categories, setCategories] = useState<DataNode[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);
+    const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
 
     const [api, contextHolder] = notification.useNotification();
 
@@ -81,11 +83,16 @@ const GrammarPage = () => {
         }
     };
 
+    const handleFinishCreateCategory = () => {
+        setIsCategoryModalOpen(false);
+        fetchCategories();
+    };
+
     return (
         <>
             <Row gutter={[16, 16]}>
                 <Col span={6}>
-                    <Card title="Categories" bordered={false} extra={<Button icon={<PlusOutlined />} onClick={() => ''} />}>
+                    <Card title="Categories" bordered={false} extra={<Button icon={<PlusOutlined />} onClick={() => setIsCategoryModalOpen(true)} />}>
                         {isLoading ? <Spin /> : (
                             <Tree
                                 defaultExpandAll
@@ -104,6 +111,14 @@ const GrammarPage = () => {
                     )}
                 </Col >
             </Row >
+
+            <CreateCategoryModal
+                open={isCategoryModalOpen}
+                onClose={() => setIsCategoryModalOpen(false)}
+                onFinish={handleFinishCreateCategory}
+                treeData={categories}
+                type="GRAMMAR"
+            />
 
             {contextHolder}
         </>
