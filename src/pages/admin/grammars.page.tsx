@@ -9,9 +9,10 @@ import type { ICategory } from "types/category.type";
 import { DeleteOutlined, EditOutlined, PlusOutlined, QuestionCircleOutlined } from "@ant-design/icons";
 import CreateCategoryModal from "components/category/create-category-modal.component";
 import UpdateCategoryModal from "components/category/update-category-modal.component";
-import type { IGrammar } from "../../types/grammar.type";
-import { formatISODate } from "../../utils/format.util";
-import { fetchGrammarsAPI } from "../../services/grammar.service";
+import type { IGrammar } from "types/grammar.type";
+import { formatISODate } from "utils/format.util";
+import { fetchGrammarsAPI } from "services/grammar.service";
+import CreateGrammarModal from "components/grammar/create-grammar-modal.component";
 
 const GrammarPage = () => {
     const actionRef = useRef<ActionType>(null);
@@ -27,6 +28,8 @@ const GrammarPage = () => {
     const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
     const [isUpdateCategoryModalOpen, setIsUpdateCategoryModalOpen] = useState(false);
     const [categoryToUpdate, setCategoryToUpdate] = useState<ICategory | null>(null);
+    const [isCreateModalOpen, setIsCreateModalOpen] = useState<boolean>(false);
+
 
     const [api, contextHolder] = notification.useNotification();
 
@@ -102,6 +105,11 @@ const GrammarPage = () => {
     const handleFinishUpdateCategory = () => {
         setIsUpdateCategoryModalOpen(false);
         fetchCategories();
+    };
+
+    const handleFinishCreate = () => {
+        setIsCreateModalOpen(false);
+        actionRef.current?.reload();
     };
 
     const columns: ProColumns<IGrammar>[] = [
@@ -263,7 +271,7 @@ const GrammarPage = () => {
                             toolBarRender={() => [
                                 <Button type="primary" key="primary"
                                     icon={<PlusOutlined />}
-                                    onClick={() => ''}
+                                    onClick={() => setIsCreateModalOpen(true)}
                                 >
                                     Create
                                 </Button>,
@@ -291,6 +299,13 @@ const GrammarPage = () => {
                 onFinish={handleFinishUpdateCategory}
                 treeData={categories}
                 initialData={categoryToUpdate}
+            />
+
+            <CreateGrammarModal
+                open={isCreateModalOpen}
+                onClose={() => setIsCreateModalOpen(false)}
+                onFinish={handleFinishCreate}
+                categoryId={selectedCategoryId}
             />
 
             {contextHolder}
