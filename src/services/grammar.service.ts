@@ -16,3 +16,8 @@ export const updateGrammarAPI = (data: IUpdateGrammar) => {
     const url_backend = `/api/v1/admin/grammars/${data.id}`;
     return instance.put<IResponse<IGrammar>>(url_backend, data);
 }
+
+export const deleteGrammarAPI = (id: number) => {
+    const url_backend = `/api/v1/admin/grammars/${id}`;
+    return instance.delete<any>(url_backend);
+}

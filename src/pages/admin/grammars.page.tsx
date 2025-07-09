@@ -11,7 +11,7 @@ import CreateCategoryModal from "components/category/create-category-modal.compo
 import UpdateCategoryModal from "components/category/update-category-modal.component";
 import type { IGrammar } from "types/grammar.type";
 import { formatISODate } from "utils/format.util";
-import { fetchGrammarsAPI } from "services/grammar.service";
+import { deleteGrammarAPI, fetchGrammarsAPI } from "services/grammar.service";
 import CreateGrammarModal from "components/grammar/create-grammar-modal.component";
 import UpdateGrammarModal from "components/grammar/update-grammar-modal.component";
 import GrammarDetailDrawer from "components/grammar/grammar-detail-drawer.component";
@@ -137,6 +137,20 @@ const GrammarPage = () => {
         setSelectedGrammar(null);
     };
 
+    const handleDeleteGrammar = async (id: number) => {
+        try {
+            const res = await deleteGrammarAPI(id);
+            if (res.status === 204) {
+                openNotification(true, 'Delete Grammar', res.message || 'Grammar deleted successfully!', 'success')();
+                actionRef.current?.reload();
+            } else {
+                openNotification(true, 'Delete Grammar', res.message || 'Failed to delete Grammar.', 'error')();
+            }
+        } catch (error) {
+            openNotification(true, 'Delete Grammar', 'An error occurred while deleting Grammar.', 'error')();
+        }
+    };
+
     const columns: ProColumns<IGrammar>[] = [
         {
             title: 'ID',
@@ -202,7 +216,7 @@ const GrammarPage = () => {
                     <Popconfirm
                         title="Delete the article"
                         description={`Are you sure to delete grammar": ${record.name}?`}
-                        onConfirm={() => 'handleDeleteUser(record.id)'}
+                        onConfirm={() => handleDeleteGrammar(record.id)}
                         icon={<QuestionCircleOutlined />}
                         okText="Yes"
                         cancelText="No"
