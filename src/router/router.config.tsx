@@ -11,6 +11,7 @@ import PlanPage from 'pages/admin/plans.page';
 import BadgePage from 'pages/admin/badges.page';
 import ArticlePage from 'pages/admin/articles.page';
 import VideoPage from 'pages/admin/videos.page';
+import GrammarPage from 'pages/admin/grammars.page';
 
 const routes = [
     {
@@ -54,6 +55,9 @@ const routes = [
             {
                 path: 'videos',
                 element: <VideoPage />,
+            }, {
+                path: 'grammars',
+                element: <GrammarPage />,
             }
         ],
     },
