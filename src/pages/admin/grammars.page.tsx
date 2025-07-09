@@ -13,6 +13,8 @@ import type { IGrammar } from "types/grammar.type";
 import { formatISODate } from "utils/format.util";
 import { fetchGrammarsAPI } from "services/grammar.service";
 import CreateGrammarModal from "components/grammar/create-grammar-modal.component";
+import UpdateGrammarModal from "components/grammar/update-grammar-modal.component";
+import GrammarDetailDrawer from "components/grammar/grammar-detail-drawer.component";
 
 const GrammarPage = () => {
     const actionRef = useRef<ActionType>(null);
@@ -29,6 +31,9 @@ const GrammarPage = () => {
     const [isUpdateCategoryModalOpen, setIsUpdateCategoryModalOpen] = useState(false);
     const [categoryToUpdate, setCategoryToUpdate] = useState<ICategory | null>(null);
     const [isCreateModalOpen, setIsCreateModalOpen] = useState<boolean>(false);
+    const [selectedGrammar, setSelectedGrammar] = useState<IGrammar | null>(null);
+    const [isUpdateModalOpen, setIsUpdateModalOpen] = useState<boolean>(false);
+    const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
 
 
     const [api, contextHolder] = notification.useNotification();
@@ -112,6 +117,26 @@ const GrammarPage = () => {
         actionRef.current?.reload();
     };
 
+    const handleOpenUpdateModal = (record: IGrammar) => {
+        setSelectedGrammar(record);
+        setIsUpdateModalOpen(true);
+    };
+
+    const handleFinishUpdate = () => {
+        setIsUpdateModalOpen(false);
+        actionRef.current?.reload();
+    };
+
+    const handleViewGrammar = (grammar: IGrammar) => {
+        setSelectedGrammar(grammar);
+        setIsDrawerOpen(true);
+    };
+
+    const handleCloseDrawer = () => {
+        setIsDrawerOpen(false);
+        setSelectedGrammar(null);
+    };
+
     const columns: ProColumns<IGrammar>[] = [
         {
             title: 'ID',
@@ -126,7 +151,7 @@ const GrammarPage = () => {
             ellipsis: true,
             sorter: true,
             render: (_, record) => (
-                <a onClick={() => ''}>
+                <a onClick={() => handleViewGrammar(record)}>
                     {record.name}
                 </a>
             )
@@ -172,11 +197,11 @@ const GrammarPage = () => {
             render: (_, record) => (
                 <Space size="middle">
                     <Button icon={<EditOutlined />} color="primary"
-                        onClick={() => ''}>
+                        onClick={() => handleOpenUpdateModal(record)}>
                     </Button>
                     <Popconfirm
                         title="Delete the article"
-                        description={`Are you sure to delete article": ${record.name}?`}
+                        description={`Are you sure to delete grammar": ${record.name}?`}
                         onConfirm={() => 'handleDeleteUser(record.id)'}
                         icon={<QuestionCircleOutlined />}
                         okText="Yes"
@@ -306,6 +331,19 @@ const GrammarPage = () => {
                 onClose={() => setIsCreateModalOpen(false)}
                 onFinish={handleFinishCreate}
                 categoryId={selectedCategoryId}
+            />
+
+            <UpdateGrammarModal
+                open={isUpdateModalOpen}
+                onClose={() => setIsUpdateModalOpen(false)}
+                onFinish={handleFinishUpdate}
+                initialData={selectedGrammar}
+            />
+
+            <GrammarDetailDrawer
+                open={isDrawerOpen}
+                onClose={handleCloseDrawer}
+                grammar={selectedGrammar}
             />
 
             {contextHolder}

@@ -1,5 +1,5 @@
 import type { IBackendRes, IResponse } from "types/backend";
-import type { ICreateGrammar, IGrammar } from "types/grammar.type";
+import type { ICreateGrammar, IGrammar, IUpdateGrammar } from "types/grammar.type";
 import instance from "services/axios.customize";
 
 export const fetchGrammarsAPI = (query: string) => {
@@ -10,4 +10,9 @@ export const fetchGrammarsAPI = (query: string) => {
 export const createGrammarAPI = (data: ICreateGrammar) => {
     const url_backend = `/api/v1/admin/grammars`;
     return instance.post<IResponse<IGrammar>>(url_backend, data);
+}
+
+export const updateGrammarAPI = (data: IUpdateGrammar) => {
+    const url_backend = `/api/v1/admin/grammars/${data.id}`;
+    return instance.put<IResponse<IGrammar>>(url_backend, data);
 }
