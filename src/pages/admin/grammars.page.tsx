@@ -8,6 +8,7 @@ import { fetchCategoriesAPI } from "services/category.service";
 import type { ICategory } from "types/category.type";
 import { EditOutlined, PlusOutlined } from "@ant-design/icons";
 import CreateCategoryModal from "components/category/create-category-modal.component";
+import UpdateCategoryModal from "components/category/update-category-modal.component";
 
 const GrammarPage = () => {
     const actionRef = useRef<ActionType>(null);
@@ -21,6 +22,8 @@ const GrammarPage = () => {
     const [categories, setCategories] = useState<DataNode[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
+    const [isUpdateCategoryModalOpen, setIsUpdateCategoryModalOpen] = useState(false);
+    const [categoryToUpdate, setCategoryToUpdate] = useState<ICategory | null>(null);
 
     const [api, contextHolder] = notification.useNotification();
 
@@ -40,7 +43,7 @@ const GrammarPage = () => {
             title: (
                 <Space>
                     <span>{cat.name}</span>
-                    <Button icon={<EditOutlined />} size="small" type="text" onClick={() => ''} />
+                    <Button icon={<EditOutlined />} size="small" type="text" onClick={() => handleOpenUpdateCategoryModal(cat)} />
                 </Space>
             ),
             key: cat.id,
@@ -88,6 +91,16 @@ const GrammarPage = () => {
         fetchCategories();
     };
 
+    const handleOpenUpdateCategoryModal = (category: ICategory) => {
+        setCategoryToUpdate(category);
+        setIsUpdateCategoryModalOpen(true);
+    };
+
+    const handleFinishUpdateCategory = () => {
+        setIsUpdateCategoryModalOpen(false);
+        fetchCategories();
+    };
+
     return (
         <>
             <Row gutter={[16, 16]}>
@@ -118,6 +131,14 @@ const GrammarPage = () => {
                 onFinish={handleFinishCreateCategory}
                 treeData={categories}
                 type="GRAMMAR"
+            />
+
+            <UpdateCategoryModal
+                open={isUpdateCategoryModalOpen}
+                onClose={() => setIsUpdateCategoryModalOpen(false)}
+                onFinish={handleFinishUpdateCategory}
+                treeData={categories}
+                initialData={categoryToUpdate}
             />
 
             {contextHolder}
