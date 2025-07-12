@@ -5,7 +5,7 @@ import type { DataNode } from "antd/es/tree";
 import { Button, Card, Col, notification, Popconfirm, Row, Space, Spin, Tag, Tree } from "antd";
 import type { IconType } from "antd/es/notification/interface";
 import type { ICategory } from "types/category.type";
-import { DeleteOutlined, EditOutlined, PlusOutlined, QuestionCircleOutlined } from "@ant-design/icons";
+import { CloudDownloadOutlined, DeleteOutlined, EditOutlined, PlusOutlined, QuestionCircleOutlined } from "@ant-design/icons";
 import { fetchCategoriesAPI } from "services/category.service";
 import CreateCategoryModal from "components/category/create-category-modal.component";
 import UpdateCategoryModal from "components/category/update-category-modal.component";
@@ -15,6 +15,7 @@ import { deleteVocabularyAPI, fetchVocabulariesAPI } from "services/vocabulary.s
 import CreateVocabularyModal from "components/vocabulary/create-vocabulary-modal.component";
 import UpdateVocabularyModal from "components/vocabulary/update-vocabulary-modal.component";
 import VocabularyDetailDrawer from "components/vocabulary/vocabulary-detail-drawer.component";
+import Papa from 'papaparse';
 
 const VocabularyPage = () => {
     const actionRef = useRef<ActionType>(null);
@@ -34,6 +35,10 @@ const VocabularyPage = () => {
     const [selectedVocabulary, setSelectedVocabulary] = useState<IVocabulary | null>(null);
     const [isUpdateModalOpen, setIsUpdateModalOpen] = useState<boolean>(false);
     const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
+    const [currentPageData, setCurrentPageData] = useState<IVocabulary[]>([]);
+    const [isExporting, setIsExporting] = useState<boolean>(false);
+
+
 
     const [api, contextHolder] = notification.useNotification();
 
@@ -135,6 +140,42 @@ const VocabularyPage = () => {
     const handleCloseDrawer = () => {
         setIsDrawerOpen(false);
         setSelectedVocabulary(null);
+    };
+
+    const handleExport = () => {
+        if (currentPageData.length === 0) {
+            openNotification(true, 'No data to export.', 'error')();
+            return;
+        }
+        setIsExporting(true);
+
+        const dataToExport = currentPageData.map(vocabulary => {
+            const { category, ...restOfVocab } = vocabulary;
+
+            return {
+                ...restOfVocab,
+                categoryId: category.id,
+            };
+        });
+
+        const csv = Papa.unparse(dataToExport, {
+            header: true,
+        });
+
+        const blob = new Blob([`\uFEFF${csv}`], { type: 'text/csv;charset=utf-8;' });
+
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        const fileName = `vocabylaries.csv`;
+        link.setAttribute('download', fileName);
+        document.body.appendChild(link);
+        link.click();
+
+        link.parentNode?.removeChild(link);
+        window.URL.revokeObjectURL(url);
+
+        setIsExporting(false);
     };
 
     const handleDeleteVocabulary = async (id: number) => {
@@ -340,6 +381,7 @@ const VocabularyPage = () => {
 
                                 if (res && res.data) {
                                     setMeta(res.data.meta);
+                                    setCurrentPageData(res.data.result);
                                     return {
                                         data: res.data.result,
                                         page: 1,
@@ -347,6 +389,7 @@ const VocabularyPage = () => {
                                         total: res.data.meta.total,
                                     };
                                 } else {
+                                    setCurrentPageData([]);
                                     return {
                                         data: [],
                                         success: false,
@@ -362,6 +405,14 @@ const VocabularyPage = () => {
                                 total: meta.total
                             }}
                             toolBarRender={() => [
+                                <Button
+                                    key="export"
+                                    icon={<CloudDownloadOutlined />}
+                                    loading={isExporting}
+                                    onClick={handleExport}
+                                >
+                                    Export
+                                </Button>,
                                 <Button type="primary" key="primary"
                                     icon={<PlusOutlined />}
                                     onClick={() => setIsCreateModalOpen(true)}
