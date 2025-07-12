@@ -9,9 +9,10 @@ import { DeleteOutlined, EditOutlined, PlusOutlined, QuestionCircleOutlined } fr
 import { fetchCategoriesAPI } from "services/category.service";
 import CreateCategoryModal from "components/category/create-category-modal.component";
 import UpdateCategoryModal from "components/category/update-category-modal.component";
-import type { IVocabulary } from "../../types/vocabulary.type";
-import { formatISODate } from "../../utils/format.util";
-import { fetchVocabulariesAPI } from "../../services/vocabulary.service";
+import type { IVocabulary } from "types/vocabulary.type";
+import { formatISODate } from "utils/format.util";
+import { fetchVocabulariesAPI } from "services/vocabulary.service";
+import CreateVocabularyModal from "components/vocabulary/create-vocabulary-modal.component";
 
 const VocabularyPage = () => {
     const actionRef = useRef<ActionType>(null);
@@ -27,6 +28,8 @@ const VocabularyPage = () => {
     const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
     const [isUpdateCategoryModalOpen, setIsUpdateCategoryModalOpen] = useState(false);
     const [categoryToUpdate, setCategoryToUpdate] = useState<ICategory | null>(null);
+    const [isCreateModalOpen, setIsCreateModalOpen] = useState<boolean>(false);
+
 
     const [api, contextHolder] = notification.useNotification();
 
@@ -104,6 +107,11 @@ const VocabularyPage = () => {
         fetchCategories();
     };
 
+    const handleFinishCreate = () => {
+        setIsCreateModalOpen(false);
+        actionRef.current?.reload();
+    };
+
     const columns: ProColumns<IVocabulary>[] = [
         {
             title: 'ID',
@@ -117,7 +125,7 @@ const VocabularyPage = () => {
             key: 'image',
             hideInSearch: true,
             render: (_, record) => (
-                <img src={`${import.meta.env.VITE_BACKEND_URL}${record.image}`} alt={record.word} style={{ width: '50px', height: '50px' }} />
+                <img src={record.image} alt={record.word} style={{ width: '50px', height: '50px' }} />
             ),
         },
         {
@@ -139,9 +147,9 @@ const VocabularyPage = () => {
             ellipsis: true,
             sorter: true,
             render: (_, record) => (
-                <i>
-                    {record.word}
-                </i>
+                <>
+                    {record.pronunciation}
+                </>
             )
         },
         {
@@ -152,14 +160,14 @@ const VocabularyPage = () => {
             sorter: true,
             render: (_, record) => (
                 <Tag
-                    color={record.partOfSpeech === 'NOUN' ? 'blue' :
-                        record.partOfSpeech === 'VERB' ? 'green' :
-                            record.partOfSpeech === 'ADJECTIVE' ? 'purple' :
-                                record.partOfSpeech === 'ADVERB' ? 'red' :
+                    color={record.partOfSpeech === 'noun' ? 'blue' :
+                        record.partOfSpeech === 'verb' ? 'green' :
+                            record.partOfSpeech === 'adjective' ? 'purple' :
+                                record.partOfSpeech === 'adverb' ? 'red' :
                                     'orange'
                     }
                 >
-                    {record.word}
+                    {record.partOfSpeech}
                 </Tag>
             )
         },
@@ -302,7 +310,7 @@ const VocabularyPage = () => {
                             toolBarRender={() => [
                                 <Button type="primary" key="primary"
                                     icon={<PlusOutlined />}
-                                    onClick={() => ''}
+                                    onClick={() => setIsCreateModalOpen(true)}
                                 >
                                     Create
                                 </Button>,
@@ -330,6 +338,13 @@ const VocabularyPage = () => {
                 onFinish={handleFinishUpdateCategory}
                 treeData={categories}
                 initialData={categoryToUpdate}
+            />
+
+            <CreateVocabularyModal
+                open={isCreateModalOpen}
+                onClose={() => setIsCreateModalOpen(false)}
+                onFinish={handleFinishCreate}
+                categoryId={selectedCategoryId}
             />
 
             {contextHolder}
