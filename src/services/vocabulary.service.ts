@@ -21,3 +21,8 @@ export const deleteVocabularyAPI = (id: number) => {
     const url_backend = `/api/v1/admin/vocabularies/${id}`;
     return instance.delete<any>(url_backend);
 }
+
+export const bulkCreateVocabularyAPI = (data: ICreateVocabulary[]) => {
+    const url_backend = `/api/v1/admin/vocabularies/bulk`;
+    return instance.post<IResponse<IVocabulary[]>>(url_backend, data);
+}

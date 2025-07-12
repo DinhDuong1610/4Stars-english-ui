@@ -4,8 +4,9 @@ import type { IMeta } from "types/backend";
 import type { DataNode } from "antd/es/tree";
 import { Button, Card, Col, notification, Popconfirm, Row, Space, Spin, Tag, Tree } from "antd";
 import type { IconType } from "antd/es/notification/interface";
+import Papa from 'papaparse';
 import type { ICategory } from "types/category.type";
-import { CloudDownloadOutlined, DeleteOutlined, EditOutlined, PlusOutlined, QuestionCircleOutlined } from "@ant-design/icons";
+import { CloudDownloadOutlined, CloudUploadOutlined, DeleteOutlined, EditOutlined, PlusOutlined, QuestionCircleOutlined } from "@ant-design/icons";
 import { fetchCategoriesAPI } from "services/category.service";
 import CreateCategoryModal from "components/category/create-category-modal.component";
 import UpdateCategoryModal from "components/category/update-category-modal.component";
@@ -15,7 +16,7 @@ import { deleteVocabularyAPI, fetchVocabulariesAPI } from "services/vocabulary.s
 import CreateVocabularyModal from "components/vocabulary/create-vocabulary-modal.component";
 import UpdateVocabularyModal from "components/vocabulary/update-vocabulary-modal.component";
 import VocabularyDetailDrawer from "components/vocabulary/vocabulary-detail-drawer.component";
-import Papa from 'papaparse';
+import ImportVocabularyModal from "components/vocabulary/import-vocabulary-modal.component";
 
 const VocabularyPage = () => {
     const actionRef = useRef<ActionType>(null);
@@ -37,8 +38,7 @@ const VocabularyPage = () => {
     const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
     const [currentPageData, setCurrentPageData] = useState<IVocabulary[]>([]);
     const [isExporting, setIsExporting] = useState<boolean>(false);
-
-
+    const [isImportModalOpen, setIsImportModalOpen] = useState<boolean>(false);
 
     const [api, contextHolder] = notification.useNotification();
 
@@ -176,6 +176,10 @@ const VocabularyPage = () => {
         window.URL.revokeObjectURL(url);
 
         setIsExporting(false);
+    };
+
+    const handleFinishImport = () => {
+        actionRef.current?.reload();
     };
 
     const handleDeleteVocabulary = async (id: number) => {
@@ -413,6 +417,13 @@ const VocabularyPage = () => {
                                 >
                                     Export
                                 </Button>,
+                                <Button
+                                    key="import"
+                                    icon={<CloudUploadOutlined />}
+                                    onClick={() => setIsImportModalOpen(true)}
+                                >
+                                    Import
+                                </Button>,
                                 <Button type="primary" key="primary"
                                     icon={<PlusOutlined />}
                                     onClick={() => setIsCreateModalOpen(true)}
@@ -463,6 +474,13 @@ const VocabularyPage = () => {
                 open={isDrawerOpen}
                 onClose={() => handleCloseDrawer()}
                 vocabulary={selectedVocabulary}
+            />
+
+            <ImportVocabularyModal
+                open={isImportModalOpen}
+                onClose={() => setIsImportModalOpen(false)}
+                onFinish={handleFinishImport}
+                categoryId={selectedCategoryId}
             />
 
             {contextHolder}
