@@ -7,6 +7,7 @@ import type { IconType } from "antd/es/notification/interface";
 import type { ICategory } from "types/category.type";
 import { EditOutlined, PlusOutlined } from "@ant-design/icons";
 import { fetchCategoriesAPI } from "services/category.service";
+import CreateCategoryModal from "components/category/create-category-modal.component";
 
 const VocabularyPage = () => {
     const actionRef = useRef<ActionType>(null);
@@ -19,6 +20,8 @@ const VocabularyPage = () => {
     const [selectedCategoryId, setSelectedCategoryId] = useState<number | null>(null);
     const [categories, setCategories] = useState<DataNode[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);
+    const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
+
 
     const [api, contextHolder] = notification.useNotification();
 
@@ -81,11 +84,16 @@ const VocabularyPage = () => {
         }
     };
 
+    const handleFinishCreateCategory = () => {
+        setIsCategoryModalOpen(false);
+        fetchCategories();
+    };
+
     return (
         <>
             <Row gutter={[16, 16]}>
                 <Col span={6}>
-                    <Card title="Categories" bordered={false} extra={<Button icon={<PlusOutlined />} onClick={() => ''} />}>
+                    <Card title="Categories" bordered={false} extra={<Button icon={<PlusOutlined />} onClick={() => setIsCategoryModalOpen(true)} />}>
                         {isLoading ? <Spin /> : (
                             <Tree
                                 defaultExpandAll
@@ -104,6 +112,16 @@ const VocabularyPage = () => {
                     )}
                 </Col>
             </Row>
+
+            <CreateCategoryModal
+                open={isCategoryModalOpen}
+                onClose={() => setIsCategoryModalOpen(false)}
+                onFinish={handleFinishCreateCategory}
+                treeData={categories}
+                type="VOCABULARY"
+            />
+
+            {contextHolder}
         </>
     )
 }
