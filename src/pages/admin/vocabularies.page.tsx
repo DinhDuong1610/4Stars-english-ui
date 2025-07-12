@@ -14,6 +14,7 @@ import { formatISODate } from "utils/format.util";
 import { fetchVocabulariesAPI } from "services/vocabulary.service";
 import CreateVocabularyModal from "components/vocabulary/create-vocabulary-modal.component";
 import UpdateVocabularyModal from "components/vocabulary/update-vocabulary-modal.component";
+import VocabularyDetailDrawer from "../../components/vocabulary/vocabulary-detail-drawer.component";
 
 const VocabularyPage = () => {
     const actionRef = useRef<ActionType>(null);
@@ -32,6 +33,7 @@ const VocabularyPage = () => {
     const [isCreateModalOpen, setIsCreateModalOpen] = useState<boolean>(false);
     const [selectedVocabulary, setSelectedVocabulary] = useState<IVocabulary | null>(null);
     const [isUpdateModalOpen, setIsUpdateModalOpen] = useState<boolean>(false);
+    const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
 
     const [api, contextHolder] = notification.useNotification();
 
@@ -124,6 +126,17 @@ const VocabularyPage = () => {
         actionRef.current?.reload();
     };
 
+
+    const handleViewArticle = (vocabulary: IVocabulary) => {
+        setSelectedVocabulary(vocabulary);
+        setIsDrawerOpen(true);
+    };
+
+    const handleCloseDrawer = () => {
+        setIsDrawerOpen(false);
+        setSelectedVocabulary(null);
+    };
+
     const columns: ProColumns<IVocabulary>[] = [
         {
             title: 'ID',
@@ -147,7 +160,7 @@ const VocabularyPage = () => {
             ellipsis: true,
             sorter: true,
             render: (_, record) => (
-                <a onClick={() => ''}>
+                <a onClick={() => handleViewArticle(record)}>
                     {record.word}
                 </a>
             )
@@ -157,7 +170,7 @@ const VocabularyPage = () => {
             dataIndex: 'pronunciation',
             key: 'pronunciation',
             ellipsis: true,
-            sorter: true,
+            hideInSearch: true,
             render: (_, record) => (
                 <>
                     {record.pronunciation}
@@ -169,7 +182,21 @@ const VocabularyPage = () => {
             dataIndex: 'partOfSpeech',
             key: 'partOfSpeech',
             ellipsis: true,
-            sorter: true,
+            filters: true,
+            valueEnum: {
+                noun: {
+                    text: 'Noun',
+                },
+                verb: {
+                    text: 'Verb',
+                },
+                adjective: {
+                    text: 'Adjective',
+                },
+                adverb: {
+                    text: 'Adverb',
+                },
+            },
             render: (_, record) => (
                 <Tag
                     color={record.partOfSpeech === 'noun' ? 'blue' :
@@ -198,6 +225,7 @@ const VocabularyPage = () => {
             dataIndex: 'createdAt',
             valueType: 'dateRange',
             hideInTable: true,
+            hideInSearch: true,
             search: {
                 transform: (value) => {
                     return {
@@ -364,6 +392,12 @@ const VocabularyPage = () => {
                 onClose={() => setIsUpdateModalOpen(false)}
                 onFinish={handleFinishUpdate}
                 initialData={selectedVocabulary}
+            />
+
+            <VocabularyDetailDrawer
+                open={isDrawerOpen}
+                onClose={() => handleCloseDrawer()}
+                vocabulary={selectedVocabulary}
             />
 
             {contextHolder}
