@@ -12,6 +12,7 @@ import BadgePage from 'pages/admin/badges.page';
 import ArticlePage from 'pages/admin/articles.page';
 import VideoPage from 'pages/admin/videos.page';
 import GrammarPage from 'pages/admin/grammars.page';
+import VocabularyPage from 'pages/admin/vocabularies.page';
 
 const routes = [
     {
@@ -55,9 +56,14 @@ const routes = [
             {
                 path: 'videos',
                 element: <VideoPage />,
-            }, {
+            },
+            {
                 path: 'grammars',
                 element: <GrammarPage />,
+            },
+            {
+                path: 'vocabularies',
+                element: <VocabularyPage />,
             }
         ],
     },
