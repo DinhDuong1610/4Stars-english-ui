@@ -16,3 +16,8 @@ export const updateVocabularyAPI = (data: IUpdateVocabulary) => {
     const url_backend = `/api/v1/admin/vocabularies/${data.id}`;
     return instance.put<IResponse<IVocabulary>>(url_backend, data);
 }
+
+export const deleteVocabularyAPI = (id: number) => {
+    const url_backend = `/api/v1/admin/vocabularies/${id}`;
+    return instance.delete<any>(url_backend);
+}

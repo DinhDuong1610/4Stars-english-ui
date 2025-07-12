@@ -11,10 +11,10 @@ import CreateCategoryModal from "components/category/create-category-modal.compo
 import UpdateCategoryModal from "components/category/update-category-modal.component";
 import type { IVocabulary } from "types/vocabulary.type";
 import { formatISODate } from "utils/format.util";
-import { fetchVocabulariesAPI } from "services/vocabulary.service";
+import { deleteVocabularyAPI, fetchVocabulariesAPI } from "services/vocabulary.service";
 import CreateVocabularyModal from "components/vocabulary/create-vocabulary-modal.component";
 import UpdateVocabularyModal from "components/vocabulary/update-vocabulary-modal.component";
-import VocabularyDetailDrawer from "../../components/vocabulary/vocabulary-detail-drawer.component";
+import VocabularyDetailDrawer from "components/vocabulary/vocabulary-detail-drawer.component";
 
 const VocabularyPage = () => {
     const actionRef = useRef<ActionType>(null);
@@ -137,6 +137,20 @@ const VocabularyPage = () => {
         setSelectedVocabulary(null);
     };
 
+    const handleDeleteVocabulary = async (id: number) => {
+        try {
+            const res = await deleteVocabularyAPI(id);
+            if (res.status === 204) {
+                openNotification(true, 'Delete Vocabulary', res.message || 'Vocabulary deleted successfully!', 'success')();
+                actionRef.current?.reload();
+            } else {
+                openNotification(true, 'Delete Vocabulary', res.message || 'Failed to delete Vocabulary.', 'error')();
+            }
+        } catch (error) {
+            openNotification(true, 'Delete Vocabulary', 'An error occurred while deleting Vocabulary.', 'error')();
+        }
+    };
+
     const columns: ProColumns<IVocabulary>[] = [
         {
             title: 'ID',
@@ -257,7 +271,7 @@ const VocabularyPage = () => {
                     <Popconfirm
                         title="Delete the vocabulary"
                         description={`Are you sure to delete vocabulary": ${record.word}?`}
-                        onConfirm={() => ''}
+                        onConfirm={() => handleDeleteVocabulary(record.id)}
                         icon={<QuestionCircleOutlined />}
                         okText="Yes"
                         cancelText="No"
