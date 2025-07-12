@@ -1,24 +1,25 @@
 import { ModalForm, ProFormText } from '@ant-design/pro-form';
 import { Form, notification } from 'antd';
 import type { IconType } from 'antd/es/notification/interface';
-import type { ICreateVocabulary } from 'types/vocabulary.type';
-import { createVocabularyAPI } from 'services/vocabulary.service';
+import type { IUpdateVocabulary, IVocabulary } from 'types/vocabulary.type';
+import { updateVocabularyAPI } from 'services/vocabulary.service';
+import { useEffect } from 'react';
 
-interface CreateVocabularyModalProps {
+interface UpdateVocabularyModalProps {
     open: boolean;
     onClose: () => void;
     onFinish: () => void;
-    categoryId: number | null;
+    initialData: IVocabulary | null;
 }
 
-const CreateVocabularyModal = ({ open, onClose, onFinish, categoryId }: CreateVocabularyModalProps) => {
-    const [form] = Form.useForm<ICreateVocabulary>();
+const UpdateVocabularyModal = ({ open, onClose, onFinish, initialData }: UpdateVocabularyModalProps) => {
+    const [form] = Form.useForm<IUpdateVocabulary>();
 
     const [api, contextHolder] = notification.useNotification();
 
     const openNotification = (pauseOnHover: boolean, desc: string, type: IconType = 'success') => () => {
         api.open({
-            message: 'Create vocabulary',
+            message: 'Update vocabulary',
             description: desc,
             showProgress: true,
             pauseOnHover,
@@ -27,25 +28,36 @@ const CreateVocabularyModal = ({ open, onClose, onFinish, categoryId }: CreateVo
         });
     };
 
-    const handleFinish = async (values: ICreateVocabulary) => {
-        if (!categoryId) {
-            openNotification(true, 'Please select a category.', 'error')();
-            return false;
+    useEffect(() => {
+        if (initialData) {
+            console.log(initialData);
+            form.setFieldsValue({
+                ...initialData,
+            });
+            if (initialData.category) {
+                form.setFieldsValue({
+                    categoryId: initialData.category.id
+                });
+            }
         }
-        const dataToSubmit = { ...values, categoryId };
+    }, [initialData, open]);
+
+    const handleFinish = async (values: IUpdateVocabulary) => {
+        if (!initialData) return false;
+        const dataToSubmit = { ...values, id: initialData.id };
 
         try {
-            const res = await createVocabularyAPI(dataToSubmit);
-            if (res && res.statusCode === 201) {
-                openNotification(true, res.message || 'Vocabulary created successfully!', 'success')();
+            const res = await updateVocabularyAPI(dataToSubmit);
+            if (res && res.statusCode === 200) {
+                openNotification(true, res.message || 'Vocabulary updated successfully!', 'success')();
                 onFinish();
                 return true;
             } else {
-                openNotification(true, res.message || 'Failed to create Vocabulary.', 'error')();
+                openNotification(true, res.message || 'Failed to update Vocabulary.', 'error')();
                 return false;
             }
         } catch (error) {
-            openNotification(true, 'An error occurred while creating Vocabulary.', 'error')();
+            openNotification(true, 'An error occurred while updating Vocabulary.', 'error')();
             return false;
         }
     };
@@ -53,7 +65,7 @@ const CreateVocabularyModal = ({ open, onClose, onFinish, categoryId }: CreateVo
     return (
         <>
             <ModalForm
-                title="Create a new Vocabulary"
+                title="Update a new Vocabulary"
                 form={form}
                 open={open}
                 onFinish={handleFinish}
@@ -74,10 +86,11 @@ const CreateVocabularyModal = ({ open, onClose, onFinish, categoryId }: CreateVo
                 <ProFormText name="pronunciation" label="Pronunciation" rules={[{ required: true }]} />
                 <ProFormText name="image" label="Image url" rules={[{ required: true }]} />
                 <ProFormText name="audio" label="Audio url" rules={[{ required: true }]} />
+                <ProFormText name="categoryId" hidden />
             </ModalForm>
             {contextHolder}
         </>
     );
 };
 
-export default CreateVocabularyModal;
+export default UpdateVocabularyModal;

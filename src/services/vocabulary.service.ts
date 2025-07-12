@@ -1,5 +1,5 @@
 import type { IBackendRes, IResponse } from "types/backend";
-import type { ICreateVocabulary, IVocabulary } from "types/vocabulary.type";
+import type { ICreateVocabulary, IUpdateVocabulary, IVocabulary } from "types/vocabulary.type";
 import instance from "services/axios.customize";
 
 export const fetchVocabulariesAPI = (query: string) => {
@@ -10,4 +10,9 @@ export const fetchVocabulariesAPI = (query: string) => {
 export const createVocabularyAPI = (data: ICreateVocabulary) => {
     const url_backend = `/api/v1/admin/vocabularies`;
     return instance.post<IResponse<IVocabulary>>(url_backend, data);
+}
+
+export const updateVocabularyAPI = (data: IUpdateVocabulary) => {
+    const url_backend = `/api/v1/admin/vocabularies/${data.id}`;
+    return instance.put<IResponse<IVocabulary>>(url_backend, data);
 }

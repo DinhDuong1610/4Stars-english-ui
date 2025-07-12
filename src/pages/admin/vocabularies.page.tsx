@@ -13,6 +13,7 @@ import type { IVocabulary } from "types/vocabulary.type";
 import { formatISODate } from "utils/format.util";
 import { fetchVocabulariesAPI } from "services/vocabulary.service";
 import CreateVocabularyModal from "components/vocabulary/create-vocabulary-modal.component";
+import UpdateVocabularyModal from "components/vocabulary/update-vocabulary-modal.component";
 
 const VocabularyPage = () => {
     const actionRef = useRef<ActionType>(null);
@@ -29,7 +30,8 @@ const VocabularyPage = () => {
     const [isUpdateCategoryModalOpen, setIsUpdateCategoryModalOpen] = useState(false);
     const [categoryToUpdate, setCategoryToUpdate] = useState<ICategory | null>(null);
     const [isCreateModalOpen, setIsCreateModalOpen] = useState<boolean>(false);
-
+    const [selectedVocabulary, setSelectedVocabulary] = useState<IVocabulary | null>(null);
+    const [isUpdateModalOpen, setIsUpdateModalOpen] = useState<boolean>(false);
 
     const [api, contextHolder] = notification.useNotification();
 
@@ -109,6 +111,16 @@ const VocabularyPage = () => {
 
     const handleFinishCreate = () => {
         setIsCreateModalOpen(false);
+        actionRef.current?.reload();
+    };
+
+    const handleOpenUpdateModal = (record: IVocabulary) => {
+        setSelectedVocabulary(record);
+        setIsUpdateModalOpen(true);
+    };
+
+    const handleFinishUpdate = () => {
+        setIsUpdateModalOpen(false);
         actionRef.current?.reload();
     };
 
@@ -212,7 +224,7 @@ const VocabularyPage = () => {
             render: (_, record) => (
                 <Space size="middle">
                     <Button icon={<EditOutlined />} color="primary"
-                        onClick={() => ''}>
+                        onClick={() => handleOpenUpdateModal(record)}>
                     </Button>
                     <Popconfirm
                         title="Delete the vocabulary"
@@ -345,6 +357,13 @@ const VocabularyPage = () => {
                 onClose={() => setIsCreateModalOpen(false)}
                 onFinish={handleFinishCreate}
                 categoryId={selectedCategoryId}
+            />
+
+            <UpdateVocabularyModal
+                open={isUpdateModalOpen}
+                onClose={() => setIsUpdateModalOpen(false)}
+                onFinish={handleFinishUpdate}
+                initialData={selectedVocabulary}
             />
 
             {contextHolder}
