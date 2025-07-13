@@ -11,3 +11,8 @@ export const generateQuizAPI = (categoryId: number) => {
     const url_backend = `/api/v1/admin/quizzes/generate-from-category?categoryId=${categoryId}`;
     return instance.post<IBackendRes<IQuiz>>(url_backend);
 }
+
+export const deleteQuizAPI = (id: number) => {
+    const url_backend = `/api/v1/admin/quizzes/${id}`;
+    return instance.delete(url_backend);
+}

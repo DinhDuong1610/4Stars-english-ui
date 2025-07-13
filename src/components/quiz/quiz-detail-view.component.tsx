@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import { Card, Empty, Button, Collapse, Space, Tag, List, Radio, Image, message, Skeleton } from 'antd';
-import { PlusOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import { Card, Empty, Button, Collapse, Space, Tag, List, Radio, Image, message, Skeleton, Popconfirm } from 'antd';
+import { PlusOutlined, EditOutlined, DeleteOutlined, QuestionCircleOutlined } from '@ant-design/icons';
 import type { IQuiz, IQuestion } from 'types/quiz.type';
-import { fetchQuizzesAPI, generateQuizAPI } from 'services/quiz.service';
+import { deleteQuizAPI, fetchQuizzesAPI, generateQuizAPI } from 'services/quiz.service';
 
 const { Panel } = Collapse;
 
@@ -56,6 +56,22 @@ const QuizDetailView = ({ categoryId }: QuizDetailViewProps) => {
             message.error("An error occurred during quiz generation.");
         } finally {
             setIsGenerating(false);
+        }
+    };
+
+    const handleDeleteQuiz = async () => {
+        if (!quiz) return;
+
+        try {
+            const res = await deleteQuizAPI(quiz.id);
+            if (res) {
+                message.success("Quiz deleted successfully!");
+                setQuiz(null);
+            } else {
+                message.error(res.data?.message || "Failed to delete quiz.");
+            }
+        } catch (error) {
+            message.error("An error occurred while deleting the quiz.");
         }
     };
 
@@ -119,6 +135,17 @@ const QuizDetailView = ({ categoryId }: QuizDetailViewProps) => {
                 <Space>
                     <Button icon={<EditOutlined />}>Edit Quiz Info</Button>
                     <Button type="primary" icon={<PlusOutlined />}>Add Question</Button>
+                    <Popconfirm
+                        title="Delete this quiz"
+                        description="Are you sure? This will delete the quiz and all its questions."
+                        onConfirm={handleDeleteQuiz}
+                        icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
+                        okText="Yes, Delete"
+                        okButtonProps={{ danger: true }}
+                        cancelText="No"
+                    >
+                        <Button danger icon={<DeleteOutlined />}>Delete Quiz</Button>
+                    </Popconfirm>
                 </Space>
             }
         >
