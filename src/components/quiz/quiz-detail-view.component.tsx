@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Card, Empty, Button, Collapse, Space, Tag, List, Radio, Image, message, Skeleton } from 'antd';
 import { PlusOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import type { IQuiz, IQuestion } from 'types/quiz.type';
-import { fetchQuizzesAPI } from 'services/quiz.service';
+import { fetchQuizzesAPI, generateQuizAPI } from 'services/quiz.service';
 
 const { Panel } = Collapse;
 
@@ -13,30 +13,51 @@ interface QuizDetailViewProps {
 const QuizDetailView = ({ categoryId }: QuizDetailViewProps) => {
     const [quiz, setQuiz] = useState<IQuiz | null>(null);
     const [isLoading, setIsLoading] = useState(false);
+    const [isGenerating, setIsGenerating] = useState(false);
 
     useEffect(() => {
-        const fetchQuiz = async () => {
-            if (!categoryId) {
-                setQuiz(null);
-                return;
-            };
-            setIsLoading(true);
-            try {
-                const res = await fetchQuizzesAPI(`categoryId=${categoryId}`);
-                if (res && res.data) {
-                    setQuiz(res.data.result[0]);
-                } else {
-                    setQuiz(null);
-                }
-            } catch (error) {
-                message.error("Failed to fetch quiz details.");
-                setQuiz(null);
-            } finally {
-                setIsLoading(false);
-            }
-        };
         fetchQuiz();
     }, [categoryId]);
+
+    const fetchQuiz = async () => {
+        if (!categoryId) {
+            setQuiz(null);
+            return;
+        };
+        setIsLoading(true);
+        try {
+            const res = await fetchQuizzesAPI(`categoryId=${categoryId}`);
+            if (res && res.data) {
+                setQuiz(res.data.result[0]);
+            } else {
+                setQuiz(null);
+            }
+        } catch (error) {
+            message.error("Failed to fetch quiz details.");
+            setQuiz(null);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    const handleGenerateQuiz = async () => {
+        if (!categoryId) return;
+
+        setIsGenerating(true);
+        try {
+            const res = await generateQuizAPI(categoryId);
+            if (res && res.data) {
+                message.success("Quiz generated successfully!");
+                await fetchQuiz();
+            } else {
+                message.error(res.message || "Failed to generate quiz.");
+            }
+        } catch (error) {
+            message.error("An error occurred during quiz generation.");
+        } finally {
+            setIsGenerating(false);
+        }
+    };
 
     if (isLoading) {
         return (
@@ -54,7 +75,11 @@ const QuizDetailView = ({ categoryId }: QuizDetailViewProps) => {
         return (
             <Card>
                 <Empty description="No quiz found for this category.">
-                    <Button type="primary" icon={<PlusOutlined />}>Create New Quiz</Button>
+                    <Button type="primary" icon={<PlusOutlined />}
+                        onClick={handleGenerateQuiz}
+                        loading={isGenerating}>
+                        Create New Quiz
+                    </Button>
                 </Empty>
             </Card>
         );
@@ -89,7 +114,7 @@ const QuizDetailView = ({ categoryId }: QuizDetailViewProps) => {
 
     return (
         <Card
-            title={`Quiz: ${quiz.title}`}
+            title={quiz.title}
             extra={
                 <Space>
                     <Button icon={<EditOutlined />}>Edit Quiz Info</Button>
