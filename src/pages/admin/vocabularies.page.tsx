@@ -2,7 +2,7 @@ import { ProTable, type ActionType, type ProColumns } from "@ant-design/pro-comp
 import { useEffect, useRef, useState, type Key } from "react";
 import type { IMeta } from "types/backend";
 import type { DataNode } from "antd/es/tree";
-import { Button, Card, Col, notification, Popconfirm, Row, Space, Spin, Tag, Tree } from "antd";
+import { Button, Card, Col, notification, Popconfirm, Row, Space, Spin, Tabs, Tag, Tree } from "antd";
 import type { IconType } from "antd/es/notification/interface";
 import Papa from 'papaparse';
 import type { ICategory } from "types/category.type";
@@ -17,6 +17,8 @@ import CreateVocabularyModal from "components/vocabulary/create-vocabulary-modal
 import UpdateVocabularyModal from "components/vocabulary/update-vocabulary-modal.component";
 import VocabularyDetailDrawer from "components/vocabulary/vocabulary-detail-drawer.component";
 import ImportVocabularyModal from "components/vocabulary/import-vocabulary-modal.component";
+import type { TabsProps } from "antd/lib";
+import QuizDetailView from "components/quiz/quiz-detail-view.component";
 
 const VocabularyPage = () => {
     const actionRef = useRef<ActionType>(null);
@@ -39,7 +41,7 @@ const VocabularyPage = () => {
     const [currentPageData, setCurrentPageData] = useState<IVocabulary[]>([]);
     const [isExporting, setIsExporting] = useState<boolean>(false);
     const [isImportModalOpen, setIsImportModalOpen] = useState<boolean>(false);
-
+    const [activeTab, setActiveTab] = useState('vocabularies');
     const [api, contextHolder] = notification.useNotification();
 
     const openNotification = (pauseOnHover: boolean, message: string, desc: string, type: IconType = 'success') => () => {
@@ -330,6 +332,107 @@ const VocabularyPage = () => {
         },
     ];
 
+    const tabItems: TabsProps['items'] = [
+        {
+            key: 'vocabularies',
+            label: 'Vocabulary List',
+            children: (
+                <ProTable<IVocabulary>
+                    columns={columns}
+                    actionRef={actionRef}
+                    request={async (params, sort, filter) => {
+                        const queryParts: string[] = [];
+                        queryParts.push(`categoryId=${selectedCategoryId}`);
+                        queryParts.push(`page=${params.current}`);
+                        queryParts.push(`size=${params.pageSize}`);
+
+                        for (const key in filter) {
+                            if (filter[key]) {
+                                queryParts.push(`${key}=${filter[key]}`);
+                            }
+                        }
+
+                        const searchParams = { ...params };
+                        delete searchParams.current;
+                        delete searchParams.pageSize;
+
+                        for (const key in searchParams) {
+                            if (searchParams[key]) {
+                                queryParts.push(`${key}=${searchParams[key]}`);
+                            }
+                        }
+
+                        if (sort) {
+                            for (const key in sort) {
+                                const value = sort[key];
+                                queryParts.push(`sort=${key},${value === 'ascend' ? 'asc' : 'desc'}`);
+                            }
+                        }
+
+                        const query = queryParts.join('&');
+
+                        const res = await fetchVocabulariesAPI(query);
+
+                        if (res && res.data) {
+                            setMeta(res.data.meta);
+                            setCurrentPageData(res.data.result);
+                            return {
+                                data: res.data.result,
+                                page: 1,
+                                success: true,
+                                total: res.data.meta.total,
+                            };
+                        } else {
+                            setCurrentPageData([]);
+                            return {
+                                data: [],
+                                success: false,
+                                total: 0,
+                            };
+                        }
+                    }}
+                    rowKey="id"
+                    pagination={{
+                        current: meta.page,
+                        pageSize: meta.pageSize,
+                        showSizeChanger: true,
+                        total: meta.total
+                    }}
+                    toolBarRender={() => [
+                        <Button
+                            key="export"
+                            icon={<CloudDownloadOutlined />}
+                            loading={isExporting}
+                            onClick={handleExport}
+                        >
+                            Export
+                        </Button>,
+                        <Button
+                            key="import"
+                            icon={<CloudUploadOutlined />}
+                            onClick={() => setIsImportModalOpen(true)}
+                        >
+                            Import
+                        </Button>,
+                        <Button type="primary" key="primary"
+                            icon={<PlusOutlined />}
+                            onClick={() => setIsCreateModalOpen(true)}
+                        >
+                            Create
+                        </Button>,
+                    ]}
+                    scroll={{ x: 'max-content' }}
+                    headerTitle="Vocabulary Management"
+                />
+            ),
+        },
+        {
+            key: 'quizzes',
+            label: 'Quiz List',
+            children: <QuizDetailView categoryId={selectedCategoryId} />,
+        },
+    ];
+
     return (
         <>
             <Row gutter={[16, 16]}>
@@ -347,93 +450,7 @@ const VocabularyPage = () => {
                 </Col>
                 <Col span={18}>
                     {selectedCategoryId ? (
-                        <ProTable<IVocabulary>
-                            columns={columns}
-                            actionRef={actionRef}
-                            request={async (params, sort, filter) => {
-                                const queryParts: string[] = [];
-                                queryParts.push(`categoryId=${selectedCategoryId}`);
-                                queryParts.push(`page=${params.current}`);
-                                queryParts.push(`size=${params.pageSize}`);
-
-                                for (const key in filter) {
-                                    if (filter[key]) {
-                                        queryParts.push(`${key}=${filter[key]}`);
-                                    }
-                                }
-
-                                const searchParams = { ...params };
-                                delete searchParams.current;
-                                delete searchParams.pageSize;
-
-                                for (const key in searchParams) {
-                                    if (searchParams[key]) {
-                                        queryParts.push(`${key}=${searchParams[key]}`);
-                                    }
-                                }
-
-                                if (sort) {
-                                    for (const key in sort) {
-                                        const value = sort[key];
-                                        queryParts.push(`sort=${key},${value === 'ascend' ? 'asc' : 'desc'}`);
-                                    }
-                                }
-
-                                const query = queryParts.join('&');
-
-                                const res = await fetchVocabulariesAPI(query);
-
-                                if (res && res.data) {
-                                    setMeta(res.data.meta);
-                                    setCurrentPageData(res.data.result);
-                                    return {
-                                        data: res.data.result,
-                                        page: 1,
-                                        success: true,
-                                        total: res.data.meta.total,
-                                    };
-                                } else {
-                                    setCurrentPageData([]);
-                                    return {
-                                        data: [],
-                                        success: false,
-                                        total: 0,
-                                    };
-                                }
-                            }}
-                            rowKey="id"
-                            pagination={{
-                                current: meta.page,
-                                pageSize: meta.pageSize,
-                                showSizeChanger: true,
-                                total: meta.total
-                            }}
-                            toolBarRender={() => [
-                                <Button
-                                    key="export"
-                                    icon={<CloudDownloadOutlined />}
-                                    loading={isExporting}
-                                    onClick={handleExport}
-                                >
-                                    Export
-                                </Button>,
-                                <Button
-                                    key="import"
-                                    icon={<CloudUploadOutlined />}
-                                    onClick={() => setIsImportModalOpen(true)}
-                                >
-                                    Import
-                                </Button>,
-                                <Button type="primary" key="primary"
-                                    icon={<PlusOutlined />}
-                                    onClick={() => setIsCreateModalOpen(true)}
-                                >
-                                    Create
-                                </Button>,
-                            ]}
-                            scroll={{ x: 'max-content' }}
-                            headerTitle="Vocabulary Management"
-                        />
+                        <Tabs type="card" defaultActiveKey="vocabularies" items={tabItems} onChange={setActiveTab} />
                     ) : (
                         <Card><p>Please select a category to view vocabularies.</p></Card>
                     )}
