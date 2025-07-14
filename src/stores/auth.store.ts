@@ -19,7 +19,11 @@ export const useAuthStore = create<AuthState>()(
             accessToken: null,
             setAccessToken: (token) => set({ accessToken: token, isAuthenticated: !!token }),
             setUser: (user) => set({ user }),
-            logout: () => set({ isAuthenticated: false, user: null, accessToken: null }),
+            logout: () => {
+                set({ isAuthenticated: false, user: null, accessToken: null });
+                window.history.pushState({}, '', '/login');
+                window.location.reload();
+            },
         }),
         {
             name: 'auth-storage',
