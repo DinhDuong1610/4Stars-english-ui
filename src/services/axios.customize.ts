@@ -1,34 +1,89 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
+import { useAuthStore } from "stores/auth.store";
+import { refreshTokenAPI } from "services/auth.service";
 
 const instance = axios.create({
     baseURL: import.meta.env.VITE_BACKEND_URL,
-    withCredentials: true
+    withCredentials: true,
 });
 
-// Add a request interceptor
-instance.interceptors.request.use(function (config) {
-    // Do something before request is sent
-    // const token = localStorage.getItem('token');
-    const token = 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJwZXJtaXNzaW9uIjpbIkFETUlOIl0sImV4cCI6MTc1ODk2MzQ1MywiaWF0IjoxNzUwMzIzNDUzLCJ1c2VyIjp7ImlkIjoxLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsIm5hbWUiOiJBZG1pbiJ9fQ.kb33lLR2tZjuLSyf7DcBorqgTy4qi9d6XzjMJ-FELPkgsQx3N6QRIt-A5Mj6QT0xG6ty5StO_AUkvV2wPPdDLQ';
-    const auth = token ? `Bearer ${token}` : '';
-    config.headers.Authorization = auth;
-    return config;
-}, function (error) {
-    // Do something with request error
-    return Promise.reject(error);
-});
+instance.interceptors.request.use(
+    (config) => {
+        if (config.url?.indexOf('/auth/refresh') === -1) {
+            const { accessToken } = useAuthStore.getState();
+            if (accessToken) {
+                config.headers.Authorization = `Bearer ${accessToken}`;
+            }
+        }
+        return config;
+    },
+    (error) => {
+        return Promise.reject(error);
+    }
+);
 
-// Add a response interceptor
-instance.interceptors.response.use(function (response) {
-    // Any status code that lie within the range of 2xx cause this function to trigger
-    // Do something with response data
-    if (response.data && response.data.data) return response.data;
-    return response;
-}, function (error) {
-    // Any status codes that falls outside the range of 2xx cause this function to trigger
-    // Do something with response error
-    if (error.response && error.response.data) return error.response.data;
-    return Promise.reject(error);
-});
+let isRefreshing = false;
+let failedQueue: Array<{ resolve: (value: any) => void; reject: (reason?: any) => void }> = [];
 
-export default instance
+const processQueue = (error: Error | null, token: string | null = null) => {
+    failedQueue.forEach(prom => {
+        if (error) {
+            prom.reject(error);
+        } else {
+            prom.resolve(token);
+        }
+    });
+    failedQueue = [];
+};
+
+instance.interceptors.response.use(
+    (response) => {
+        if (response.data && response.data.data) return response.data;
+        return response;
+    },
+    async (error: AxiosError) => {
+        const originalRequest = error.config as any;
+
+        if (error.response?.status === 401 && !originalRequest._retry) {
+
+            if (isRefreshing) {
+                return new Promise((resolve, reject) => {
+                    failedQueue.push({ resolve, reject });
+                }).then(token => {
+                    originalRequest.headers['Authorization'] = 'Bearer ' + token;
+                    return instance(originalRequest);
+                }).catch(err => {
+                    return Promise.reject(err);
+                });
+            }
+
+            originalRequest._retry = true;
+            isRefreshing = true;
+
+            try {
+                const res = await refreshTokenAPI();
+                const newAccessToken = res.data.accessToken;
+
+                useAuthStore.getState().setAccessToken(newAccessToken);
+
+                originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
+
+                processQueue(null, newAccessToken);
+
+                return instance(originalRequest);
+
+            } catch (err) {
+                processQueue(err as Error, null);
+                useAuthStore.getState().logout();
+
+                return Promise.reject(err);
+            } finally {
+                isRefreshing = false;
+            }
+        }
+
+        return Promise.reject(error);
+    }
+);
+
+export default instance;

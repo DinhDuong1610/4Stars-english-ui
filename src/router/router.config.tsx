@@ -13,8 +13,14 @@ import ArticlePage from 'pages/admin/articles.page';
 import VideoPage from 'pages/admin/videos.page';
 import GrammarPage from 'pages/admin/grammars.page';
 import VocabularyPage from 'pages/admin/vocabularies.page';
+import LoginPage from 'pages/auth/login.page';
+import ProtectedRoute from 'router/protected-route.component';
 
 const routes = [
+    {
+        path: '/login',
+        element: <LoginPage />,
+    },
     {
         path: '/',
         element: <ClientLayout />,
@@ -30,42 +36,47 @@ const routes = [
         ],
     },
     {
-        path: '/admin',
-        element: <AdminLayout />,
+        element: <ProtectedRoute />,
         children: [
             {
-                index: true,
-                element: <DashboardPage />,
-            },
-            {
-                path: 'users',
-                element: <UsersPage />,
-            },
-            {
-                path: 'plans',
-                element: <PlanPage />,
-            },
-            {
-                path: 'badges',
-                element: <BadgePage />,
-            },
-            {
-                path: 'articles',
-                element: <ArticlePage />,
-            },
-            {
-                path: 'videos',
-                element: <VideoPage />,
-            },
-            {
-                path: 'grammars',
-                element: <GrammarPage />,
-            },
-            {
-                path: 'vocabularies',
-                element: <VocabularyPage />,
+                path: '/admin',
+                element: <AdminLayout />,
+                children: [
+                    {
+                        index: true,
+                        element: <DashboardPage />,
+                    },
+                    {
+                        path: 'users',
+                        element: <UsersPage />,
+                    },
+                    {
+                        path: 'plans',
+                        element: <PlanPage />,
+                    },
+                    {
+                        path: 'badges',
+                        element: <BadgePage />,
+                    },
+                    {
+                        path: 'articles',
+                        element: <ArticlePage />,
+                    },
+                    {
+                        path: 'videos',
+                        element: <VideoPage />,
+                    },
+                    {
+                        path: 'grammars',
+                        element: <GrammarPage />,
+                    },
+                    {
+                        path: 'vocabularies',
+                        element: <VocabularyPage />,
+                    }
+                ],
             }
-        ],
+        ]
     },
 ];
 
