@@ -4,6 +4,64 @@ import { DeleteOutlined, PlusOutlined } from '@ant-design/icons';
 import { createQuizAPI } from 'services/quiz.service';
 import type { ICreateQuiz } from 'types/quiz.type';
 
+const DynamicQuestionFields = ({ questionIndex }: { questionIndex: number }) => {
+    const form = Form.useFormInstance();
+    const questionType = Form.useWatch(['questions', questionIndex, 'questionType'], form);
+
+    switch (questionType) {
+        case 'TRANSLATE_EN_TO_VI':
+        case 'TRANSLATE_VI_TO_EN':
+        case 'ARRANGE_WORDS':
+        case 'FILL_IN_BLANK':
+        case 'LISTENING_TRANSCRIPTION':
+            return (
+                <>
+                    <Form.Item label="Correct Sentence" name={[questionIndex, 'correctSentence']} rules={[{ required: true }]}>
+                        <Input.TextArea placeholder="Enter the correct sentence" />
+                    </Form.Item>
+                    {questionType === 'LISTENING_TRANSCRIPTION' && (
+                        <Form.Item label="Audio URL" name={[questionIndex, 'audioUrl']} rules={[{ required: true }]}>
+                            <Input placeholder="Enter audio URL" />
+                        </Form.Item>
+                    )}
+                </>
+            );
+
+        case 'MULTIPLE_CHOICE_TEXT':
+        case 'MULTIPLE_CHOICE_IMAGE':
+        case 'LISTENING_COMPREHENSION':
+            return (
+                <>
+                    {questionType === 'LISTENING_COMPREHENSION' && (
+                        <Form.Item label="Audio URL" name={[questionIndex, 'audioUrl']} rules={[{ required: true }]}>
+                            <Input placeholder="Enter audio URL" />
+                        </Form.Item>
+                    )}
+                    <Form.Item label="Choices">
+                        <Form.List name={[questionIndex, 'choices']}>
+                            {(subFields, { add, remove }) => (
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                                    {subFields.map(({ key, name, ...restField }) => (
+                                        <Space key={key} align="baseline">
+                                            <Form.Item {...restField} name={[name, 'content']}><Input placeholder="Choice content" /></Form.Item>
+                                            <Form.Item {...restField} name={[name, 'imageUrl']}><Input placeholder="Image URL (optional)" /></Form.Item>
+                                            <Form.Item {...restField} name={[name, 'isCorrect']} valuePropName="checked" initialValue={false}><Checkbox /></Form.Item>
+                                            <DeleteOutlined onClick={() => remove(name)} />
+                                        </Space>
+                                    ))}
+                                    <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>Add Choice</Button>
+                                </div>
+                            )}
+                        </Form.List>
+                    </Form.Item>
+                </>
+            );
+
+        default:
+            return null;
+    }
+}
+
 interface CreateQuizModalProps {
     open: boolean;
     onClose: () => void;
@@ -70,6 +128,10 @@ const CreateQuizModal = ({ open, onClose, onFinish, categoryId }: CreateQuizModa
                                         { label: 'Listening Comprehension', value: 'LISTENING_COMPREHENSION' },
                                         { label: 'Multiple Choice (Image)', value: 'MULTIPLE_CHOICE_IMAGE' },
                                         { label: 'Multiple Choice (Text)', value: 'MULTIPLE_CHOICE_TEXT' },
+                                        { label: 'Translate EN to VI', value: 'TRANSLATE_EN_TO_VI' },
+                                        { label: 'Translate VI to EN', value: 'TRANSLATE_VI_TO_EN' },
+                                        { label: 'Listening & Transcribe', value: 'LISTENING_TRANSCRIPTION' },
+                                        { label: 'Arrange Words', value: 'ARRANGE_WORDS' },
                                     ]} />
                                 </Form.Item>
                                 <Form.Item
@@ -79,38 +141,6 @@ const CreateQuizModal = ({ open, onClose, onFinish, categoryId }: CreateQuizModa
                                     rules={[{ required: true }]}
                                 >
                                     <Input.TextArea rows={2} />
-                                </Form.Item>
-
-                                <Form.Item
-                                    {...restField}
-                                    label="Text to Fill"
-                                    name={[name, 'textToFill']}
-                                >
-                                    <Input />
-                                </Form.Item>
-
-                                <Form.Item
-                                    {...restField}
-                                    label="Correct Sentence"
-                                    name={[name, 'correctSentence']}
-                                >
-                                    <Input />
-                                </Form.Item>
-
-                                <Form.Item
-                                    {...restField}
-                                    label="Audio URL"
-                                    name={[name, 'audioUrl']}
-                                >
-                                    <Input />
-                                </Form.Item>
-
-                                <Form.Item
-                                    {...restField}
-                                    label="Image URL"
-                                    name={[name, 'imageUrl']}
-                                >
-                                    <Input />
                                 </Form.Item>
 
                                 <Form.Item
@@ -129,42 +159,7 @@ const CreateQuizModal = ({ open, onClose, onFinish, categoryId }: CreateQuizModa
                                     <Input />
                                 </Form.Item>
 
-                                <Form.Item label="Choices">
-                                    <Form.List name={[name, 'choices']}>
-                                        {(subFields, { add: addChoice, remove: removeChoice }) => (
-                                            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                                                {subFields.map(({ key: subKey, name: subName, ...restSubField }) => (
-                                                    <Space key={subKey} align="baseline">
-                                                        <Form.Item
-                                                            {...restSubField}
-                                                            name={[subName, 'content']}
-                                                        >
-                                                            <Input placeholder="Choice content" />
-                                                        </Form.Item>
-                                                        <Form.Item
-                                                            {...restSubField}
-                                                            name={[subName, 'imageUrl']}
-                                                        >
-                                                            <Input placeholder="Image URL (optional)" />
-                                                        </Form.Item>
-                                                        <Form.Item
-                                                            {...restSubField}
-                                                            name={[subName, 'isCorrect']}
-                                                            valuePropName="checked"
-                                                            initialValue={false}
-                                                        >
-                                                            <Checkbox />
-                                                        </Form.Item>
-                                                        <DeleteOutlined onClick={() => removeChoice(subName)} />
-                                                    </Space>
-                                                ))}
-                                                <Button type="dashed" onClick={() => addChoice()} block icon={<PlusOutlined />}>
-                                                    Add Choice
-                                                </Button>
-                                            </div>
-                                        )}
-                                    </Form.List>
-                                </Form.Item>
+                                <DynamicQuestionFields questionIndex={name} />
                             </Card>
                         ))}
                         <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>

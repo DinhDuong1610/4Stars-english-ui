@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import { Card, Empty, Button, Collapse, Space, Tag, List, Radio, Image, message, Skeleton, Popconfirm } from 'antd';
+import { Card, Empty, Button, Collapse, Space, Tag, List, Radio, Image, message, Skeleton, Popconfirm, Typography } from 'antd';
 import { PlusOutlined, EditOutlined, DeleteOutlined, QuestionCircleOutlined } from '@ant-design/icons';
 import type { IQuiz, IQuestion } from 'types/quiz.type';
 import { deleteQuizAPI, fetchQuizzesAPI, generateQuizAPI } from 'services/quiz.service';
-import CreateQuizModal from './create-quiz-modal.component';
-
+import CreateQuizModal from 'components/quiz/create-quiz-modal.component';
+const { Text } = Typography;
 const { Panel } = Collapse;
 
 interface QuizDetailViewProps {
@@ -95,32 +95,50 @@ const QuizDetailView = ({ categoryId, type }: QuizDetailViewProps) => {
         );
     }
 
-    const QuestionDisplay = ({ question }: { question: IQuestion }) => (
-        <div>
-            <Tag
-                color={question.questionType === 'FILL_IN_BLANK' ? 'yellow' :
-                    question.questionType === 'LISTENING_COMPREHENSION' ? 'purple' :
-                        question.questionType === 'MULTIPLE_CHOICE_IMAGE' ? 'pink' : 'orange'
-                }
-            >
-                {question.questionType}
-            </Tag>
-            {question.audioUrl && <audio controls src={question.audioUrl} style={{ height: '30px', marginLeft: '10px' }} />}
-            {question.imageUrl && <Image src={question.imageUrl} width={100} />}
+    const QuestionDisplay = ({ question }: { question: IQuestion }) => {
+        const questionTypeColor = {
+            'FILL_IN_BLANK': 'yellow',
+            'LISTENING_COMPREHENSION': 'purple',
+            'MULTIPLE_CHOICE_IMAGE': 'pink',
+            'MULTIPLE_CHOICE_TEXT': 'orange',
+            'TRANSLATE_EN_TO_VI': 'blue',
+            'TRANSLATE_VI_TO_EN': 'cyan',
+            'LISTENING_TRANSCRIPTION': 'geekblue',
+            'ARRANGE_WORDS': 'green'
+        };
 
-            <List
-                size="small"
-                // header={<div>Choices</div>}
-                bordered
-                dataSource={question.choices}
-                renderItem={(choice) => (
-                    <List.Item style={{ background: choice.isCorrect ? '#CCEFB2' : 'inherit' }}>
-                        <Radio checked={choice.isCorrect}>{choice.content || <Image src={choice.imageUrl ?? ''} width={80} />}</Radio>
-                    </List.Item>
+        return (
+            <div>
+                <Tag color={questionTypeColor[question.questionType] || 'default'}>
+                    {question.questionType}
+                </Tag>
+
+                {question.correctSentence && (
+                    <p style={{ marginTop: 8 }}>
+                        <strong>Correct Answer: </strong>
+                        <Text code>{question.correctSentence}</Text>
+                    </p>
                 )}
-            />
-        </div>
-    );
+
+                {question.audioUrl && <audio controls src={question.audioUrl} style={{ height: '30px', margin: '10px 0' }} />}
+                {question.imageUrl && <Image src={question.imageUrl} width={100} />}
+
+                {question.choices && question.choices.length > 0 && (
+                    <List
+                        size="small"
+                        header={<div>Choices</div>}
+                        bordered
+                        dataSource={question.choices}
+                        renderItem={(choice) => (
+                            <List.Item style={{ background: choice.isCorrect ? '#CCEFB2' : 'inherit' }}>
+                                <Radio checked={choice.isCorrect}>{choice.content || <Image src={choice.imageUrl ?? ''} width={80} />}</Radio>
+                            </List.Item>
+                        )}
+                    />
+                )}
+            </div>
+        );
+    };
 
     return (
         <>

@@ -7,7 +7,14 @@ export interface IChoice {
 
 export interface IQuestion {
     id: number;
-    questionType: 'FILL_IN_BLANK' | 'LISTENING_COMPREHENSION' | 'MULTIPLE_CHOICE_IMAGE' | 'MULTIPLE_CHOICE_TEXT';
+    questionType: 'FILL_IN_BLANK'
+    | 'LISTENING_COMPREHENSION'
+    | 'MULTIPLE_CHOICE_IMAGE'
+    | 'MULTIPLE_CHOICE_TEXT'
+    | 'TRANSLATE_EN_TO_VI'
+    | 'TRANSLATE_VI_TO_EN'
+    | 'LISTENING_TRANSCRIPTION'
+    | 'ARRANGE_WORDS';
     prompt: string;
     textToFill: string | null;
     correctSentence: string | null;
@@ -38,7 +45,14 @@ export interface ICreateChoice {
 }
 
 export interface ICreateQuestion {
-    questionType: 'FILL_IN_BLANK' | 'LISTENING_COMPREHENSION' | 'MULTIPLE_CHOICE_IMAGE' | 'MULTIPLE_CHOICE_TEXT';
+    questionType: 'FILL_IN_BLANK'
+    | 'LISTENING_COMPREHENSION'
+    | 'MULTIPLE_CHOICE_IMAGE'
+    | 'MULTIPLE_CHOICE_TEXT'
+    | 'TRANSLATE_EN_TO_VI'
+    | 'TRANSLATE_VI_TO_EN'
+    | 'LISTENING_TRANSCRIPTION'
+    | 'ARRANGE_WORDS';
     prompt: string;
     textToFill: string | null;
     correctSentence: string | null;
