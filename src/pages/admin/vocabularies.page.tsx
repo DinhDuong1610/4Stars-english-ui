@@ -429,7 +429,7 @@ const VocabularyPage = () => {
         {
             key: 'quizzes',
             label: 'Quiz List',
-            children: <QuizDetailView categoryId={selectedCategoryId} />,
+            children: <QuizDetailView categoryId={selectedCategoryId} type="VOCABULARY" />,
         },
     ];
 

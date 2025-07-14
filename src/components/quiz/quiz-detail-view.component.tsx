@@ -8,9 +8,10 @@ const { Panel } = Collapse;
 
 interface QuizDetailViewProps {
     categoryId: number | null;
+    type: "VOCABULARY" | "GRAMMAR";
 }
 
-const QuizDetailView = ({ categoryId }: QuizDetailViewProps) => {
+const QuizDetailView = ({ categoryId, type }: QuizDetailViewProps) => {
     const [quiz, setQuiz] = useState<IQuiz | null>(null);
     const [isLoading, setIsLoading] = useState(false);
     const [isGenerating, setIsGenerating] = useState(false);
@@ -40,7 +41,7 @@ const QuizDetailView = ({ categoryId }: QuizDetailViewProps) => {
         }
     };
 
-    const handleGenerateQuiz = async () => {
+    const handleGenerateQuizVocabulary = async () => {
         if (!categoryId) return;
 
         setIsGenerating(true);
@@ -92,7 +93,13 @@ const QuizDetailView = ({ categoryId }: QuizDetailViewProps) => {
             <Card>
                 <Empty description="No quiz found for this category.">
                     <Button type="primary" icon={<PlusOutlined />}
-                        onClick={handleGenerateQuiz}
+                        onClick={() => {
+                            if (type === "VOCABULARY") {
+                                handleGenerateQuizVocabulary();
+                            } else {
+                                message.error("Only vocabulary quizzes can be created.");
+                            }
+                        }}
                         loading={isGenerating}>
                         Create New Quiz
                     </Button>

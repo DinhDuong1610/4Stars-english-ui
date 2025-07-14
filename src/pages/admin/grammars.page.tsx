@@ -2,7 +2,7 @@ import { ProTable, type ActionType, type ProColumns } from "@ant-design/pro-comp
 import { useEffect, useRef, useState, type Key } from "react";
 import type { IMeta } from "types/backend";
 import type { DataNode } from "antd/es/tree";
-import { Button, Card, Col, notification, Popconfirm, Row, Space, Spin, Tree } from "antd";
+import { Button, Card, Col, notification, Popconfirm, Row, Space, Spin, Tabs, Tree } from "antd";
 import type { IconType } from "antd/es/notification/interface";
 import { fetchCategoriesAPI } from "services/category.service";
 import type { ICategory } from "types/category.type";
@@ -15,6 +15,8 @@ import { deleteGrammarAPI, fetchGrammarsAPI } from "services/grammar.service";
 import CreateGrammarModal from "components/grammar/create-grammar-modal.component";
 import UpdateGrammarModal from "components/grammar/update-grammar-modal.component";
 import GrammarDetailDrawer from "components/grammar/grammar-detail-drawer.component";
+import type { TabsProps } from "antd/lib";
+import QuizDetailView from "components/quiz/quiz-detail-view.component";
 
 const GrammarPage = () => {
     const actionRef = useRef<ActionType>(null);
@@ -230,6 +232,90 @@ const GrammarPage = () => {
         },
     ];
 
+    const tabItems: TabsProps['items'] = [
+        {
+            key: 'grammars',
+            label: 'Grammar List',
+            children: (
+                <ProTable<IGrammar>
+                    columns={columns}
+                    actionRef={actionRef}
+                    request={async (params, sort, filter) => {
+                        const queryParts: string[] = [];
+                        queryParts.push(`categoryId=${selectedCategoryId}`);
+                        queryParts.push(`page=${params.current}`);
+                        queryParts.push(`size=${params.pageSize}`);
+
+                        for (const key in filter) {
+                            if (filter[key]) {
+                                queryParts.push(`${key}=${filter[key]}`);
+                            }
+                        }
+
+                        const searchParams = { ...params };
+                        delete searchParams.current;
+                        delete searchParams.pageSize;
+
+                        for (const key in searchParams) {
+                            if (searchParams[key]) {
+                                queryParts.push(`${key}=${searchParams[key]}`);
+                            }
+                        }
+
+                        if (sort) {
+                            for (const key in sort) {
+                                const value = sort[key];
+                                queryParts.push(`sort=${key},${value === 'ascend' ? 'asc' : 'desc'}`);
+                            }
+                        }
+
+                        const query = queryParts.join('&');
+
+                        const res = await fetchGrammarsAPI(query);
+
+                        if (res && res.data) {
+                            setMeta(res.data.meta);
+                            return {
+                                data: res.data.result,
+                                page: 1,
+                                success: true,
+                                total: res.data.meta.total,
+                            };
+                        } else {
+                            return {
+                                data: [],
+                                success: false,
+                                total: 0,
+                            };
+                        }
+                    }}
+                    rowKey="id"
+                    pagination={{
+                        current: meta.page,
+                        pageSize: meta.pageSize,
+                        showSizeChanger: true,
+                        total: meta.total
+                    }}
+                    toolBarRender={() => [
+                        <Button type="primary" key="primary"
+                            icon={<PlusOutlined />}
+                            onClick={() => setIsCreateModalOpen(true)}
+                        >
+                            Create
+                        </Button>,
+                    ]}
+                    scroll={{ x: 'max-content' }}
+                    headerTitle="Grammar Management"
+                />
+            ),
+        },
+        {
+            key: 'quizzes',
+            label: 'Quiz List',
+            children: <QuizDetailView categoryId={selectedCategoryId} type="GRAMMAR" />,
+        },
+    ];
+
 
     return (
         <>
@@ -248,78 +334,9 @@ const GrammarPage = () => {
                 </Col>
                 <Col span={18}>
                     {selectedCategoryId ? (
-                        <ProTable<IGrammar>
-                            columns={columns}
-                            actionRef={actionRef}
-                            request={async (params, sort, filter) => {
-                                const queryParts: string[] = [];
-                                queryParts.push(`categoryId=${selectedCategoryId}`);
-                                queryParts.push(`page=${params.current}`);
-                                queryParts.push(`size=${params.pageSize}`);
-
-                                for (const key in filter) {
-                                    if (filter[key]) {
-                                        queryParts.push(`${key}=${filter[key]}`);
-                                    }
-                                }
-
-                                const searchParams = { ...params };
-                                delete searchParams.current;
-                                delete searchParams.pageSize;
-
-                                for (const key in searchParams) {
-                                    if (searchParams[key]) {
-                                        queryParts.push(`${key}=${searchParams[key]}`);
-                                    }
-                                }
-
-                                if (sort) {
-                                    for (const key in sort) {
-                                        const value = sort[key];
-                                        queryParts.push(`sort=${key},${value === 'ascend' ? 'asc' : 'desc'}`);
-                                    }
-                                }
-
-                                const query = queryParts.join('&');
-
-                                const res = await fetchGrammarsAPI(query);
-
-                                if (res && res.data) {
-                                    setMeta(res.data.meta);
-                                    return {
-                                        data: res.data.result,
-                                        page: 1,
-                                        success: true,
-                                        total: res.data.meta.total,
-                                    };
-                                } else {
-                                    return {
-                                        data: [],
-                                        success: false,
-                                        total: 0,
-                                    };
-                                }
-                            }}
-                            rowKey="id"
-                            pagination={{
-                                current: meta.page,
-                                pageSize: meta.pageSize,
-                                showSizeChanger: true,
-                                total: meta.total
-                            }}
-                            toolBarRender={() => [
-                                <Button type="primary" key="primary"
-                                    icon={<PlusOutlined />}
-                                    onClick={() => setIsCreateModalOpen(true)}
-                                >
-                                    Create
-                                </Button>,
-                            ]}
-                            scroll={{ x: 'max-content' }}
-                            headerTitle="Grammar Management"
-                        />
+                        <Tabs type="card" defaultActiveKey="grammars" items={tabItems} />
                     ) : (
-                        <Card><p>Please select a category to view articles.</p></Card>
+                        <Card><p>Please select a category to view grammar.</p></Card>
                     )}
                 </Col >
             </Row >
