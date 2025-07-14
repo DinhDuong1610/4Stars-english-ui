@@ -3,6 +3,7 @@ import { Card, Empty, Button, Collapse, Space, Tag, List, Radio, Image, message,
 import { PlusOutlined, EditOutlined, DeleteOutlined, QuestionCircleOutlined } from '@ant-design/icons';
 import type { IQuiz, IQuestion } from 'types/quiz.type';
 import { deleteQuizAPI, fetchQuizzesAPI, generateQuizAPI } from 'services/quiz.service';
+import CreateQuizModal from './create-quiz-modal.component';
 
 const { Panel } = Collapse;
 
@@ -15,6 +16,7 @@ const QuizDetailView = ({ categoryId, type }: QuizDetailViewProps) => {
     const [quiz, setQuiz] = useState<IQuiz | null>(null);
     const [isLoading, setIsLoading] = useState(false);
     const [isGenerating, setIsGenerating] = useState(false);
+    const [isCreateQuizModalOpen, setIsCreateQuizModalOpen] = useState(false);
 
     useEffect(() => {
         fetchQuiz();
@@ -76,6 +78,11 @@ const QuizDetailView = ({ categoryId, type }: QuizDetailViewProps) => {
         }
     };
 
+    const handleFinishCreateQuiz = () => {
+        setIsCreateQuizModalOpen(false);
+        fetchQuiz();
+    }
+
     if (isLoading) {
         return (
             <Card title={<Skeleton.Input active style={{ width: '200px' }} />} extra={<Skeleton.Button active />}>
@@ -84,26 +91,6 @@ const QuizDetailView = ({ categoryId, type }: QuizDetailViewProps) => {
                 <Skeleton.Input active block style={{ marginBottom: '16px' }} />
                 <Skeleton.Input active block style={{ marginBottom: '16px' }} />
                 <Skeleton.Input active block />
-            </Card>
-        );
-    }
-
-    if (!quiz) {
-        return (
-            <Card>
-                <Empty description="No quiz found for this category.">
-                    <Button type="primary" icon={<PlusOutlined />}
-                        onClick={() => {
-                            if (type === "VOCABULARY") {
-                                handleGenerateQuizVocabulary();
-                            } else {
-                                message.error("Only vocabulary quizzes can be created.");
-                            }
-                        }}
-                        loading={isGenerating}>
-                        Create New Quiz
-                    </Button>
-                </Empty>
             </Card>
         );
     }
@@ -136,44 +123,74 @@ const QuizDetailView = ({ categoryId, type }: QuizDetailViewProps) => {
     );
 
     return (
-        <Card
-            title={quiz.title}
-            extra={
-                <Space>
-                    <Button icon={<EditOutlined />}>Edit Quiz Info</Button>
-                    <Button type="primary" icon={<PlusOutlined />}>Add Question</Button>
-                    <Popconfirm
-                        title="Delete this quiz"
-                        description="Are you sure? This will delete the quiz and all its questions."
-                        onConfirm={handleDeleteQuiz}
-                        icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
-                        okText="Yes, Delete"
-                        okButtonProps={{ danger: true }}
-                        cancelText="No"
-                    >
-                        <Button danger icon={<DeleteOutlined />}>Delete Quiz</Button>
-                    </Popconfirm>
-                </Space>
-            }
-        >
-            <p>{quiz.description}</p>
-            <Collapse>
-                {quiz.questions.map((q, index) => (
-                    <Panel
-                        header={`Question ${index + 1}: ${q.prompt}`}
-                        key={q.id}
+        <>
+            {
+                !quiz ? (
+                    <Card>
+                        <Empty description="No quiz found for this category.">
+                            <Button type="primary" icon={<PlusOutlined />}
+                                onClick={() => {
+                                    if (type === "VOCABULARY") {
+                                        handleGenerateQuizVocabulary();
+                                    } else {
+                                        setIsCreateQuizModalOpen(true);
+                                    }
+                                }}
+                                loading={isGenerating}
+                            >
+                                Create New Quiz
+                            </Button>
+                        </Empty>
+                    </Card>
+                ) : (
+                    <Card
+                        title={quiz.title}
                         extra={
-                            <Space onClick={e => e.stopPropagation()}>
-                                <Button size="small" icon={<EditOutlined />} />
-                                <Button size="small" danger icon={<DeleteOutlined />} />
+                            <Space>
+                                <Button icon={<EditOutlined />}>Edit Quiz Info</Button>
+                                <Button type="primary" icon={<PlusOutlined />}>Add Question</Button>
+                                <Popconfirm
+                                    title="Delete this quiz"
+                                    description="Are you sure? This will delete the quiz and all its questions."
+                                    onConfirm={handleDeleteQuiz}
+                                    icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
+                                    okText="Yes, Delete"
+                                    okButtonProps={{ danger: true }}
+                                    cancelText="No"
+                                >
+                                    <Button danger icon={<DeleteOutlined />}>Delete Quiz</Button>
+                                </Popconfirm>
                             </Space>
                         }
                     >
-                        <QuestionDisplay question={q} />
-                    </Panel>
-                ))}
-            </Collapse>
-        </Card>
+                        <p>{quiz.description}</p>
+                        <Collapse>
+                            {quiz.questions.map((q, index) => (
+                                <Panel
+                                    header={`Question ${index + 1}: ${q.prompt}`}
+                                    key={q.id}
+                                    extra={
+                                        <Space onClick={e => e.stopPropagation()}>
+                                            <Button size="small" icon={<EditOutlined />} />
+                                            <Button size="small" danger icon={<DeleteOutlined />} />
+                                        </Space>
+                                    }
+                                >
+                                    <QuestionDisplay question={q} />
+                                </Panel>
+                            ))}
+                        </Collapse>
+                    </Card>
+                )
+            }
+
+            <CreateQuizModal
+                open={isCreateQuizModalOpen}
+                onClose={() => setIsCreateQuizModalOpen(false)}
+                onFinish={handleFinishCreateQuiz}
+                categoryId={categoryId}
+            />
+        </>
     );
 };
 
