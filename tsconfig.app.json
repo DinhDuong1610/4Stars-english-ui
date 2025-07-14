@@ -41,6 +41,12 @@
       ],
       "utils/*": [
         "./src/utils/*"
+      ],
+      "stores/*": [
+        "./src/stores/*"
+      ],
+      "router/*": [
+        "./src/router/*"
       ]
     },
     /* Bundler mode */
