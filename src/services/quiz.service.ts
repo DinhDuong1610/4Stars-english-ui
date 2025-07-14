@@ -1,5 +1,5 @@
-import type { IBackendRes } from "types/backend";
-import type { IQuiz } from "types/quiz.type";
+import type { IBackendRes, IResponse } from "types/backend";
+import type { ICreateQuiz, IQuiz } from "types/quiz.type";
 import instance from "services/axios.customize";
 
 export const fetchQuizzesAPI = (query: string) => {
@@ -15,4 +15,9 @@ export const generateQuizAPI = (categoryId: number) => {
 export const deleteQuizAPI = (id: number) => {
     const url_backend = `/api/v1/admin/quizzes/${id}`;
     return instance.delete(url_backend);
+}
+
+export const createQuizAPI = (data: ICreateQuiz) => {
+    const url_backend = `/api/v1/admin/quizzes`;
+    return instance.post<IResponse<IQuiz>>(url_backend, data);
 }

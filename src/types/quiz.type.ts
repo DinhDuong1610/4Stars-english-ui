@@ -7,7 +7,14 @@ export interface IChoice {
 
 export interface IQuestion {
     id: number;
-    questionType: 'FILL_IN_BLANK' | 'LISTENING_COMPREHENSION' | 'MULTIPLE_CHOICE_IMAGE' | 'MULTIPLE_CHOICE_TEXT';
+    questionType: 'FILL_IN_BLANK'
+    | 'LISTENING_COMPREHENSION'
+    | 'MULTIPLE_CHOICE_IMAGE'
+    | 'MULTIPLE_CHOICE_TEXT'
+    | 'TRANSLATE_EN_TO_VI'
+    | 'TRANSLATE_VI_TO_EN'
+    | 'LISTENING_TRANSCRIPTION'
+    | 'ARRANGE_WORDS';
     prompt: string;
     textToFill: string | null;
     correctSentence: string | null;
@@ -28,4 +35,37 @@ export interface IQuiz {
     createdAt: string;
     updatedAt: string | null;
     questions: IQuestion[];
+}
+
+
+export interface ICreateChoice {
+    content: string | null;
+    imageUrl: string | null;
+    isCorrect: boolean;
+}
+
+export interface ICreateQuestion {
+    questionType: 'FILL_IN_BLANK'
+    | 'LISTENING_COMPREHENSION'
+    | 'MULTIPLE_CHOICE_IMAGE'
+    | 'MULTIPLE_CHOICE_TEXT'
+    | 'TRANSLATE_EN_TO_VI'
+    | 'TRANSLATE_VI_TO_EN'
+    | 'LISTENING_TRANSCRIPTION'
+    | 'ARRANGE_WORDS';
+    prompt: string;
+    textToFill: string | null;
+    correctSentence: string | null;
+    audioUrl: string | null;
+    imageUrl: string | null;
+    points: number;
+    questionOrder: number;
+    choices: ICreateChoice[];
+}
+
+export interface ICreateQuiz {
+    title: string;
+    description: string;
+    categoryId: number;
+    questions: ICreateQuestion[];
 }

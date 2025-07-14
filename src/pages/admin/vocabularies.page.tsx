@@ -41,7 +41,6 @@ const VocabularyPage = () => {
     const [currentPageData, setCurrentPageData] = useState<IVocabulary[]>([]);
     const [isExporting, setIsExporting] = useState<boolean>(false);
     const [isImportModalOpen, setIsImportModalOpen] = useState<boolean>(false);
-    const [activeTab, setActiveTab] = useState('vocabularies');
     const [api, contextHolder] = notification.useNotification();
 
     const openNotification = (pauseOnHover: boolean, message: string, desc: string, type: IconType = 'success') => () => {
@@ -429,7 +428,7 @@ const VocabularyPage = () => {
         {
             key: 'quizzes',
             label: 'Quiz List',
-            children: <QuizDetailView categoryId={selectedCategoryId} />,
+            children: <QuizDetailView categoryId={selectedCategoryId} type="VOCABULARY" />,
         },
     ];
 
@@ -450,7 +449,7 @@ const VocabularyPage = () => {
                 </Col>
                 <Col span={18}>
                     {selectedCategoryId ? (
-                        <Tabs type="card" defaultActiveKey="vocabularies" items={tabItems} onChange={setActiveTab} />
+                        <Tabs type="card" defaultActiveKey="vocabularies" items={tabItems} />
                     ) : (
                         <Card><p>Please select a category to view vocabularies.</p></Card>
                     )}
