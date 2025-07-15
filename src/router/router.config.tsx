@@ -54,9 +54,7 @@ const routes = [
                     {
                         index: true,
                         element: (
-                            <PermissionGuard apiPath="/api/v1/admin/dashboard" method="GET">
-                                <DashboardPage />
-                            </PermissionGuard>
+                            <DashboardPage />
                         ),
                     },
                     {
