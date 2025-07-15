@@ -15,6 +15,7 @@ import GrammarPage from 'pages/admin/grammars.page';
 import VocabularyPage from 'pages/admin/vocabularies.page';
 import LoginPage from 'pages/auth/login.page';
 import ProtectedRoute from 'router/protected-route.component';
+import PermissionsPage from 'pages/admin/permissions.page';
 
 const routes = [
     {
@@ -73,7 +74,11 @@ const routes = [
                     {
                         path: 'vocabularies',
                         element: <VocabularyPage />,
-                    }
+                    },
+                    {
+                        path: 'permissions',
+                        element: <PermissionsPage />,
+                    },
                 ],
             }
         ]
