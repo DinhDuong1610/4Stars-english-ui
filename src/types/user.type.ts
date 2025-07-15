@@ -1,6 +1,9 @@
+import type { IPermission } from "types/permission.type";
+
 export interface IRole {
     id: number;
     name: string;
+    permissions: IPermission[];
 }
 
 export interface IBadge {
