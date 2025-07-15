@@ -3,13 +3,16 @@ import ProLayout from '@ant-design/pro-layout';
 import { AppstoreOutlined, BookOutlined, DashboardOutlined, LockOutlined, PicCenterOutlined, PicLeftOutlined, TrophyOutlined, UserOutlined, VideoCameraOutlined, } from '@ant-design/icons';
 import styles from './admin.layout.module.scss';
 import Logo from 'assets/images/logo.png';
+import { useAuthStore } from 'stores/auth.store';
 
-const AdminLayout: React.FC = () => {
+const AdminLayout = () => {
+    const { user } = useAuthStore();
+
     return (
         <div className={styles.container}>
             <ProLayout
                 logo={Logo}
-                title="Trang Quản Trị"
+                title="ADMIN PAGE"
                 layout="mix"
                 menuDataRender={() => [
                     { path: '/admin', name: 'Dashboard', icon: <DashboardOutlined /> },
@@ -27,9 +30,10 @@ const AdminLayout: React.FC = () => {
                     return <Link to={menuItemProps.path}>{defaultDom}</Link>;
                 }}
                 avatarProps={{
-                    src: 'https://gw.alipayobjects.com/zos/antfincdn/efFD%24IOql2/weixintupian_20170331104822.jpg',
-                    title: 'Admin', size: 'large',
+                    title: user?.name,
+                    icon: <UserOutlined />
                 }}
+
             >
                 <div className={styles.content}>
                     <Outlet />
