@@ -20,6 +20,7 @@ import ForbiddenPage from 'pages/error/403.page';
 import NotFoundPage from 'pages/error/404.page';
 import PermissionGuard from 'components/share/permission-guard.component';
 import AdminGuard from 'components/share/admin-guard.component';
+import LoggingPage from 'pages/admin/logging.page';
 
 const routes = [
     {
@@ -121,6 +122,10 @@ const routes = [
                             </PermissionGuard>
                         ),
                     },
+                    {
+                        path: 'logging',
+                        element: <LoggingPage />
+                    }
                 ],
             }
         ]
