@@ -14,7 +14,12 @@ import VideoPage from 'pages/admin/videos.page';
 import GrammarPage from 'pages/admin/grammars.page';
 import VocabularyPage from 'pages/admin/vocabularies.page';
 import LoginPage from 'pages/auth/login.page';
-import ProtectedRoute from 'router/protected-route.component';
+import ProtectedRoute from 'components/share/protected-route.component';
+import PermissionsPage from 'pages/admin/permissions.page';
+import ForbiddenPage from 'pages/error/403.page';
+import NotFoundPage from 'pages/error/404.page';
+import PermissionGuard from 'components/share/permission-guard.component';
+import AdminGuard from 'components/share/admin-guard.component';
 
 const routes = [
     {
@@ -40,43 +45,95 @@ const routes = [
         children: [
             {
                 path: '/admin',
-                element: <AdminLayout />,
+                element: (
+                    <AdminGuard>
+                        <AdminLayout />
+                    </AdminGuard>
+                ),
                 children: [
                     {
                         index: true,
-                        element: <DashboardPage />,
+                        element: (
+                            <PermissionGuard apiPath="/api/v1/admin/dashboard" method="GET">
+                                <DashboardPage />
+                            </PermissionGuard>
+                        ),
                     },
                     {
                         path: 'users',
-                        element: <UsersPage />,
+                        element: (
+                            <PermissionGuard apiPath="/api/v1/admin/users" method="GET">
+                                <UsersPage />
+                            </PermissionGuard>
+                        ),
                     },
                     {
                         path: 'plans',
-                        element: <PlanPage />,
+                        element: (
+                            <PermissionGuard apiPath="/api/v1/admin/plans" method="GET">
+                                <PlanPage />
+                            </PermissionGuard>
+                        ),
                     },
                     {
                         path: 'badges',
-                        element: <BadgePage />,
+                        element: (
+                            <PermissionGuard apiPath="/api/v1/admin/badges" method="GET">
+                                <BadgePage />
+                            </PermissionGuard>
+                        ),
                     },
                     {
                         path: 'articles',
-                        element: <ArticlePage />,
+                        element: (
+                            <PermissionGuard apiPath="/api/v1/admin/articles" method="GET">
+                                <ArticlePage />
+                            </PermissionGuard>
+                        ),
                     },
                     {
                         path: 'videos',
-                        element: <VideoPage />,
+                        element: (
+                            <PermissionGuard apiPath="/api/v1/admin/videos" method="GET">
+                                <VideoPage />
+                            </PermissionGuard>
+                        ),
                     },
                     {
                         path: 'grammars',
-                        element: <GrammarPage />,
+                        element: (
+                            <PermissionGuard apiPath="/api/v1/admin/grammars" method="GET">
+                                <GrammarPage />
+                            </PermissionGuard>
+                        ),
                     },
                     {
                         path: 'vocabularies',
-                        element: <VocabularyPage />,
-                    }
+                        element: (
+                            <PermissionGuard apiPath="/api/v1/admin/vocabularies" method="GET">
+                                <VocabularyPage />
+                            </PermissionGuard>
+                        ),
+                    },
+                    {
+                        path: 'permissions',
+                        element: (
+                            <PermissionGuard apiPath="/api/v1/admin/permissions" method="GET">
+                                <PermissionsPage />
+                            </PermissionGuard>
+                        ),
+                    },
                 ],
             }
         ]
+    },
+    {
+        path: '/403',
+        element: <ForbiddenPage />,
+    },
+    {
+        path: '*',
+        element: <NotFoundPage />,
     },
 ];
 
