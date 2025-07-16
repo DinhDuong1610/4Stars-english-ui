@@ -1,0 +1,66 @@
+.sidebar {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: transparent;
+    padding: 15px;
+}
+
+.logo {
+    padding: 12px 15px;
+    font-size: 36px;
+    font-weight: bold;
+    color: var(--ant-color-primary, #1677ff);
+    cursor: pointer;
+}
+
+.menuContainer {
+    flex-grow: 1;
+    list-style: none;
+    padding: 10px 0px;
+    margin: 0;
+}
+
+.menuItem {
+    display: flex;
+    align-items: center;
+    padding: 12px 12px;
+    // margin-bottom: 8px;
+    border-radius: 16px;
+    text-decoration: none;
+    color: var(--ant-color-text, #595959);
+    font-weight: 600;
+    font-size: 20px;
+    transition: background-color 0.3s, color 0.3s, border 0.3s;
+    border: 3px solid transparent;
+
+    .icon {
+        font-size: 20px;
+        margin-right: 16px;
+    }
+
+    &:hover {
+        background-color: var(--ant-control-item-bg-hover, #E3F0FF);
+        border: 3px solid var(--ant-color-primary, #3f96fa);
+    }
+
+    &:active {
+        background-color: var(--ant-color-primary-bg-hover, #e6f4ff);
+        color: var(--ant-color-primary, #3f96fa);
+        border: 3px solid var(--ant-color-primary, #3f96fa);
+    }
+}
+
+.active {
+    background-color: var(--ant-color-primary-bg-hover, #e6f4ff);
+    color: var(--ant-color-primary, #3f96fa);
+    border: 3px solid var(--ant-color-primary, #3f96fa);
+}
+
+.bottomControls {
+    padding: 8px 16px;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    border-top: 1px solid var(--ant-color-border-secondary, #E3F0FF);
+}

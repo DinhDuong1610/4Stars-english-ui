@@ -1,4 +1,4 @@
-import { ConfigProvider, theme } from 'antd';
+import { App, ConfigProvider, theme } from 'antd';
 import { useThemeStore } from 'stores/theme.store';
 
 const ThemeProviderWrapper = ({ children }: { children: React.ReactNode }) => {
@@ -11,12 +11,30 @@ const ThemeProviderWrapper = ({ children }: { children: React.ReactNode }) => {
                     ? theme.darkAlgorithm
                     : theme.defaultAlgorithm,
 
-                // token: {
-                //     colorPrimary: '#00b96b',
-                // },
+                token: {
+                    colorPrimary: '#0077FF',
+                    colorSuccess: '#00BE1D',
+                    colorError: '#CE0000',
+
+                    fontFamily: "'Reddit Sans', sans-serif",
+                },
+                components: {
+                    Button: {
+                        fontFamily: "'Reddit Sans Condensed', sans-serif",
+                        fontWeight: 'bold',
+                    },
+                    Input: {
+                        fontFamily: "'Reddit Sans', sans-serif",
+                    },
+                    Select: {
+                        fontFamily: "'Reddit Sans', sans-serif",
+                    }
+                }
             }}
         >
-            {children}
+            <App>
+                {children}
+            </App>
         </ConfigProvider>
     );
 };

@@ -4,5 +4,17 @@
         "userManagement": "User Management",
         "permission": "Permission"
     },
-    "greeting": "Welcome, {{name}}!"
+    "greeting": "Welcome, {{name}}!",
+    "sidebar": {
+        "review": "Review",
+        "notebook": "Notebook",
+        "learnNew": "Learn New Words",
+        "dictionary": "Dictionary",
+        "grammar": "Grammar",
+        "blog": "Blog",
+        "videoLessons": "Video Lessons",
+        "community": "Community",
+        "store": "Store",
+        "account": "Account"
+    }
 }
