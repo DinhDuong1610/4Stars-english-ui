@@ -22,7 +22,7 @@ const ClientSidebar = () => {
     const navigate = useNavigate();
 
     const menuItems = [
-        { key: '/', icon: <CustomerServiceOutlined />, label: t('sidebar.review') },
+        { key: '/', icon: <CustomerServiceOutlined />, label: t('sidebar.home') },
         { key: '/notebook', icon: <BookOutlined />, label: t('sidebar.notebook') },
         { key: '/learn', icon: <BulbOutlined />, label: t('sidebar.learnNew') },
         { key: '/dictionary', icon: <TranslationOutlined />, label: t('sidebar.dictionary') },

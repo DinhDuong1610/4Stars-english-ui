@@ -6,7 +6,7 @@
     },
     "greeting": "Welcome, {{name}}!",
     "sidebar": {
-        "review": "Review",
+        "home": "Home",
         "notebook": "Notebook",
         "learnNew": "Learn New Words",
         "dictionary": "Dictionary",
@@ -29,5 +29,19 @@
         "leaderboardTitle": "LEADERBOARD",
         "viewAll": "View All",
         "pointsUnit": "points"
+    },
+    "leaderboard": {
+        "weeklyRanking": "WEEKLY RANKING",
+        "days": "days",
+        "leagueTitle": "{{leagueName}} LEAGUE TOURNAMENT",
+        "description": "Top 10 accounts each week will be promoted to the next rank",
+        "timeRemaining": "Time remaining: {{time}}",
+        "rank": "Rank",
+        "whatIsRanking": "WHAT IS THE LEADERBOARD?",
+        "explanation": "Learn - Earn points - Compete. Earn lots of XP from lessons to compete with other learners on the weekly leaderboard."
+    },
+    "errors": {
+        "fetchBadges": "Failed to load the list of leagues.",
+        "fetchLeaderboard": "Failed to load the leaderboard."
     }
 }

@@ -174,7 +174,7 @@ const HomePage = () => {
                                                 fontWeight: 'bold'
                                             }}>{item.name.charAt(0).toUpperCase()}</Avatar>}
                                             title={<b>{item.name}</b>}
-                                            description={`${item.point} điểm`}
+                                            description={`${item.point} ${t('homepage.points')}`}
                                         />
                                         <div className={styles.rankNumber}><b>{index + 1}</b></div>
                                     </List.Item>

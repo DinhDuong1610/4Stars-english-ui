@@ -19,6 +19,7 @@ import NotFoundPage from 'pages/error/404.page';
 import PermissionGuard from 'components/share/permission-guard.component';
 import AdminGuard from 'components/share/admin-guard.component';
 import LoggingPage from 'pages/admin/logging.page';
+import LeaderboardPage from 'pages/client/leaderboard.page';
 
 const routes = [
     {
@@ -33,6 +34,12 @@ const routes = [
                 index: true,
                 element: (
                     <HomePage />
+                ),
+            },
+            {
+                path: 'leaderboard',
+                element: (
+                    <LeaderboardPage />
                 ),
             },
             {
