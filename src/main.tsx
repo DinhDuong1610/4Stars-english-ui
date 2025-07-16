@@ -12,12 +12,10 @@ import '@/i18n';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <Suspense fallback={<Spin size="large" />}>
-      <ConfigProvider locale={enUS}>
-        <ThemeProviderWrapper>
-          <RouterProvider router={router} />
-        </ThemeProviderWrapper>
-      </ConfigProvider>
-    </Suspense>
+    <ConfigProvider locale={enUS}>
+      <ThemeProviderWrapper>
+        <RouterProvider router={router} />
+      </ThemeProviderWrapper>
+    </ConfigProvider>
   </React.StrictMode >,
 );

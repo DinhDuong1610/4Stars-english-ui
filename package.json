@@ -12,6 +12,10 @@
   "dependencies": {
     "@ant-design/charts": "^2.6.0",
     "@ant-design/pro-components": "^2.8.9",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@mui/material": "^7.2.0",
+    "@mui/x-charts": "^8.8.0",
     "@tiptap/extension-color": "^2.24.2",
     "@tiptap/extension-highlight": "^2.24.2",
     "@tiptap/extension-text-align": "^2.24.2",

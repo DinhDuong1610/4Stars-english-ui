@@ -16,5 +16,18 @@
         "community": "Community",
         "store": "Store",
         "account": "Account"
+    },
+    "homepage": {
+        "vocabStatsTitle": "LEARNED VOCABULARY STATISTICS",
+        "wordsToReview": "Words to review:",
+        "wordsUnit": "words",
+        "reviewNow": "REVIEW NOW",
+        "learnNew": "LEARN NEW",
+        "points": "Points",
+        "streak": "Streak",
+        "rank": "Rank",
+        "leaderboardTitle": "LEADERBOARD",
+        "viewAll": "View All",
+        "pointsUnit": "points"
     }
 }

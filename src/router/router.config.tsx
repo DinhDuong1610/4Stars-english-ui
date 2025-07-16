@@ -1,8 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
-
 import AdminLayout from 'layouts/admin.layout';
 import ClientLayout from 'layouts/client.layout';
-
 import HomePage from 'pages/client/home.page';
 import ProductsPage from 'pages/client/products.page';
 import DashboardPage from 'pages/admin/dashboard.page';
@@ -33,12 +31,21 @@ const routes = [
         children: [
             {
                 index: true,
-                element: <HomePage />,
+                element: (
+                    <HomePage />
+                ),
             },
             {
-                path: 'products',
-                element: <ProductsPage />,
-            }
+                element: <ProtectedRoute />,
+                children: [
+                    {
+                        path: 'products',
+                        element: (
+                            <ProductsPage />
+                        ),
+                    },
+                ],
+            },
         ],
     },
     {
