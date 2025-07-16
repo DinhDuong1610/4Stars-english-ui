@@ -1,0 +1,8 @@
+{
+    "menu": {
+        "dashboard": "Bảng điều khiển",
+        "userManagement": "Quản lý Người dùng",
+        "permission": "Phân quyền"
+    },
+    "greeting": "Chào mừng, {{name}}!"
+}
