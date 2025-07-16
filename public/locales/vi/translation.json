@@ -16,5 +16,18 @@
         "community": "Cộng đồng",
         "store": "Cửa hàng",
         "account": "Tài khoản"
+    },
+    "homepage": {
+        "vocabStatsTitle": "THỐNG KÊ TỪ VỰNG ĐÃ HỌC",
+        "wordsToReview": "Chuẩn bị ôn tập:",
+        "wordsUnit": "từ",
+        "reviewNow": "ÔN TẬP NGAY",
+        "learnNew": "HỌC TỪ MỚI",
+        "points": "Điểm",
+        "streak": "Streak",
+        "rank": "Hạng",
+        "leaderboardTitle": "BẢNG XẾP HẠNG",
+        "viewAll": "Xem tất cả",
+        "pointsUnit": "điểm"
     }
 }
