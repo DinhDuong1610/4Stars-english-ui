@@ -38,7 +38,7 @@ const routes = [
             {
                 path: 'products',
                 element: <ProductsPage />,
-            },
+            }
         ],
     },
     {

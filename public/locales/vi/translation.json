@@ -4,5 +4,17 @@
         "userManagement": "Quản lý Người dùng",
         "permission": "Phân quyền"
     },
-    "greeting": "Chào mừng, {{name}}!"
+    "greeting": "Chào mừng, {{name}}!",
+    "sidebar": {
+        "review": "Ôn tập",
+        "notebook": "Sổ tay",
+        "learnNew": "Học từ mới",
+        "dictionary": "Từ điển",
+        "grammar": "Ngữ pháp",
+        "blog": "Blog",
+        "videoLessons": "Học qua Video",
+        "community": "Cộng đồng",
+        "store": "Cửa hàng",
+        "account": "Tài khoản"
+    }
 }

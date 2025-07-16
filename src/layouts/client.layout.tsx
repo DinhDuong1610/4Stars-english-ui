@@ -1,21 +1,24 @@
-import { Layout } from 'antd';
+import React, { Suspense } from 'react';
+import { Layout, Spin } from 'antd';
 import { Outlet } from 'react-router-dom';
-import ClientHeader from 'components/layout/client-header/client-header.component';
-import ClientFooter from 'components/layout/client-footer/client-footer.component';
+import ClientSidebar from 'components/client-sidebar/client-sidebar.component';
 import styles from './client.layout.module.scss';
 
-const { Content } = Layout;
+const { Sider, Content } = Layout;
 
-const ClientLayout = () => {
+const ClientLayout: React.FC = () => {
     return (
-        <Layout>
-            <ClientHeader />
-            <Content className={styles.content}>
-                <div className={styles.contentBackground}>
-                    <Outlet />
-                </div>
-            </Content>
-            <ClientFooter />
+        <Layout className={styles.layout}>
+            <Sider width={250} className={styles.sider}>
+                <ClientSidebar />
+            </Sider>
+            <Layout>
+                <Content className={styles.content}>
+                    <Suspense fallback={<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}><Spin size="large" /></div>}>
+                        <Outlet />
+                    </Suspense>
+                </Content>
+            </Layout>
         </Layout>
     );
 };
