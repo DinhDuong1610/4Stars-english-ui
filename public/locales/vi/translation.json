@@ -6,7 +6,7 @@
     },
     "greeting": "Chào mừng, {{name}}!",
     "sidebar": {
-        "review": "Ôn tập",
+        "home": "Trang chủ",
         "notebook": "Sổ tay",
         "learnNew": "Học từ mới",
         "dictionary": "Từ điển",
@@ -29,5 +29,19 @@
         "leaderboardTitle": "BẢNG XẾP HẠNG",
         "viewAll": "Xem tất cả",
         "pointsUnit": "điểm"
+    },
+    "leaderboard": {
+        "weeklyRanking": "BẢNG XẾP HẠNG TUẦN",
+        "days": "ngày",
+        "leagueTitle": "GIẢI ĐẤU HẠNG {{leagueName}}",
+        "description": "Top 10 tài khoản mỗi tuần sẽ được nâng lên hạng tiếp theo",
+        "timeRemaining": "Thời gian còn lại: {{time}}",
+        "rank": "Hạng",
+        "whatIsRanking": "BẢNG XẾP HẠNG LÀ GÌ?",
+        "explanation": "Học tập - Kiếm điểm - Thi đua. Kiếm thật nhiều KN từ các bài học để thi đua với những người học khác trên bảng xếp hạng hàng tuần."
+    },
+    "errors": {
+        "fetchBadges": "Tải danh sách giải đấu thất bại.",
+        "fetchLeaderboard": "Tải bảng xếp hạng thất bại."
     }
 }
