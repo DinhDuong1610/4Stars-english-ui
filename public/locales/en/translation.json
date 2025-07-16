@@ -1,0 +1,8 @@
+{
+    "menu": {
+        "dashboard": "Dashboard",
+        "userManagement": "User Management",
+        "permission": "Permission"
+    },
+    "greeting": "Welcome, {{name}}!"
+}
