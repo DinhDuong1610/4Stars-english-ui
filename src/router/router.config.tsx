@@ -20,6 +20,7 @@ import PermissionGuard from 'components/share/permission-guard.component';
 import AdminGuard from 'components/share/admin-guard.component';
 import LoggingPage from 'pages/admin/logging.page';
 import LeaderboardPage from 'pages/client/leaderboard.page';
+import DictionaryPage from 'pages/client/dictionary.page';
 
 const routes = [
     {
@@ -40,6 +41,12 @@ const routes = [
                 path: 'leaderboard',
                 element: (
                     <LeaderboardPage />
+                ),
+            },
+            {
+                path: 'dictionary',
+                element: (
+                    <DictionaryPage />
                 ),
             },
             {

@@ -25,14 +25,12 @@ const TextToSpeech = ({ text, lang = 'en-US' }: TextToSpeechProps) => {
     };
 
     return (
-        <Tooltip title={`Listen: "${text}"`}>
-            <Button
-                type="text"
-                icon={<SoundOutlined twoToneColor="#4096FF" />}
-                onClick={handleSpeak}
-                style={{ color: '#4096FF', fontSize: 18, fontWeight: 'bold', borderRadius: '50%', padding: 5, border: '1px solid #4096FF' }}
-            />
-        </Tooltip>
+        <Button
+            type="text"
+            icon={<SoundOutlined twoToneColor="#4096FF" />}
+            onClick={handleSpeak}
+            style={{ color: '#4096FF', fontSize: 18, fontWeight: 'bold', borderRadius: '50%', padding: 5, border: '2px solid #4096FF' }}
+        />
     );
 };
 
