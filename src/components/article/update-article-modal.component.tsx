@@ -9,7 +9,7 @@ import type { IconType } from 'antd/es/notification/interface';
 import type { UploadProps } from 'antd/lib';
 import type { RcFile } from 'antd/es/upload';
 import { LoadingOutlined, PlusOutlined, UploadOutlined } from "@ant-design/icons";
-import TiptapEditor from 'components/tiptap-editor/tiptap-editor.component';
+import TiptapEditor from 'components/common/tiptap-editor/tiptap-editor.component';
 
 interface UpdateArticleModalProps {
     open: boolean;

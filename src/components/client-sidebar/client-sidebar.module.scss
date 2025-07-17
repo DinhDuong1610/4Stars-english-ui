@@ -1,9 +1,10 @@
 .sidebar {
-    height: 100%;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     background-color: transparent;
     padding: 15px;
+    position: fixed;
 }
 
 .logo {

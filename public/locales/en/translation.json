@@ -40,8 +40,36 @@
         "whatIsRanking": "WHAT IS THE LEADERBOARD?",
         "explanation": "Learn - Earn points - Compete. Earn lots of XP from lessons to compete with other learners on the weekly leaderboard."
     },
+    "dictionary": {
+        "title": "English - Vietnamese Dictionary",
+        "placeholder": "Enter a word to look up. E.g., dog, cat,...",
+        "search": "Search",
+        "historyTitle": "Search History",
+        "recentTitle": "Recently Added",
+        "example": "Example",
+        "notFound": "Word '{{word}}' not found",
+        "startSearching": "Start searching to see results",
+        "noWords": "No words yet.",
+        "searchResults": "Search Results",
+        "meaningVi": "Vietnamese Meaning",
+        "definitionEn": "English Definition",
+        "exampleVi": "Vietnamese Example",
+        "exampleEn": "English Example"
+    },
+    "common": {
+        "back": "Back"
+    },
+    "vocabulary": {
+        "exampleSentences": "Example Sentences",
+        "synonyms": "Synonyms",
+        "relatedWords": "Related Words & Phrases"
+    },
     "errors": {
         "fetchBadges": "Failed to load the list of leagues.",
-        "fetchLeaderboard": "Failed to load the leaderboard."
+        "fetchLeaderboard": "Failed to load the leaderboard.",
+        "fetchRecentWords": "Failed to fetch recently added words.",
+        "searchWord": "Word lookup failed. Please try again.",
+        "fetchVocabularyDetail": "Failed to fetch vocabulary detail.",
+        "vocabularyNotFound": "This vocabulary could not be found."
     }
 }

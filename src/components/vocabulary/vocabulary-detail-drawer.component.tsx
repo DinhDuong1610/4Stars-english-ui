@@ -1,6 +1,6 @@
 import { Drawer, Typography, Tag, Divider, Descriptions, Image } from 'antd';
 import { formatISODate } from 'utils/format.util';
-import TextToSpeech from 'components/text-to-speech/text-to-speech.component';
+import TextToSpeech from '@/components/common/text-to-speech/text-to-speech.component';
 import type { IVocabulary } from 'types/vocabulary.type';
 
 const { Title, Paragraph, Text } = Typography;

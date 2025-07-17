@@ -12,14 +12,16 @@ import VideoPage from 'pages/admin/videos.page';
 import GrammarPage from 'pages/admin/grammars.page';
 import VocabularyPage from 'pages/admin/vocabularies.page';
 import LoginPage from 'pages/auth/login.page';
-import ProtectedRoute from 'components/share/protected-route.component';
+import ProtectedRoute from '@/components/common/share/protected-route.component';
 import PermissionsPage from 'pages/admin/permissions.page';
 import ForbiddenPage from 'pages/error/403.page';
 import NotFoundPage from 'pages/error/404.page';
-import PermissionGuard from 'components/share/permission-guard.component';
-import AdminGuard from 'components/share/admin-guard.component';
+import PermissionGuard from '@/components/common/share/permission-guard.component';
+import AdminGuard from '@/components/common/share/admin-guard.component';
 import LoggingPage from 'pages/admin/logging.page';
 import LeaderboardPage from 'pages/client/leaderboard.page';
+import DictionaryPage from 'pages/client/dictionary.page';
+import VocabularyDetailPage from 'pages/client/vocabulary-detail.page';
 
 const routes = [
     {
@@ -40,6 +42,18 @@ const routes = [
                 path: 'leaderboard',
                 element: (
                     <LeaderboardPage />
+                ),
+            },
+            {
+                path: 'dictionary',
+                element: (
+                    <DictionaryPage />
+                ),
+            },
+            {
+                path: 'vocabularies/:id',
+                element: (
+                    <VocabularyDetailPage />
                 ),
             },
             {

@@ -40,8 +40,36 @@
         "whatIsRanking": "BẢNG XẾP HẠNG LÀ GÌ?",
         "explanation": "Học tập - Kiếm điểm - Thi đua. Kiếm thật nhiều KN từ các bài học để thi đua với những người học khác trên bảng xếp hạng hàng tuần."
     },
+    "dictionary": {
+        "title": "Tra cứu từ điển Anh - Việt",
+        "placeholder": "Nhập từ cần tra cứu. Ví dụ: dog, cat,...",
+        "search": "Tra cứu",
+        "historyTitle": "Lịch sử tra cứu",
+        "recentTitle": "Mới thêm vào gần đây",
+        "example": "Ví dụ",
+        "notFound": "Không tìm thấy từ '{{word}}'",
+        "startSearching": "Bắt đầu tra cứu để xem kết quả",
+        "noWords": "Chưa có từ nào.",
+        "searchResults": "Kết quả tra cứu",
+        "meaningVi": "Nghĩa tiếng Việt",
+        "definitionEn": "Định nghĩa tiếng Anh",
+        "exampleVi": "Ví dụ tiếng Việt",
+        "exampleEn": "Ví dụ tiếng Anh"
+    },
+    "common": {
+        "back": "Quay lại"
+    },
+    "vocabulary": {
+        "exampleSentences": "Câu ví dụ",
+        "synonyms": "Từ đồng nghĩa",
+        "relatedWords": "Từ và cụm từ liên quan"
+    },
     "errors": {
         "fetchBadges": "Tải danh sách giải đấu thất bại.",
-        "fetchLeaderboard": "Tải bảng xếp hạng thất bại."
+        "fetchLeaderboard": "Tải bảng xếp hạng thất bại.",
+        "fetchRecentWords": "Tải danh sách từ mới thêm thất bại.",
+        "searchWord": "Tra cứu từ thất bại. Vui lòng thử lại.",
+        "fetchVocabularyDetail": "Tải chi tiết từ vựng thất bại.",
+        "vocabularyNotFound": "Không tìm thấy từ vựng này."
     }
 }

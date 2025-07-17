@@ -14,8 +14,8 @@ import {
 } from '@ant-design/icons';
 
 import styles from './client-sidebar.module.scss';
-import LanguageSwitcher from 'components/language-switcher/language-switcher.component';
-import ThemeSwitcher from 'components/theme-switcher/theme-switcher.component';
+import LanguageSwitcher from '@/components/common/language-switcher/language-switcher.component';
+import ThemeSwitcher from '@/components/common/theme-switcher/theme-switcher.component';
 
 const ClientSidebar = () => {
     const { t } = useTranslation();
@@ -23,9 +23,9 @@ const ClientSidebar = () => {
 
     const menuItems = [
         { key: '/', icon: <CustomerServiceOutlined />, label: t('sidebar.home') },
+        { key: '/dictionary', icon: <TranslationOutlined />, label: t('sidebar.dictionary') },
         { key: '/notebook', icon: <BookOutlined />, label: t('sidebar.notebook') },
         { key: '/learn', icon: <BulbOutlined />, label: t('sidebar.learnNew') },
-        { key: '/dictionary', icon: <TranslationOutlined />, label: t('sidebar.dictionary') },
         { key: '/grammar', icon: <ReadOutlined />, label: t('sidebar.grammar') },
         { key: '/blog', icon: <MessageOutlined />, label: t('sidebar.blog') },
         { key: '/videos', icon: <PlaySquareOutlined />, label: t('sidebar.videoLessons') },

@@ -97,6 +97,7 @@ const HomePage = () => {
                                     label: '',
                                     valueFormatter: (value) => `${value}`,
                                     labelMarkType: 'line',
+                                    color: '#fff',
                                 },
                             ]}
                             xAxis={[{
