@@ -5,8 +5,8 @@ import TextAlign from '@tiptap/extension-text-align';
 import Highlight from '@tiptap/extension-highlight';
 import { Color } from '@tiptap/extension-color';
 import TextStyle from '@tiptap/extension-text-style';
-import Toolbar from 'components/tiptap-editor/toolbar.component';
-import styles from 'components/tiptap-editor/tiptap-editor.module.scss';
+import Toolbar from 'components/common/tiptap-editor/toolbar.component';
+import styles from 'components/common/tiptap-editor/tiptap-editor.module.scss';
 
 interface TiptapEditorProps {
     value: string;

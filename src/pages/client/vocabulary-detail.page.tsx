@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Card, Typography, message, Skeleton, Row, Col, Image, Button, Tag } from 'antd';
+import { Card, Typography, message, Skeleton, Row, Col, Image, Button, Tag, Empty } from 'antd';
 import { ArrowLeftOutlined, LinkOutlined, TagOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
 import styles from './vocabulary-detail.page.module.scss';
 import type { IVocabulary } from 'types/vocabulary.type';
 import { fetchRelatedWordsAPI, fetchSynonymsAPI, fetchVocabularyDetailClientAPI } from 'services/vocabulary.service';
 import TextToSpeech from '@/components/common/text-to-speech/text-to-speech.component';
+import Logo from 'assets/images/logo.png';
 
 const { Title, Text, Paragraph } = Typography;
 
@@ -71,7 +72,20 @@ const VocabularyDetailPage = () => {
     }
 
     if (!vocabulary) {
-        return <Card>{t('errors.vocabularyNotFound')}</Card>;
+        return <Card className={styles.detailContainer}>
+            <Empty
+                className={styles.searchResultContainer}
+                image={Logo}
+                description={
+                    <div className={styles.notFound}>
+                        <Typography.Text strong className={styles.titleNotFound}>
+                            {t('errors.vocabularyNotFound')}
+                        </Typography.Text>
+                    </div>
+                }
+            />;
+
+        </Card>;
     }
 
     const renderTags = (title: string, icon: React.ReactNode, words: string[], type: 'synonyms' | 'relatedWords') => (

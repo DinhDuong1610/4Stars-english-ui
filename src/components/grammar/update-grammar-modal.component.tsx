@@ -3,7 +3,7 @@ import { ModalForm, ProFormText } from '@ant-design/pro-form';
 import { Form, notification, Upload } from 'antd';
 import 'react-quill/dist/quill.snow.css';
 import type { IconType } from 'antd/es/notification/interface';
-import TiptapEditor from 'components/tiptap-editor/tiptap-editor.component';
+import TiptapEditor from 'components/common/tiptap-editor/tiptap-editor.component';
 import type { IGrammar, IUpdateGrammar } from 'types/grammar.type';
 import { updateGrammarAPI } from 'services/grammar.service';
 
