@@ -62,7 +62,9 @@
     "vocabulary": {
         "exampleSentences": "Câu ví dụ",
         "synonyms": "Từ đồng nghĩa",
-        "relatedWords": "Từ và cụm từ liên quan"
+        "relatedWords": "Từ và cụm từ liên quan",
+        "pageTitle": "Chủ đề từ vựng",
+        "searchPlaceholder": "Tìm kiếm từ vựng trong danh mục này..."
     },
     "errors": {
         "fetchBadges": "Tải danh sách giải đấu thất bại.",
@@ -70,6 +72,7 @@
         "fetchRecentWords": "Tải danh sách từ mới thêm thất bại.",
         "searchWord": "Tra cứu từ thất bại. Vui lòng thử lại.",
         "fetchVocabularyDetail": "Tải chi tiết từ vựng thất bại.",
-        "vocabularyNotFound": "Không tìm thấy từ vựng này."
+        "vocabularyNotFound": "Không tìm thấy từ vựng này.",
+        "fetchDataError": "Không thể tải dữ liệu. Vui lòng thử lại."
     }
 }
