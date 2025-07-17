@@ -1,7 +1,7 @@
 import { Tag, Typography } from "antd";
-import type { IVocabulary } from "../../types/vocabulary.type";
+import type { IVocabulary } from "types/vocabulary.type";
 import styles from './vocabulary-card.module.scss';
-import TextToSpeech from "../text-to-speech/text-to-speech.component";
+import TextToSpeech from "components/common/text-to-speech/text-to-speech.component";
 import { useNavigate } from "react-router-dom";
 
 const { Paragraph } = Typography;

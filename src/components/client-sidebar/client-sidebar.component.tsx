@@ -14,8 +14,8 @@ import {
 } from '@ant-design/icons';
 
 import styles from './client-sidebar.module.scss';
-import LanguageSwitcher from 'components/language-switcher/language-switcher.component';
-import ThemeSwitcher from 'components/theme-switcher/theme-switcher.component';
+import LanguageSwitcher from '@/components/common/language-switcher/language-switcher.component';
+import ThemeSwitcher from '@/components/common/theme-switcher/theme-switcher.component';
 
 const ClientSidebar = () => {
     const { t } = useTranslation();

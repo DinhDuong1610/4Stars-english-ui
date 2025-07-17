@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import styles from './vocabulary-detail.page.module.scss';
 import type { IVocabulary } from 'types/vocabulary.type';
 import { fetchRelatedWordsAPI, fetchSynonymsAPI, fetchVocabularyDetailClientAPI } from 'services/vocabulary.service';
-import TextToSpeech from 'components/text-to-speech/text-to-speech.component';
+import TextToSpeech from '@/components/common/text-to-speech/text-to-speech.component';
 
 const { Title, Text, Paragraph } = Typography;
 
