@@ -56,10 +56,20 @@
         "exampleVi": "Vietnamese Example",
         "exampleEn": "English Example"
     },
+    "common": {
+        "back": "Back"
+    },
+    "vocabulary": {
+        "exampleSentences": "Example Sentences",
+        "synonyms": "Synonyms",
+        "relatedWords": "Related Words & Phrases"
+    },
     "errors": {
         "fetchBadges": "Failed to load the list of leagues.",
         "fetchLeaderboard": "Failed to load the leaderboard.",
         "fetchRecentWords": "Failed to fetch recently added words.",
-        "searchWord": "Word lookup failed. Please try again."
+        "searchWord": "Word lookup failed. Please try again.",
+        "fetchVocabularyDetail": "Failed to fetch vocabulary detail.",
+        "vocabularyNotFound": "This vocabulary could not be found."
     }
 }

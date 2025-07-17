@@ -21,6 +21,7 @@ import AdminGuard from 'components/share/admin-guard.component';
 import LoggingPage from 'pages/admin/logging.page';
 import LeaderboardPage from 'pages/client/leaderboard.page';
 import DictionaryPage from 'pages/client/dictionary.page';
+import VocabularyDetailPage from 'pages/client/vocabulary-detail.page';
 
 const routes = [
     {
@@ -47,6 +48,12 @@ const routes = [
                 path: 'dictionary',
                 element: (
                     <DictionaryPage />
+                ),
+            },
+            {
+                path: 'vocabularies/:id',
+                element: (
+                    <VocabularyDetailPage />
                 ),
             },
             {

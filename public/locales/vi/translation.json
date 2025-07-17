@@ -56,10 +56,20 @@
         "exampleVi": "Ví dụ tiếng Việt",
         "exampleEn": "Ví dụ tiếng Anh"
     },
+    "common": {
+        "back": "Quay lại"
+    },
+    "vocabulary": {
+        "exampleSentences": "Câu ví dụ",
+        "synonyms": "Từ đồng nghĩa",
+        "relatedWords": "Từ và cụm từ liên quan"
+    },
     "errors": {
         "fetchBadges": "Tải danh sách giải đấu thất bại.",
         "fetchLeaderboard": "Tải bảng xếp hạng thất bại.",
         "fetchRecentWords": "Tải danh sách từ mới thêm thất bại.",
-        "searchWord": "Tra cứu từ thất bại. Vui lòng thử lại."
+        "searchWord": "Tra cứu từ thất bại. Vui lòng thử lại.",
+        "fetchVocabularyDetail": "Tải chi tiết từ vựng thất bại.",
+        "vocabularyNotFound": "Không tìm thấy từ vựng này."
     }
 }

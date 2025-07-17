@@ -2,6 +2,7 @@ import { Tag, Typography } from "antd";
 import type { IVocabulary } from "../../types/vocabulary.type";
 import styles from './vocabulary-card.module.scss';
 import TextToSpeech from "../text-to-speech/text-to-speech.component";
+import { useNavigate } from "react-router-dom";
 
 const { Paragraph } = Typography;
 
@@ -10,9 +11,14 @@ interface VocabularyCardProps {
 }
 
 const VocabularyCard = ({ vocabulary }: VocabularyCardProps) => {
+    const navigate = useNavigate();
+
+    const handleClick = () => {
+        navigate(`/vocabularies/${vocabulary.id}`);
+    }
 
     return (
-        <div className={styles.card}>
+        <div className={styles.card} onClick={handleClick}>
             <div className={styles.row}>
                 <div className={styles.vocabImage}>
                     <img src={`${vocabulary.image}`} alt={vocabulary.word} />

@@ -1,9 +1,9 @@
-import React from 'react';
-import { List, Typography, Empty, Tag, Button } from 'antd';
+import { List, Typography, Empty, Tag } from 'antd';
 import { useTranslation } from 'react-i18next';
 import type { IVocabulary } from 'types/vocabulary.type';
 import styles from './search-result.component.module.scss';
 import Logo from 'assets/images/logo.png';
+import { useNavigate } from 'react-router-dom';
 
 const { Paragraph } = Typography;
 
@@ -12,11 +12,17 @@ interface SearchResultProps {
     searchTerm: string;
 }
 
-const SearchResult: React.FC<SearchResultProps> = ({ results, searchTerm }) => {
+const SearchResult = ({ results, searchTerm }: SearchResultProps) => {
     const { t } = useTranslation();
+    const navigate = useNavigate();
+
+    const handleClick = (id: number) => {
+        navigate(`/vocabularies/${id}`);
+    }
 
     if (results.length === 0) {
         return <Empty
+            className={styles.searchResultContainer}
             image={Logo}
             description={
                 <div className={styles.notFound}>
@@ -39,7 +45,7 @@ const SearchResult: React.FC<SearchResultProps> = ({ results, searchTerm }) => {
                 dataSource={results}
                 className={styles.resultList}
                 renderItem={(vocabulary) => (
-                    <div className={styles.card}>
+                    <div className={styles.card} onClick={() => handleClick(vocabulary.id)}>
                         <div className={styles.row}>
                             <div className={styles.vocabImage}>
                                 <img src={`${vocabulary.image}`} alt={vocabulary.word} />
