@@ -74,6 +74,8 @@
         "deleteConfirmTitle": "Xóa từ này?",
         "deleteConfirmDesc": "Bạn có chắc chắn muốn xóa từ này khỏi sổ tay không?",
         "deleteSuccess": "Đã xóa từ thành công!",
+        "addSuccess": "Đã thêm vào sổ tay!",
+        "addToNotebook": "Lưu",
         "noVocabSelected": "Chọn một từ để xem chi tiết"
     },
     "errors": {
@@ -84,6 +86,7 @@
         "fetchVocabularyDetail": "Tải chi tiết từ vựng thất bại.",
         "vocabularyNotFound": "Không tìm thấy từ vựng này.",
         "fetchDataError": "Không thể tải dữ liệu. Vui lòng thử lại.",
-        "deleteError": "Xóa từ thất bại."
+        "deleteError": "Xóa từ thất bại.",
+        "addError": "Thêm vào thất bại."
     }
 }

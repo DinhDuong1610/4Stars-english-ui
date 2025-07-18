@@ -16,3 +16,8 @@ export const removeNotebookItemAPI = (id: number) => {
     const url_backend = `/api/v1/notebook/remove/${id}`;
     return instance.delete<any>(url_backend);
 }
+
+export const addVocabularyToNotebookAPI = (id: number) => {
+    const url_backend = `/api/v1/notebook/add/${id}`;
+    return instance.post<IBackendRes<any>>(url_backend);
+}
