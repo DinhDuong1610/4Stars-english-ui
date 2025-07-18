@@ -1,4 +1,9 @@
 {
+    "common": {
+        "back": "Back",
+        "yes": "Yes",
+        "no": "No"
+    },
     "menu": {
         "dashboard": "Dashboard",
         "userManagement": "User Management",
@@ -8,7 +13,7 @@
     "sidebar": {
         "home": "Home",
         "notebook": "Notebook",
-        "learnNew": "Learn New Words",
+        "vocabulary": "Vocabulary",
         "dictionary": "Dictionary",
         "grammar": "Grammar",
         "blog": "Blog",
@@ -56,15 +61,20 @@
         "exampleVi": "Vietnamese Example",
         "exampleEn": "English Example"
     },
-    "common": {
-        "back": "Back"
-    },
     "vocabulary": {
         "exampleSentences": "Example Sentences",
         "synonyms": "Synonyms",
         "relatedWords": "Related Words & Phrases",
         "pageTitle": "Vocabulary topics",
         "searchPlaceholder": "Search for vocabularies in this category..."
+    },
+    "notebook": {
+        "pageTitle": "Your Notebook",
+        "level": "Level",
+        "deleteConfirmTitle": "Delete this word?",
+        "deleteConfirmDesc": "Are you sure you want to remove this word from your notebook?",
+        "deleteSuccess": "Word removed successfully!",
+        "noVocabSelected": "Select a word to see details"
     },
     "errors": {
         "fetchBadges": "Failed to load the list of leagues.",
@@ -73,6 +83,7 @@
         "searchWord": "Word lookup failed. Please try again.",
         "fetchVocabularyDetail": "Failed to fetch vocabulary detail.",
         "fetchDataError": "Could not load data. Please try again.",
-        "vocabularyNotFound": "This vocabulary could not be found."
+        "vocabularyNotFound": "This vocabulary could not be found.",
+        "deleteError": "Failed to delete word."
     }
 }

@@ -23,6 +23,7 @@ import LeaderboardPage from 'pages/client/leaderboard.page';
 import DictionaryPage from 'pages/client/dictionary.page';
 import VocabularyDetailPage from 'pages/client/vocabulary-detail.page';
 import VocabularyListPage from '../pages/client/vocabulary-list.page';
+import NotebookPage from '../pages/client/notebook.page';
 
 const routes = [
     {
@@ -67,6 +68,12 @@ const routes = [
                 path: 'vocabularies/:id',
                 element: (
                     <VocabularyDetailPage />
+                ),
+            },
+            {
+                path: 'notebook',
+                element: (
+                    <NotebookPage />
                 ),
             },
             {

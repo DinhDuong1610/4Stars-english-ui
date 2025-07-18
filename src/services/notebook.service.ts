@@ -6,3 +6,13 @@ export const fetchRecentNotebookAPI = () => {
     const url_backend = `/api/v1/notebook/recent`;
     return instance.get<IBackendRes<IVocabulary[]>>(url_backend);
 }
+
+export const fetchNotebookByLevelAPI = (level: number) => {
+    const url_backend = `/api/v1/notebook/level/${level}`;
+    return instance.get<IBackendRes<IVocabulary[]>>(url_backend);
+}
+
+export const removeNotebookItemAPI = (id: number) => {
+    const url_backend = `/api/v1/notebook/remove/${id}`;
+    return instance.delete<any>(url_backend);
+}
