@@ -2,14 +2,12 @@ import { createBrowserRouter } from 'react-router-dom';
 import AdminLayout from 'layouts/admin.layout';
 import ClientLayout from 'layouts/client.layout';
 import HomePage from 'pages/client/home.page';
-import ProductsPage from 'pages/client/products.page';
 import DashboardPage from 'pages/admin/dashboard.page';
 import UsersPage from 'pages/admin/users.page';
 import PlanPage from 'pages/admin/plans.page';
 import BadgePage from 'pages/admin/badges.page';
 import ArticlePage from 'pages/admin/articles.page';
 import VideoPage from 'pages/admin/videos.page';
-import GrammarPage from 'pages/admin/grammars.page';
 import VocabularyPage from 'pages/admin/vocabularies.page';
 import LoginPage from 'pages/auth/login.page';
 import ProtectedRoute from '@/components/common/share/protected-route.component';
@@ -22,8 +20,10 @@ import LoggingPage from 'pages/admin/logging.page';
 import LeaderboardPage from 'pages/client/leaderboard.page';
 import DictionaryPage from 'pages/client/dictionary.page';
 import VocabularyDetailPage from 'pages/client/vocabulary-detail.page';
-import VocabularyListPage from '../pages/client/vocabulary-list.page';
-import NotebookPage from '../pages/client/notebook.page';
+import VocabularyListPage from 'pages/client/vocabulary-list.page';
+import NotebookPage from 'pages/client/notebook.page';
+import GrammarListPage from 'pages/client/grammar-list.page';
+import GrammarPage from 'pages/admin/grammars.page';
 
 const routes = [
     {
@@ -77,15 +77,16 @@ const routes = [
                 ),
             },
             {
-                element: <ProtectedRoute />,
-                children: [
-                    {
-                        path: 'products',
-                        element: (
-                            <ProductsPage />
-                        ),
-                    },
-                ],
+                path: 'grammars',
+                element: (
+                    <GrammarListPage />
+                ),
+            },
+            {
+                path: 'grammars/category/:categoryId',
+                element: (
+                    <GrammarListPage />
+                ),
             },
         ],
     },

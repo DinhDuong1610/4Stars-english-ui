@@ -78,6 +78,10 @@
         "addToNotebook": "Lưu",
         "noVocabSelected": "Chọn một từ để xem chi tiết"
     },
+    "grammar": {
+        "pageTitle": "Khám phá Ngữ pháp",
+        "searchPlaceholder": "Tìm kiếm chủ đề ngữ pháp..."
+    },
     "errors": {
         "fetchBadges": "Tải danh sách giải đấu thất bại.",
         "fetchLeaderboard": "Tải bảng xếp hạng thất bại.",

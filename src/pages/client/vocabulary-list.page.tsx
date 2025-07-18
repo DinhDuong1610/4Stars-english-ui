@@ -151,7 +151,7 @@ const VocabularyListPage = () => {
                 <Row gutter={[24, 24]} style={{ marginBottom: 32 }}>
                     {currentSubCategories.map(cat => (
                         <Col key={cat.id} xs={24} sm={12} md={8} lg={8}>
-                            <CategoryCard category={cat} />
+                            <CategoryCard category={cat} basePath="vocabularies" />
                         </Col>
                     ))}
                 </Row>

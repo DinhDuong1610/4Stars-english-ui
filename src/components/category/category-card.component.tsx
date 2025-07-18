@@ -1,4 +1,3 @@
-import React from 'react';
 import { Typography } from 'antd';
 import { Link } from 'react-router-dom';
 import type { ICategory } from 'types/category.type';
@@ -9,11 +8,15 @@ const { Title, Paragraph } = Typography;
 
 interface CategoryCardProps {
     category: ICategory;
+    basePath: 'vocabularies' | 'grammars';
 }
 
-const CategoryCard: React.FC<CategoryCardProps> = ({ category }) => {
+const CategoryCard = ({ category, basePath }: CategoryCardProps) => {
     return (
-        <Link to={`/vocabularies/category/${category.id}`}>
+        <Link to={
+            basePath === 'vocabularies' ? `/vocabularies/category/${category.id}` :
+                category.subCategories.length > 0 ? `/grammars/category/${category.id}` : `/grammars/${category.id}`
+        }>
             <div className={styles.categoryCard}>
                 <div className={styles.categoryImage}>
                     <img src={icon_category} alt={category.name} />

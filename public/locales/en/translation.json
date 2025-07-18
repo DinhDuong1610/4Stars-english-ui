@@ -78,6 +78,10 @@
         "addToNotebook": "Save",
         "noVocabSelected": "Select a word to see details"
     },
+    "grammar": {
+        "pageTitle": "Explore Grammar",
+        "searchPlaceholder": "Search for grammar topics..."
+    },
     "errors": {
         "fetchBadges": "Failed to load the list of leagues.",
         "fetchLeaderboard": "Failed to load the leaderboard.",
