@@ -25,6 +25,7 @@ import NotebookPage from 'pages/client/notebook.page';
 import GrammarListPage from 'pages/client/grammar-list.page';
 import GrammarPage from 'pages/admin/grammars.page';
 import GrammarDetailPage from 'pages/client/grammar-detail.page';
+import ArticleListPage from 'pages/client/article-list.page';
 
 const routes = [
     {
@@ -93,6 +94,18 @@ const routes = [
                 path: 'grammars/:id',
                 element: (
                     <GrammarDetailPage />
+                ),
+            },
+            {
+                path: 'articles',
+                element: (
+                    <ArticleListPage />
+                ),
+            },
+            {
+                path: 'articles/category/:categoryId',
+                element: (
+                    <ArticleListPage />
                 ),
             },
         ],

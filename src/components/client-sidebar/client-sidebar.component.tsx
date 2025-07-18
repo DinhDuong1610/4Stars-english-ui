@@ -27,7 +27,7 @@ const ClientSidebar = () => {
         { key: '/vocabularies', icon: <BulbOutlined />, label: t('sidebar.vocabulary') },
         { key: '/notebook', icon: <BookOutlined />, label: t('sidebar.notebook') },
         { key: '/grammars', icon: <ReadOutlined />, label: t('sidebar.grammar') },
-        { key: '/blog', icon: <MessageOutlined />, label: t('sidebar.blog') },
+        { key: '/articles', icon: <MessageOutlined />, label: t('sidebar.blog') },
         { key: '/videos', icon: <PlaySquareOutlined />, label: t('sidebar.videoLessons') },
         { key: '/community', icon: <TeamOutlined />, label: t('sidebar.community') },
         { key: '/store', icon: <ShopOutlined />, label: t('sidebar.store') },

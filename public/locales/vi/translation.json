@@ -16,7 +16,7 @@
         "vocabulary": "Từ vựng",
         "dictionary": "Từ điển",
         "grammar": "Ngữ pháp",
-        "blog": "Blog",
+        "blog": "Bài viết",
         "videoLessons": "Học qua Video",
         "community": "Cộng đồng",
         "store": "Cửa hàng",
@@ -81,6 +81,9 @@
     "grammar": {
         "pageTitle": "Khám phá Ngữ pháp",
         "searchPlaceholder": "Tìm kiếm chủ đề ngữ pháp..."
+    },
+    "article": {
+        "pageTitle": "Bài viết"
     },
     "errors": {
         "fetchBadges": "Tải danh sách giải đấu thất bại.",

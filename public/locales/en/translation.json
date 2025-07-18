@@ -82,6 +82,9 @@
         "pageTitle": "Explore Grammar",
         "searchPlaceholder": "Search for grammar topics..."
     },
+    "article": {
+        "pageTitle": "Blogs"
+    },
     "errors": {
         "fetchBadges": "Failed to load the list of leagues.",
         "fetchLeaderboard": "Failed to load the leaderboard.",
