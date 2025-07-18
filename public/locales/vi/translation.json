@@ -78,6 +78,10 @@
         "addToNotebook": "Lưu",
         "noVocabSelected": "Chọn một từ để xem chi tiết"
     },
+    "grammar": {
+        "pageTitle": "Khám phá Ngữ pháp",
+        "searchPlaceholder": "Tìm kiếm chủ đề ngữ pháp..."
+    },
     "errors": {
         "fetchBadges": "Tải danh sách giải đấu thất bại.",
         "fetchLeaderboard": "Tải bảng xếp hạng thất bại.",
@@ -87,6 +91,8 @@
         "vocabularyNotFound": "Không tìm thấy từ vựng này.",
         "fetchDataError": "Không thể tải dữ liệu. Vui lòng thử lại.",
         "deleteError": "Xóa từ thất bại.",
-        "addError": "Thêm vào thất bại."
+        "addError": "Thêm vào thất bại.",
+        "fetchGrammarDetail": "Tải chi tiết bài ngữ pháp thất bại.",
+        "grammarNotFound": "Không tìm thấy bài ngữ pháp này."
     }
 }

@@ -21,3 +21,13 @@ export const deleteGrammarAPI = (id: number) => {
     const url_backend = `/api/v1/admin/grammars/${id}`;
     return instance.delete<any>(url_backend);
 }
+
+export const fetchGrammarsClientAPI = (query: string) => {
+    const url_backend = `/api/v1/grammars?${query}`;
+    return instance.get<IBackendRes<IGrammar[]>>(url_backend);
+}
+
+export const fetchGrammarDetailClientAPI = (id: number) => {
+    const url_backend = `/api/v1/grammars/${id}`;
+    return instance.get<IResponse<IGrammar>>(url_backend);
+}
