@@ -91,6 +91,8 @@
         "fetchDataError": "Could not load data. Please try again.",
         "vocabularyNotFound": "This vocabulary could not be found.",
         "deleteError": "Failed to delete word.",
-        "addError": "Failed to add word."
+        "addError": "Failed to add word.",
+        "fetchGrammarDetail": "Failed to fetch grammar detail.",
+        "grammarNotFound": "This grammar topic could not be found."
     }
 }

@@ -91,6 +91,8 @@
         "vocabularyNotFound": "Không tìm thấy từ vựng này.",
         "fetchDataError": "Không thể tải dữ liệu. Vui lòng thử lại.",
         "deleteError": "Xóa từ thất bại.",
-        "addError": "Thêm vào thất bại."
+        "addError": "Thêm vào thất bại.",
+        "fetchGrammarDetail": "Tải chi tiết bài ngữ pháp thất bại.",
+        "grammarNotFound": "Không tìm thấy bài ngữ pháp này."
     }
 }

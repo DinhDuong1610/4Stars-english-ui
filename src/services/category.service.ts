@@ -26,3 +26,8 @@ export const fetchCategoriesClientAPI = (query: string) => {
     const url_backend = `/api/v1/categories/tree?${query}`;
     return instance.get<IBackendRes<ICategory[]>>(url_backend);
 }
+
+export const fetchCategoryDetailClientAPI = (id: number) => {
+    const url_backend = `/api/v1/categories/${id}`;
+    return instance.get<IResponse<ICategory>>(url_backend);
+}
