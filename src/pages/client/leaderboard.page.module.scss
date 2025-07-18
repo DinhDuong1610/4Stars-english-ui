@@ -65,7 +65,7 @@
         padding: 12px !important;
         border-radius: 12px;
         margin-bottom: 8px;
-        background-color: #fff;
+        background-color: #f3f3f35a;
         border: 1px solid #e8e8e8;
         transition: all 0.3s ease;
         display: flex;
@@ -77,23 +77,23 @@
         }
 
         &.top1 {
-            background-color: #fffbe6;
+            background-color: #ffe76e42;
             border-color: #ffe58f;
         }
 
         &.top2 {
-            background-color: #f6f6f6;
+            background-color: #dedede55;
             border-color: #d9d9d9;
         }
 
         &.top3 {
-            background-color: #fff0e6;
+            background-color: #ffcead5c;
             border-color: #ffc069;
         }
     }
 
     .currentUserItem {
-        background-color: #e3f2fd !important;
+        background-color: #a8dbff4f !important;
         border: 2px solid #42a5f5 !important;
         transform: scale(1.02);
     }
