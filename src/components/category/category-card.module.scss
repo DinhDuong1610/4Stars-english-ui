@@ -15,7 +15,6 @@
         transform: translateY(-5px);
     }
 
-    // Ghi đè style của Antd để loại bỏ padding mặc định của body
     :global(.ant-card-body) {
         padding: 16px;
     }

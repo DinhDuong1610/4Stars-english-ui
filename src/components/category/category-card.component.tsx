@@ -12,7 +12,7 @@ const { Title, Paragraph } = Typography;
 
 interface CategoryCardProps {
     category: ICategory;
-    basePath: 'vocabularies' | 'grammars';
+    basePath: 'vocabularies' | 'grammars' | 'articles';
 }
 
 const CategoryCard = ({ category, basePath }: CategoryCardProps) => {
@@ -37,7 +37,8 @@ const CategoryCard = ({ category, basePath }: CategoryCardProps) => {
     return (
         <Link to={
             basePath === 'vocabularies' ? `/vocabularies/category/${category.id}` :
-                category.subCategories.length > 0 ? `/grammars/category/${category.id}` : `/grammars/${grammar?.id}`
+                basePath === 'articles' ? `/articles/category/${category.id}` :
+                    category.subCategories.length > 0 ? `/grammars/category/${category.id}` : `/grammars/${grammar?.id}`
         }>
             <div className={styles.categoryCard}>
                 <div className={styles.categoryImage}>

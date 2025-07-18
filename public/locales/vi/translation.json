@@ -16,7 +16,7 @@
         "vocabulary": "Từ vựng",
         "dictionary": "Từ điển",
         "grammar": "Ngữ pháp",
-        "blog": "Blog",
+        "blog": "Bài viết",
         "videoLessons": "Học qua Video",
         "community": "Cộng đồng",
         "store": "Cửa hàng",
@@ -82,6 +82,9 @@
         "pageTitle": "Khám phá Ngữ pháp",
         "searchPlaceholder": "Tìm kiếm chủ đề ngữ pháp..."
     },
+    "article": {
+        "pageTitle": "Bài viết"
+    },
     "errors": {
         "fetchBadges": "Tải danh sách giải đấu thất bại.",
         "fetchLeaderboard": "Tải bảng xếp hạng thất bại.",
@@ -93,6 +96,8 @@
         "deleteError": "Xóa từ thất bại.",
         "addError": "Thêm vào thất bại.",
         "fetchGrammarDetail": "Tải chi tiết bài ngữ pháp thất bại.",
-        "grammarNotFound": "Không tìm thấy bài ngữ pháp này."
+        "grammarNotFound": "Không tìm thấy bài ngữ pháp này.",
+        "fetchArticleDetail": "Tải chi tiết bài viết thất bại.",
+        "articleNotFound": "Không tìm thấy bài viết."
     }
 }
