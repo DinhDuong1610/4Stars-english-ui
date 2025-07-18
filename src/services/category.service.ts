@@ -21,3 +21,8 @@ export const deleteCategoryAPI = (id: number) => {
     const url_backend = `/api/v1/admin/categories/${id}`;
     return instance.delete<IResponse<any>>(url_backend);
 }
+
+export const fetchCategoriesClientAPI = (query: string) => {
+    const url_backend = `/api/v1/categories/tree?${query}`;
+    return instance.get<IBackendRes<ICategory[]>>(url_backend);
+}

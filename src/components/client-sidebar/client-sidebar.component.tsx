@@ -24,8 +24,8 @@ const ClientSidebar = () => {
     const menuItems = [
         { key: '/', icon: <CustomerServiceOutlined />, label: t('sidebar.home') },
         { key: '/dictionary', icon: <TranslationOutlined />, label: t('sidebar.dictionary') },
+        { key: '/vocabularies', icon: <BulbOutlined />, label: t('sidebar.vocabulary') },
         { key: '/notebook', icon: <BookOutlined />, label: t('sidebar.notebook') },
-        { key: '/learn', icon: <BulbOutlined />, label: t('sidebar.learnNew') },
         { key: '/grammar', icon: <ReadOutlined />, label: t('sidebar.grammar') },
         { key: '/blog', icon: <MessageOutlined />, label: t('sidebar.blog') },
         { key: '/videos', icon: <PlaySquareOutlined />, label: t('sidebar.videoLessons') },

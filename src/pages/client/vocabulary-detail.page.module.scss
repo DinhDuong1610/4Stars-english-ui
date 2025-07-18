@@ -23,6 +23,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    position: relative;
 }
 
 .vocabImage {
@@ -59,6 +60,24 @@
     gap: 12px;
     margin-top: 0 !important;
     margin-bottom: 0px !important;
+}
+
+.addToNotebookButton {
+    padding: 5px 14px;
+    border-radius: 15px;
+    font-weight: 600;
+    font-size: 1.6rem;
+    color: #fff;
+    background-color: #23AC37;
+    position: absolute;
+    top: 30px;
+    right: 0;
+
+    &:hover {
+        border: 2px solid #23AC37 !important;
+        opacity: 0.5 ! important;
+        color: #23AC37 ! important;
+    }
 }
 
 .phonetic {
@@ -122,12 +141,12 @@
     font-weight: bold;
     border-radius: 20px;
     transition: all 0.3s;
-    background-color: var(--ant-color-secondary, #f2f6d6);
+    background-color: var(--ant-color-secondary, #eeff7c42);
+    // background-color: var(--ant-color-secondary, #f2f6d6);
     border: 1px solid transparent;
 
 
     &:hover {
-        background-color: var(--ant-color-secondary, #f8fbe5);
         border: 1px solid #ebf992;
     }
 }
@@ -140,12 +159,11 @@
     font-weight: bold;
     border-radius: 20px;
     transition: all 0.3s;
-    background-color: var(--ant-color-secondary, #e6f7ff);
+    background-color: var(--ant-color-secondary, #3cbefa2f);
     border: 1px solid transparent;
 
 
     &:hover {
-        background-color: var(--ant-color-secondary, #eaf5fa);
         border: 1px solid #91d5ff;
     }
 }

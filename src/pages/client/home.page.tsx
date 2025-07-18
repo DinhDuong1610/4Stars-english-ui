@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Row, Col, Card, message, List, Avatar, Space, Skeleton } from 'antd';
 import { RightOutlined } from '@ant-design/icons';
-import { Column } from '@ant-design/charts';
 import { BarChart } from '@mui/x-charts/BarChart';
 import type { IUserDashboard } from 'types/user-dashboard.type';
 import { fetchUserDashboardAPI } from 'services/user-dashboard.service';
@@ -14,7 +13,6 @@ import icon_streak from '@/assets/icons/dashboard/streak.png';
 import icon_point from '@/assets/icons/dashboard/point.png';
 import { useTranslation } from 'react-i18next';
 import NotFoundPage from 'pages/error/404.page';
-import { NotRendered } from '@mui/x-charts/internals';
 
 const HomePage = () => {
     const { t } = useTranslation();

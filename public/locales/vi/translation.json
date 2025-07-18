@@ -1,4 +1,9 @@
 {
+    "common": {
+        "back": "Quay lại",
+        "yes": "Có",
+        "no": "Không"
+    },
     "menu": {
         "dashboard": "Bảng điều khiển",
         "userManagement": "Quản lý Người dùng",
@@ -8,7 +13,7 @@
     "sidebar": {
         "home": "Trang chủ",
         "notebook": "Sổ tay",
-        "learnNew": "Học từ mới",
+        "vocabulary": "Từ vựng",
         "dictionary": "Từ điển",
         "grammar": "Ngữ pháp",
         "blog": "Blog",
@@ -56,13 +61,22 @@
         "exampleVi": "Ví dụ tiếng Việt",
         "exampleEn": "Ví dụ tiếng Anh"
     },
-    "common": {
-        "back": "Quay lại"
-    },
     "vocabulary": {
         "exampleSentences": "Câu ví dụ",
         "synonyms": "Từ đồng nghĩa",
-        "relatedWords": "Từ và cụm từ liên quan"
+        "relatedWords": "Từ và cụm từ liên quan",
+        "pageTitle": "Chủ đề từ vựng",
+        "searchPlaceholder": "Tìm kiếm từ vựng trong danh mục này..."
+    },
+    "notebook": {
+        "pageTitle": "Sổ tay của bạn",
+        "level": "Cấp độ",
+        "deleteConfirmTitle": "Xóa từ này?",
+        "deleteConfirmDesc": "Bạn có chắc chắn muốn xóa từ này khỏi sổ tay không?",
+        "deleteSuccess": "Đã xóa từ thành công!",
+        "addSuccess": "Đã thêm vào sổ tay!",
+        "addToNotebook": "Lưu",
+        "noVocabSelected": "Chọn một từ để xem chi tiết"
     },
     "errors": {
         "fetchBadges": "Tải danh sách giải đấu thất bại.",
@@ -70,6 +84,9 @@
         "fetchRecentWords": "Tải danh sách từ mới thêm thất bại.",
         "searchWord": "Tra cứu từ thất bại. Vui lòng thử lại.",
         "fetchVocabularyDetail": "Tải chi tiết từ vựng thất bại.",
-        "vocabularyNotFound": "Không tìm thấy từ vựng này."
+        "vocabularyNotFound": "Không tìm thấy từ vựng này.",
+        "fetchDataError": "Không thể tải dữ liệu. Vui lòng thử lại.",
+        "deleteError": "Xóa từ thất bại.",
+        "addError": "Thêm vào thất bại."
     }
 }
