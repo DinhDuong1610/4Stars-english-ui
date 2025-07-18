@@ -1,19 +1,15 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Row, Col, Typography, Input, Breadcrumb, message, Skeleton, Card, Button } from 'antd';
-import { HomeOutlined, SearchOutlined } from '@ant-design/icons';
+import { Row, Col, Typography, Breadcrumb, message, Skeleton, Card } from 'antd';
+import { HomeOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
-import styles from './vocabulary-list.page.module.scss';
+import styles from './article-list.page.module.scss';
 import type { ICategory } from 'types/category.type';
-import type { IVocabulary } from 'types/vocabulary.type';
 import CategoryCard from 'components/category/category-card.component';
-import VocabularyCard from 'components/vocabulary/vocabulary-card.component';
 import { fetchCategoriesClientAPI } from 'services/category.service';
-import { fetchVocabulariesClientAPI } from 'services/vocabulary.service';
 import type { IArticle } from 'types/article.type';
-import { fetchArticlesClientAPI } from '../../services/article.service';
-import { set } from 'lodash';
-import ArticleCard from '../../components/article/article-card.component';
+import { fetchArticlesClientAPI } from 'services/article.service';
+import ArticleCard from 'components/article/article-card.component';
 const { Title } = Typography;
 
 

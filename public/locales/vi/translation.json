@@ -96,6 +96,8 @@
         "deleteError": "Xóa từ thất bại.",
         "addError": "Thêm vào thất bại.",
         "fetchGrammarDetail": "Tải chi tiết bài ngữ pháp thất bại.",
-        "grammarNotFound": "Không tìm thấy bài ngữ pháp này."
+        "grammarNotFound": "Không tìm thấy bài ngữ pháp này.",
+        "fetchArticleDetail": "Tải chi tiết bài viết thất bại.",
+        "articleNotFound": "Không tìm thấy bài viết."
     }
 }

@@ -26,3 +26,8 @@ export const fetchArticlesClientAPI = (query: string) => {
     const url_backend = `/api/v1/articles?${query}`;
     return instance.get<IBackendRes<IArticle[]>>(url_backend);
 }
+
+export const fetchArticleDetailClientAPI = (id: number) => {
+    const url_backend = `/api/v1/articles/${id}`;
+    return instance.get<IResponse<IArticle>>(url_backend);
+}

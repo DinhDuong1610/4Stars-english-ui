@@ -1,52 +1,51 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Card, Typography, message, Skeleton, Button, Empty } from 'antd';
+import { Card, Typography, message, Skeleton, Button, Empty, Image } from 'antd';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
-import styles from './grammar-detail.page.module.scss';
-import { fetchGrammarDetailClientAPI } from 'services/grammar.service';
-import type { IGrammar } from 'types/grammar.type';
+import styles from './article-detail.page.module.scss';
+import type { IArticle } from 'types/article.type';
+import { fetchArticleDetailClientAPI } from 'services/article.service';
 
 const { Title } = Typography;
 
-const GrammarDetailPage = () => {
+const ArticleDetailPage = () => {
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
     const { t } = useTranslation();
-
-    const [grammar, setGrammar] = useState<IGrammar | null>(null);
+    const [article, setArticle] = useState<IArticle | null>(null);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         if (!id) return;
 
-        const getGrammarDetail = async () => {
+        const getArticleDetail = async () => {
             setIsLoading(true);
             try {
-                const res = await fetchGrammarDetailClientAPI(parseInt(id));
+                const res = await fetchArticleDetailClientAPI(parseInt(id));
                 if (res && res.data) {
-                    setGrammar(res.data);
+                    setArticle(res.data);
                 } else {
-                    message.error(t('errors.fetchGrammarDetail'));
+                    message.error(t('errors.fetchArticleDetail'));
                 }
             } catch (error) {
-                message.error(t('errors.fetchGrammarDetail'));
+                message.error(t('errors.fetchArticleDetail'));
             } finally {
                 setIsLoading(false);
             }
         };
 
-        getGrammarDetail();
+        getArticleDetail();
     }, [id, t]);
 
     if (isLoading) {
         return <Card className={styles.detailContainer}><Skeleton active paragraph={{ rows: 10 }} /></Card>;
     }
 
-    if (!grammar) {
+    if (!article) {
         return <Card bordered={false} className={styles.detailContainer}>
             <Empty >
-                {t('errors.grammarNotFound')}
+                {t('errors.articleNotFound')}
             </Empty>
         </Card>;
     }
@@ -62,16 +61,17 @@ const GrammarDetailPage = () => {
                 {t('common.back')}
             </Button>
 
-            <div className={styles.grammarDetail}>
-                <Title level={2} className={styles.grammarTitle}>{grammar.name}</Title>
-
+            <div className={styles.articleDetail}>
+                <Image className={styles.articleImage} width="100%" height={400} src={`${import.meta.env.VITE_BACKEND_URL}${article.image}`} />
+                <Title level={2} className={styles.articleTitle}>{article.title}</Title>
+                <audio className={styles.articleAudio} controls src={`${import.meta.env.VITE_BACKEND_URL}${article.audio}`} />
                 <div
-                    className={styles.grammarContent}
-                    dangerouslySetInnerHTML={{ __html: grammar.content }}
+                    className={styles.articleContent}
+                    dangerouslySetInnerHTML={{ __html: article.content }}
                 />
             </div>
         </Card>
     );
 };
 
-export default GrammarDetailPage;
+export default ArticleDetailPage;

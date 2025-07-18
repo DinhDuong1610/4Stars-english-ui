@@ -11,19 +11,31 @@
         color: #555;
         position: relative;
         left: -120px;
-        top: 20px;
+        top: 7px;
     }
 }
 
-.grammarDetail {
+.articleImage {
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.articleAudio {
+    width: 50%;
+    margin: 10px auto 20px auto;
+    display: block;
+}
+
+.articleDetail {
     position: relative;
     top: -40px;
 }
 
-.grammarTitle {
+.articleTitle {
     color: var(--ant-text-color-primary);
     margin-bottom: 8px !important;
     text-align: center;
+    margin-top: 10px !important;
 }
 
 .categoryTag {
@@ -31,10 +43,11 @@
     font-size: 14px;
 }
 
-.grammarContent {
+.articleContent {
     line-height: 1.7;
     font-size: 1.8rem !important;
     color: var(--ant-text-color);
+    text-align: justify;
 
     h1,
     h2,
