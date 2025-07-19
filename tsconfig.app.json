@@ -47,6 +47,9 @@
       ],
       "router/*": [
         "./src/router/*"
+      ],
+      "context/*": [
+        "./src/context/*"
       ]
     },
     /* Bundler mode */

@@ -91,7 +91,8 @@
         "suggestedVideos": "Suggested Videos"
     },
     "notifications": {
-        "title": "Notifications"
+        "title": "Notifications",
+        "newNotification": "New notification"
     },
     "errors": {
         "fetchBadges": "Failed to load the list of leagues.",
