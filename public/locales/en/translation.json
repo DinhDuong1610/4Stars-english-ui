@@ -90,6 +90,10 @@
         "subtitles": "Subtitles",
         "suggestedVideos": "Suggested Videos"
     },
+    "notifications": {
+        "title": "Notifications",
+        "newNotification": "New notification"
+    },
     "errors": {
         "fetchBadges": "Failed to load the list of leagues.",
         "fetchLeaderboard": "Failed to load the leaderboard.",
@@ -105,6 +109,8 @@
         "fetchArticleDetail": "Failed to fetch article detail.",
         "articleNotFound": "This article could not be found.",
         "fetchVideoDetail": "Failed to fetch video detail.",
-        "videoNotFound": "This video could not be found."
+        "videoNotFound": "This video could not be found.",
+        "fetchNotificationsError": "Failed to fetch notifications.",
+        "markAsReadError": "Failed to mark as read."
     }
 }
