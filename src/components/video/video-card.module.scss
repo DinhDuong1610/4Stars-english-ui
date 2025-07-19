@@ -31,10 +31,26 @@
 }
 
 .cardTime {
+    display: flex;
+    justify-content: space-between;
+    width: calc(100% - 30px);
     color: var(--ant-text-color-secondary, #9c9c9c);
     font-size: 1.2rem;
     text-align: right;
     position: absolute;
     bottom: 0px;
     right: 15px;
+}
+
+.playerWrapper {
+    position: relative;
+    padding-top: 56.25%;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.reactPlayer {
+    position: absolute;
+    top: 0;
+    left: 0;
 }

@@ -163,6 +163,7 @@ const VideoPage = () => {
             dataIndex: 'title',
             key: 'title',
             ellipsis: true,
+            width: 200,
             sorter: true,
             render: (_, record) => (
                 <a onClick={() => handleViewArticle(record)}>
