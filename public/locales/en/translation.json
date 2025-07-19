@@ -86,7 +86,9 @@
         "pageTitle": "Blogs"
     },
     "video": {
-        "pageTitle": "Video"
+        "pageTitle": "Video",
+        "subtitles": "Subtitles",
+        "suggestedVideos": "Suggested Videos"
     },
     "errors": {
         "fetchBadges": "Failed to load the list of leagues.",

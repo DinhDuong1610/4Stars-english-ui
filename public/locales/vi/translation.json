@@ -86,7 +86,9 @@
         "pageTitle": "Bài viết"
     },
     "video": {
-        "pageTitle": "Video"
+        "pageTitle": "Video",
+        "subtitles": "Phụ đề",
+        "suggestedVideos": "Video gợi ý"
     },
     "errors": {
         "fetchBadges": "Tải danh sách giải đấu thất bại.",
