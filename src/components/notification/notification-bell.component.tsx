@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Badge, Button, Drawer, List, message, Skeleton, Typography, notification as antNotification } from 'antd';
 import { BellOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-
 import styles from './notification-bell.module.scss';
 import type { INotification } from 'types/notification.type';
 import { fetchNotificationsAPI, fetchUnreadCountAPI, markNotificationAsReadAPI } from 'services/notification.service';
@@ -100,7 +99,7 @@ const NotificationBell = () => {
     return (
         <>
             <Badge count={unreadCount} size="small">
-                <Button type="text" shape="circle" icon={<BellOutlined />} onClick={showDrawer} className={styles.bellIcon} />
+                <Button type="text" size="large" icon={<BellOutlined style={{ fontSize: 20 }} />} onClick={showDrawer} className={styles.bellIcon} />
             </Badge>
             <Drawer title={t('notifications.title')} placement="right" onClose={onClose} open={open} width={380}>
                 {isLoading ? (
