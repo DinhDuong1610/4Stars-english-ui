@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Card, Avatar, Typography, Space, Button, Image, Dropdown, Menu, message } from 'antd';
+import { useEffect, useState } from 'react';
+import { Card, Avatar, Typography, Button, Image, Dropdown, Menu, message } from 'antd';
 import { LikeOutlined, LikeFilled, CommentOutlined, MoreOutlined, DeleteOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
 import dayjs from 'dayjs';
@@ -8,6 +8,8 @@ import { useAuthStore } from 'stores/auth.store';
 import { deletePostAPI, likePostAPI, unlikePostAPI } from 'services/post.service';
 import CommentSection from './comment-section.component';
 import styles from 'pages/client/community/community.page.module.scss';
+import { useWebSocket } from 'context/websocket.context';
+import type { INotification } from 'types/notification.type';
 
 const { Text } = Typography;
 
@@ -19,6 +21,8 @@ interface PostCardProps {
 const PostCard = ({ post, onDelete }: PostCardProps) => {
     const { t } = useTranslation();
     const { user } = useAuthStore();
+    const { stompClient, isConnected } = useWebSocket();
+
     const [showComments, setShowComments] = useState(false);
     const [isLiked, setIsLiked] = useState(post.likedByCurrentUser);
     const [likeCount, setLikeCount] = useState(post.likeCount);
@@ -27,6 +31,25 @@ const PostCard = ({ post, onDelete }: PostCardProps) => {
     const images = post.attachments.filter(att => att.fileType === 'IMAGE');
     const imageCount = images.length;
     const imagesToShow = images.slice(0, 4);
+
+    useEffect(() => {
+        if (isConnected && stompClient) {
+            const userSpecificTopic = `/topic/notifications.${user?.id}`;
+            const subscription = stompClient.subscribe(userSpecificTopic, (message) => {
+                const notification: INotification = JSON.parse(message.body);
+                const postId = notification.link.split('/').pop();
+                if (notification.type === 'NEW_LIKE_ON_POST') {
+                    if (postId === post.id.toString()) {
+                        setLikeCount(prev => prev + 1);
+                    }
+                }
+            });
+
+            return () => {
+                subscription.unsubscribe();
+            };
+        }
+    }, [isConnected, stompClient, t]);
 
     const handleLike = (id: number) => {
         if (!user) return;

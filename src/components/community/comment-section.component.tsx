@@ -9,6 +9,8 @@ import styles from 'pages/client/community/community.page.module.scss';
 import dayjs from 'dayjs';
 import { useAuthStore } from 'stores/auth.store';
 import type { IUser } from 'types/user.type';
+import { useWebSocket } from 'context/websocket.context';
+import type { INotification } from 'types/notification.type';
 
 const CommentItem = ({
     comment,
@@ -114,6 +116,8 @@ interface CommentSectionProps {
 const CommentSection = ({ postId, onCommentPosted, onCommentDeleted }: CommentSectionProps) => {
     const { t } = useTranslation();
     const { user } = useAuthStore();
+    const { stompClient, isConnected } = useWebSocket();
+
     const [comments, setComments] = useState<IComment[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [newCommentContent, setNewCommentContent] = useState('');
@@ -137,6 +141,22 @@ const CommentSection = ({ postId, onCommentPosted, onCommentDeleted }: CommentSe
         setIsLoading(true);
         fetchComments();
     }, [postId]);
+
+    useEffect(() => {
+        if (isConnected && stompClient) {
+            const userSpecificTopic = `/topic/notifications.${user?.id}`;
+            const subscription = stompClient.subscribe(userSpecificTopic, (message) => {
+                const notification: INotification = JSON.parse(message.body);
+                if (notification.type === 'NEW_REPLY') {
+                    fetchComments();
+                }
+            });
+
+            return () => {
+                subscription.unsubscribe();
+            };
+        }
+    }, [isConnected, stompClient, t]);
 
     const handlePostComment = async (content: string, parentCommentId: number | null) => {
         if (!content.trim()) return;
