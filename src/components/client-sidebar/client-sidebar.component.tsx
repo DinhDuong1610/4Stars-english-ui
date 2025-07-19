@@ -16,6 +16,7 @@ import {
 import styles from './client-sidebar.module.scss';
 import LanguageSwitcher from '@/components/common/language-switcher/language-switcher.component';
 import ThemeSwitcher from '@/components/common/theme-switcher/theme-switcher.component';
+import NotificationBell from '@/components/notification/notification-bell.component';
 
 const ClientSidebar = () => {
     const { t } = useTranslation();
@@ -56,6 +57,7 @@ const ClientSidebar = () => {
             <div className={styles.bottomControls}>
                 <LanguageSwitcher />
                 <ThemeSwitcher />
+                <NotificationBell />
             </div>
         </div>
     );

@@ -90,6 +90,9 @@
         "subtitles": "Phụ đề",
         "suggestedVideos": "Video gợi ý"
     },
+    "notifications": {
+        "title": "Thông báo"
+    },
     "errors": {
         "fetchBadges": "Tải danh sách giải đấu thất bại.",
         "fetchLeaderboard": "Tải bảng xếp hạng thất bại.",
@@ -105,6 +108,8 @@
         "fetchArticleDetail": "Tải chi tiết bài viết thất bại.",
         "articleNotFound": "Không tìm thấy bài viết.",
         "fetchVideoDetail": "Tải chi tiết bài video thất bại.",
-        "videoNotFound": "Không tìm thấy bài video."
+        "videoNotFound": "Không tìm thấy bài video.",
+        "fetchNotificationsError": "Tải thông báo thất bại.",
+        "markAsReadError": "Đánh dấu đã đọc thất bại."
     }
 }
