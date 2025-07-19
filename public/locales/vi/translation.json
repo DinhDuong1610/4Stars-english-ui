@@ -2,7 +2,11 @@
     "common": {
         "back": "Quay lại",
         "yes": "Có",
-        "no": "Không"
+        "no": "Không",
+        "delete": "Xóa",
+        "report": "Báo cáo",
+        "endOfResults": "Bạn đã xem hết bài viết.",
+        "cancel": "Hủy"
     },
     "menu": {
         "dashboard": "Bảng điều khiển",
@@ -94,6 +98,26 @@
         "title": "Thông báo",
         "newNotification": "Thông báo mới"
     },
+    "community": {
+        "createPostTitle": "Tạo bài viết",
+        "post": "Đăng",
+        "postPlaceholder": "Bạn đang nghĩ gì?",
+        "addPhoto": "Thêm ảnh/video",
+        "postEmptyWarning": "Nội dung bài viết không được để trống.",
+        "postCreateSuccess": "Đăng bài thành công!",
+        "deletePostSuccess": "Xóa bài viết thành công!",
+        "likes": "lượt thích",
+        "comments": "bình luận",
+        "replies": "phản hồi",
+        "like": "Thích",
+        "comment": "Bình luận",
+        "addComment": "Gửi",
+        "reply": "Trả lời",
+        "sendReply": "Gửi",
+        "replyTo": "Trả lời",
+        "deleteCommentSuccess": "Xóa bình luận thành công!",
+        "deleteCommentConfirm": "Bạn có chắc muốn xóa bình luận này?"
+    },
     "errors": {
         "fetchBadges": "Tải danh sách giải đấu thất bại.",
         "fetchLeaderboard": "Tải bảng xếp hạng thất bại.",
@@ -111,6 +135,14 @@
         "fetchVideoDetail": "Tải chi tiết bài video thất bại.",
         "videoNotFound": "Không tìm thấy bài video.",
         "fetchNotificationsError": "Tải thông báo thất bại.",
-        "markAsReadError": "Đánh dấu đã đọc thất bại."
+        "markAsReadError": "Đánh dấu đã đọc thất bại.",
+        "fetchPostsError": "Tải bài viết thất bại.",
+        "postCreateError": "Tạo bài viết thất bại.",
+        "deletePostError": "Xóa bài viết thất bại.",
+        "fetchCommentsError": "Tải bình luận thất bại.",
+        "createCommentError": "Gửi bình luận thất bại.",
+        "likePostError": "Thích bài viết thất bại.",
+        "unlikePostError": "Hủy thích bài viết thất bại.",
+        "deleteCommentError": "Xóa bình luận thất bại."
     }
 }

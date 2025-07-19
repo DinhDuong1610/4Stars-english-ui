@@ -12,13 +12,13 @@ import '@/i18n';
 import { WebSocketProvider } from '@/context/websocket.context';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <ConfigProvider locale={enUS}>
-      <ThemeProviderWrapper>
-        <WebSocketProvider>
-          <RouterProvider router={router} />
-        </WebSocketProvider>
-      </ThemeProviderWrapper>
-    </ConfigProvider>
-  </React.StrictMode >,
+  // <React.StrictMode>
+  <ConfigProvider locale={enUS}>
+    <ThemeProviderWrapper>
+      <WebSocketProvider>
+        <RouterProvider router={router} />
+      </WebSocketProvider>
+    </ThemeProviderWrapper>
+  </ConfigProvider>
+  // </React.StrictMode >
 );

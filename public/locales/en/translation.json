@@ -2,7 +2,11 @@
     "common": {
         "back": "Back",
         "yes": "Yes",
-        "no": "No"
+        "no": "No",
+        "delete": "Delete",
+        "report": "Report",
+        "endOfResults": "You have seen all posts.",
+        "cancel": "Cancel"
     },
     "menu": {
         "dashboard": "Dashboard",
@@ -94,6 +98,26 @@
         "title": "Notifications",
         "newNotification": "New notification"
     },
+    "community": {
+        "createPostTitle": "Create Post",
+        "post": "Post",
+        "postPlaceholder": "What's on your mind?",
+        "addPhoto": "Add Photo/Video",
+        "postEmptyWarning": "Post content cannot be empty.",
+        "postCreateSuccess": "Post created successfully!",
+        "deletePostSuccess": "Post deleted successfully!",
+        "likes": "likes",
+        "comments": "comments",
+        "replies": "replies",
+        "like": "Like",
+        "comment": "Comment",
+        "addComment": "Send",
+        "reply": "Reply",
+        "sendReply": "Send",
+        "replyTo": "Replying to",
+        "deleteCommentSuccess": "Comment deleted successfully!",
+        "deleteCommentConfirm": "Are you sure you want to delete this comment?"
+    },
     "errors": {
         "fetchBadges": "Failed to load the list of leagues.",
         "fetchLeaderboard": "Failed to load the leaderboard.",
@@ -111,6 +135,14 @@
         "fetchVideoDetail": "Failed to fetch video detail.",
         "videoNotFound": "This video could not be found.",
         "fetchNotificationsError": "Failed to fetch notifications.",
-        "markAsReadError": "Failed to mark as read."
+        "markAsReadError": "Failed to mark as read.",
+        "fetchPostsError": "Failed to fetch posts.",
+        "postCreateError": "Failed to create post.",
+        "deletePostError": "Failed to delete post.",
+        "fetchCommentsError": "Failed to fetch comments.",
+        "createCommentError": "Failed to create comment.",
+        "likePostError": "Failed to like post.",
+        "unlikePostError": "Failed to unlike post.",
+        "deleteCommentError": "Failed to delete comment."
     }
 }

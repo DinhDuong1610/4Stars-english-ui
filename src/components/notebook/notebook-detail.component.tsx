@@ -2,7 +2,7 @@ import { Card, Typography, Button, Tag, Popconfirm } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
 import type { IVocabulary } from 'types/vocabulary.type';
-import styles from 'pages/client/notebook.page.module.scss';
+import styles from 'pages/client/notebook/notebook.page.module.scss';
 import TextToSpeech from 'components/common/text-to-speech/text-to-speech.component';
 
 const { Title, Text, Paragraph } = Typography;
