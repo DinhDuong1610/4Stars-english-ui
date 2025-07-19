@@ -8,7 +8,7 @@ import type { IVocabulary } from 'types/vocabulary.type';
 import { fetchRelatedWordsAPI, fetchSynonymsAPI, fetchVocabularyDetailClientAPI } from 'services/vocabulary.service';
 import TextToSpeech from '@/components/common/text-to-speech/text-to-speech.component';
 import Logo from 'assets/images/logo.png';
-import { addVocabularyToNotebookAPI } from '../../services/notebook.service';
+import { addVocabularyToNotebookAPI } from '../../../services/notebook.service';
 
 const { Title, Text, Paragraph } = Typography;
 
