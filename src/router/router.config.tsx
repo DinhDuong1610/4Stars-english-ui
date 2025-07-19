@@ -27,6 +27,7 @@ import GrammarPage from 'pages/admin/grammars.page';
 import GrammarDetailPage from 'pages/client/grammar-detail.page';
 import ArticleListPage from 'pages/client/article-list.page';
 import ArticleDetailPage from 'pages/client/article-detail.page';
+import VideoListPage from 'pages/client/video-list.page';
 
 const routes = [
     {
@@ -113,6 +114,18 @@ const routes = [
                 path: 'articles/:id',
                 element: (
                     <ArticleDetailPage />
+                ),
+            },
+            {
+                path: 'videos',
+                element: (
+                    <VideoListPage />
+                ),
+            },
+            {
+                path: 'videos/category/:categoryId',
+                element: (
+                    <VideoListPage />
                 ),
             },
         ],

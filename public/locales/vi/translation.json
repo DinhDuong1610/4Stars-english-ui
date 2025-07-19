@@ -17,7 +17,7 @@
         "dictionary": "Từ điển",
         "grammar": "Ngữ pháp",
         "blog": "Bài viết",
-        "videoLessons": "Học qua Video",
+        "video": "Video",
         "community": "Cộng đồng",
         "store": "Cửa hàng",
         "account": "Tài khoản"
@@ -85,6 +85,9 @@
     "article": {
         "pageTitle": "Bài viết"
     },
+    "video": {
+        "pageTitle": "Video"
+    },
     "errors": {
         "fetchBadges": "Tải danh sách giải đấu thất bại.",
         "fetchLeaderboard": "Tải bảng xếp hạng thất bại.",
@@ -98,6 +101,8 @@
         "fetchGrammarDetail": "Tải chi tiết bài ngữ pháp thất bại.",
         "grammarNotFound": "Không tìm thấy bài ngữ pháp này.",
         "fetchArticleDetail": "Tải chi tiết bài viết thất bại.",
-        "articleNotFound": "Không tìm thấy bài viết."
+        "articleNotFound": "Không tìm thấy bài viết.",
+        "fetchVideoDetail": "Tải chi tiết bài video thất bại.",
+        "videoNotFound": "Không tìm thấy bài video."
     }
 }

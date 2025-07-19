@@ -17,7 +17,7 @@
         "dictionary": "Dictionary",
         "grammar": "Grammar",
         "blog": "Blog",
-        "videoLessons": "Video Lessons",
+        "video": "Video",
         "community": "Community",
         "store": "Store",
         "account": "Account"
@@ -85,6 +85,9 @@
     "article": {
         "pageTitle": "Blogs"
     },
+    "video": {
+        "pageTitle": "Video"
+    },
     "errors": {
         "fetchBadges": "Failed to load the list of leagues.",
         "fetchLeaderboard": "Failed to load the leaderboard.",
@@ -98,6 +101,8 @@
         "fetchGrammarDetail": "Failed to fetch grammar detail.",
         "grammarNotFound": "This grammar topic could not be found.",
         "fetchArticleDetail": "Failed to fetch article detail.",
-        "articleNotFound": "This article could not be found."
+        "articleNotFound": "This article could not be found.",
+        "fetchVideoDetail": "Failed to fetch video detail.",
+        "videoNotFound": "This video could not be found."
     }
 }
