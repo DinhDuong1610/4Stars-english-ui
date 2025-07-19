@@ -21,3 +21,13 @@ export const deleteVideoAPI = (id: number) => {
     const url_backend = `/api/v1/admin/videos/${id}`;
     return instance.delete<any>(url_backend);
 }
+
+export const fetchVideosClientAPI = (query: string) => {
+    const url_backend = `/api/v1/videos?${query}`;
+    return instance.get<IBackendRes<IVideo[]>>(url_backend);
+}
+
+export const fetchVideoDetailClientAPI = (id: number) => {
+    const url_backend = `/api/v1/videos/${id}`;
+    return instance.get<IResponse<IVideo>>(url_backend);
+}

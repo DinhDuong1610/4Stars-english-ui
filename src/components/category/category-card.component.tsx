@@ -6,13 +6,13 @@ import icon_category from 'assets/icons/category/vocabulary.png';
 import { useEffect, useState } from 'react';
 import type { IGrammar } from 'types/grammar.type';
 import { useTranslation } from 'react-i18next';
-import { fetchGrammarsClientAPI } from '../../services/grammar.service';
+import { fetchGrammarsClientAPI } from 'services/grammar.service';
 
 const { Title, Paragraph } = Typography;
 
 interface CategoryCardProps {
     category: ICategory;
-    basePath: 'vocabularies' | 'grammars' | 'articles';
+    basePath: 'vocabularies' | 'grammars' | 'articles' | 'videos';
 }
 
 const CategoryCard = ({ category, basePath }: CategoryCardProps) => {
@@ -38,7 +38,8 @@ const CategoryCard = ({ category, basePath }: CategoryCardProps) => {
         <Link to={
             basePath === 'vocabularies' ? `/vocabularies/category/${category.id}` :
                 basePath === 'articles' ? `/articles/category/${category.id}` :
-                    category.subCategories.length > 0 ? `/grammars/category/${category.id}` : `/grammars/${grammar?.id}`
+                    basePath === 'videos' ? `/videos/category/${category.id}` :
+                        category.subCategories.length > 0 ? `/grammars/category/${category.id}` : `/grammars/${grammar?.id}`
         }>
             <div className={styles.categoryCard}>
                 <div className={styles.categoryImage}>
