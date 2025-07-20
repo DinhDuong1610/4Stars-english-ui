@@ -24,7 +24,7 @@ const findCategoryAndPath = (nodes: ICategory[], nodeId: number, path: ICategory
     return { category: null, path: [] };
 };
 
-const GrammarListPage: React.FC = () => {
+const GrammarListPage = () => {
     const { categoryId } = useParams<{ categoryId?: string }>();
     const { t } = useTranslation();
 

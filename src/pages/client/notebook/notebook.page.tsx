@@ -9,7 +9,7 @@ import NotebookDetail from 'components/notebook/notebook-detail.component';
 
 const { Title, Text } = Typography;
 
-const NotebookPage: React.FC = () => {
+const NotebookPage = () => {
     const { t } = useTranslation();
     const [activeLevel, setActiveLevel] = useState('1');
     const [vocabularies, setVocabularies] = useState<IVocabulary[]>([]);

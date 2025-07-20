@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 import AdminLayout from 'layouts/admin.layout';
 import ClientLayout from 'layouts/client.layout';
-import HomePage from 'pages/client/home.page';
+import HomePage from '@/pages/client/home/home.page';
 import DashboardPage from 'pages/admin/dashboard.page';
 import UsersPage from 'pages/admin/users.page';
 import PlanPage from 'pages/admin/plans.page';
@@ -17,18 +17,20 @@ import NotFoundPage from 'pages/error/404.page';
 import PermissionGuard from '@/components/common/share/permission-guard.component';
 import AdminGuard from '@/components/common/share/admin-guard.component';
 import LoggingPage from 'pages/admin/logging.page';
-import LeaderboardPage from 'pages/client/leaderboard.page';
-import DictionaryPage from 'pages/client/dictionary.page';
-import VocabularyDetailPage from 'pages/client/vocabulary-detail.page';
-import VocabularyListPage from 'pages/client/vocabulary-list.page';
-import NotebookPage from 'pages/client/notebook.page';
-import GrammarListPage from 'pages/client/grammar-list.page';
+import LeaderboardPage from '@/pages/client/leaderboard/leaderboard.page';
+import DictionaryPage from '@/pages/client/dictionary/dictionary.page';
+import VocabularyDetailPage from '@/pages/client/vocabulary/vocabulary-detail.page';
+import VocabularyListPage from '@/pages/client/vocabulary/vocabulary-list.page';
+import NotebookPage from '@/pages/client/notebook/notebook.page';
+import GrammarListPage from '@/pages/client/grammar/grammar-list.page';
 import GrammarPage from 'pages/admin/grammars.page';
-import GrammarDetailPage from 'pages/client/grammar-detail.page';
-import ArticleListPage from 'pages/client/article-list.page';
-import ArticleDetailPage from 'pages/client/article-detail.page';
-import VideoListPage from 'pages/client/video-list.page';
-import VideoDetailPage from 'pages/client/video-detail.page';
+import GrammarDetailPage from '@/pages/client/grammar/grammar-detail.page';
+import ArticleListPage from '@/pages/client/article/article-list.page';
+import ArticleDetailPage from '@/pages/client/article/article-detail.page';
+import VideoListPage from '@/pages/client/video/video-list.page';
+import VideoDetailPage from '@/pages/client/video/video-detail.page';
+import CommunityPage from 'pages/client/community/community.page';
+import PostDetailPage from 'pages/client/community/post-detail.page';
 
 const routes = [
     {
@@ -133,6 +135,18 @@ const routes = [
                 path: 'videos/:id',
                 element: (
                     <VideoDetailPage />
+                ),
+            },
+            {
+                path: 'community',
+                element: (
+                    <CommunityPage />
+                ),
+            },
+            {
+                path: 'posts/:id',
+                element: (
+                    <PostDetailPage />
                 ),
             },
         ],

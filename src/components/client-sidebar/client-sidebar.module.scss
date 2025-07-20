@@ -43,19 +43,19 @@
     }
 
     &:hover {
-        background-color: var(--ant-control-item-bg-hover, #E3F0FF);
+        background-color: var(--ant-control-item-bg-hover, #b5d7ff4a);
         border: 3px solid var(--ant-color-primary, #3f96fa);
     }
 
     &:active {
-        background-color: var(--ant-color-primary-bg-hover, #e6f4ff);
+        background-color: var(--ant-color-primary-bg-hover, #b5d7ff4a);
         color: var(--ant-color-primary, #3f96fa);
         border: 3px solid var(--ant-color-primary, #3f96fa);
     }
 }
 
 .active {
-    background-color: var(--ant-color-primary-bg-hover, #e6f4ff);
+    background-color: var(--ant-color-primary-bg-hover, #b5d7ff4a);
     color: var(--ant-color-primary, #3f96fa);
     border: 3px solid var(--ant-color-primary, #3f96fa);
 }
