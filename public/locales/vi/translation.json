@@ -123,6 +123,18 @@
         "connectSuggestions": "Gợi ý kết nối",
         "viewAllSuggestions": "Xem tất cả gợi ý"
     },
+    "profile": {
+        "changePassword": "Đổi mật khẩu",
+        "updatePassword": "Cập nhật mật khẩu",
+        "currentPassword": "Mật khẩu hiện tại",
+        "newPassword": "Mật khẩu mới",
+        "confirmNewPassword": "Xác nhận mật khẩu mới",
+        "passwordUpdateSuccess": "Cập nhật mật khẩu thành công!"
+    },
+    "validation": {
+        "passwordRequired": "Vui lòng nhập mật khẩu!",
+        "passwordsDoNotMatch": "Hai mật khẩu không khớp!"
+    },
     "errors": {
         "fetchBadges": "Tải danh sách giải đấu thất bại.",
         "fetchLeaderboard": "Tải bảng xếp hạng thất bại.",
@@ -149,6 +161,7 @@
         "likePostError": "Thích bài viết thất bại.",
         "unlikePostError": "Hủy thích bài viết thất bại.",
         "deleteCommentError": "Xóa bình luận thất bại.",
-        "fetchSuggestedUsersError": "Tải người dùng gợi ý thất bại."
+        "fetchSuggestedUsersError": "Tải người dùng gợi ý thất bại.",
+        "passwordUpdateError": "Cập nhật mật khẩu thất bại. Vui lòng kiểm tra lại."
     }
 }

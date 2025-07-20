@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Row, Col, message, Skeleton, Card } from 'antd';
+import { Row, Col, message, Skeleton, Card, Space } from 'antd';
 import { useTranslation } from 'react-i18next';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import styles from './profile.page.module.scss';

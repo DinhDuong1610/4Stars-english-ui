@@ -43,3 +43,8 @@ export interface IUpdateUser {
     password?: string;
     active?: boolean;
 }
+
+export interface IUpdatePasswordUser {
+    currentPassword: string;
+    newPassword: string;
+}

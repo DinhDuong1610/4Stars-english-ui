@@ -217,7 +217,6 @@
 
 .widgetCard {
     border-radius: 12px;
-    margin-bottom: 24px;
     border: 1px solid var(--ant-border-color-split, #f0f0f0);
 
     .accountHeader {
@@ -270,7 +269,6 @@
     :global(.ant-list-item-meta-title) {
         margin-bottom: 0 !important;
     }
-
 }
 
 .rightContainer {
@@ -280,6 +278,22 @@
 .accountCardContainer {
     position: sticky;
     top: 24px;
+
+    :global(.ant-collapse-content-box) {
+        padding: 0 !important;
+    }
+
+    :global(.ant-collapse-content-box) {
+        padding: 0 !important;
+    }
+
+    :global(.ant-collapse-header) {
+        padding: 0px !important;
+    }
+
+    :global(.ant-collapse-content) {
+        margin-bottom: 24px !important;
+    }
 }
 
 .statsCard {
