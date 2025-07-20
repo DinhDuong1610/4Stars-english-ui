@@ -100,11 +100,13 @@ const PostCard = ({ post, onDelete }: PostCardProps) => {
         </Menu>
     );
 
+    const colorAvatar = user?.id === post.user.id ? '#1677ff' : 'default';
+
     return (
         <Card className={styles.postCard}>
             <div className={styles.postHeader}>
                 <div className={styles.postAuthorWrapper}>
-                    <Avatar>{post.user.name.charAt(0)}</Avatar>
+                    <Avatar style={{ backgroundColor: colorAvatar }}>{post.user.name.charAt(0)}</Avatar>
                     <div className={styles.postAuthor}>
                         <Text className={styles.postAuthorName}>{post.user.name}</Text>
                         <Text className={styles.postAuthorTime} type="secondary">{dayjs(post.createdAt).fromNow()}</Text>

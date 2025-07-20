@@ -116,7 +116,12 @@
         "sendReply": "Gửi",
         "replyTo": "Trả lời",
         "deleteCommentSuccess": "Xóa bình luận thành công!",
-        "deleteCommentConfirm": "Bạn có chắc muốn xóa bình luận này?"
+        "deleteCommentConfirm": "Bạn có chắc muốn xóa bình luận này?",
+        "points": "điểm",
+        "rank": "Hạng",
+        "editProfile": "Chỉnh sửa hồ sơ",
+        "connectSuggestions": "Gợi ý kết nối",
+        "viewAllSuggestions": "Xem tất cả gợi ý"
     },
     "errors": {
         "fetchBadges": "Tải danh sách giải đấu thất bại.",
@@ -143,6 +148,7 @@
         "createCommentError": "Gửi bình luận thất bại.",
         "likePostError": "Thích bài viết thất bại.",
         "unlikePostError": "Hủy thích bài viết thất bại.",
-        "deleteCommentError": "Xóa bình luận thất bại."
+        "deleteCommentError": "Xóa bình luận thất bại.",
+        "fetchSuggestedUsersError": "Tải người dùng gợi ý thất bại."
     }
 }

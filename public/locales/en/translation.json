@@ -116,7 +116,12 @@
         "sendReply": "Send",
         "replyTo": "Replying to",
         "deleteCommentSuccess": "Comment deleted successfully!",
-        "deleteCommentConfirm": "Are you sure you want to delete this comment?"
+        "deleteCommentConfirm": "Are you sure you want to delete this comment?",
+        "points": "points",
+        "rank": "Rank",
+        "editProfile": "Edit Profile",
+        "connectSuggestions": "Connect Suggestions",
+        "viewAllSuggestions": "View All Suggestions"
     },
     "errors": {
         "fetchBadges": "Failed to load the list of leagues.",
@@ -143,6 +148,7 @@
         "createCommentError": "Failed to create comment.",
         "likePostError": "Failed to like post.",
         "unlikePostError": "Failed to unlike post.",
-        "deleteCommentError": "Failed to delete comment."
+        "deleteCommentError": "Failed to delete comment.",
+        "fetchSuggestedUsersError": "Failed to fetch suggested users."
     }
 }

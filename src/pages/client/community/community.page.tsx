@@ -8,6 +8,8 @@ import type { IPost } from 'types/post.type';
 import { fetchPostsAPI } from 'services/post.service';
 import PostCard from 'components/community/post-card.component';
 import CreatePostModal from 'components/community/create-post-modal.component';
+import AccountCard from 'components/community/account-card.component';
+import ConnectCard from 'components/community/connect-card.component';
 
 const CommunityPage: React.FC = () => {
     const { t } = useTranslation();
@@ -54,7 +56,7 @@ const CommunityPage: React.FC = () => {
             <Row gutter={[24, 24]}>
                 <Col xs={24} sm={24} md={16} lg={16}>
                     <Card className={styles.createPostTrigger}>
-                        <Avatar>{user?.name?.charAt(0)}</Avatar>
+                        <Avatar style={{ backgroundColor: '#1677ff' }}>{user?.name?.charAt(0)}</Avatar>
                         <Button type="text" onClick={() => setIsModalOpen(true)} className={styles.triggerButton}>
                             {t('community.postPlaceholder')}
                         </Button>
@@ -74,9 +76,8 @@ const CommunityPage: React.FC = () => {
                 </Col>
 
                 <Col xs={24} sm={24} md={8} lg={8}>
-                    <Card style={{ height: '100%' }}>
-
-                    </Card>
+                    <AccountCard />
+                    <ConnectCard />
                 </Col>
             </Row>
 
