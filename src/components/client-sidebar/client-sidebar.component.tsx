@@ -32,7 +32,7 @@ const ClientSidebar = () => {
         { key: '/videos', icon: <PlaySquareOutlined />, label: t('sidebar.video') },
         { key: '/community', icon: <TeamOutlined />, label: t('sidebar.community') },
         { key: '/store', icon: <ShopOutlined />, label: t('sidebar.store') },
-        { key: '/account', icon: <UserOutlined />, label: t('sidebar.profile') },
+        { key: '/profile', icon: <UserOutlined />, label: t('sidebar.profile') },
     ];
 
     return (
