@@ -138,7 +138,7 @@
     "store": {
         "premiumTitle": "PREMIUM SUBSCRIPTION",
         "ctaButton": "VIEW DETAILS & GET PROMOTION",
-        "promoText": "Exclusive offer for students for the new school year, valid until 31/07",
+        "promoText": "Exclusive offer for students for the new school year, valid until {{date}}",
         "activateByCode": "ACTIVATE BY CODE",
         "subscriberCountTitle": "Premium package promotion time remaining",
         "subscriberNote": "* Nguyen Thu Dung just subscribed to Premium",

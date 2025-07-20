@@ -138,7 +138,7 @@
     "store": {
         "premiumTitle": "ĐĂNG KÝ PREMIUM",
         "ctaButton": "XEM THÔNG TIN CHI TIẾT & NHẬN KHUYẾN MÃI",
-        "promoText": "Ưu đãi độc quyền dành cho Học sinh - Sinh viên mùa nhập học đến hết 31/07",
+        "promoText": "Ưu đãi độc quyền dành cho Học sinh - Sinh viên mùa nhập học đến hết {{date}}",
         "activateByCode": "KÍCH HOẠT BẰNG MÃ",
         "subscriberCountTitle": "Thời gian ưu đãi gói Premium còn lại",
         "subscriberNote": "* Nguyễn Thu Dung vừa đăng ký Premium",

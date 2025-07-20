@@ -7,7 +7,7 @@ import styles from './store.page.module.scss';
 import img_banner from 'assets/images/banner_store.png';
 import img_item_feature from 'assets/images/item_feature_store.png';
 import img_feature from 'assets/images/feature_big_store.png';
-import { formatCurrency } from 'utils/format.util';
+import { formatCurrency, formatISODate } from 'utils/format.util';
 import type { IPlan } from 'types/plan.type';
 import { fetchPlansClientAPI } from 'services/plan.service';
 
@@ -17,6 +17,10 @@ const StorePage = () => {
     const { t } = useTranslation();
     const [plans, setPlans] = useState<IPlan[]>([]);
     const [isLoadingPlans, setIsLoadingPlans] = useState(true);
+
+    const now = new Date();
+    const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59);
+    const dayEnd = formatISODate(endOfMonth.toISOString(), 'dd/MM');
 
     useEffect(() => {
         const loadPlans = async () => {
@@ -161,7 +165,7 @@ const StorePage = () => {
                         />
                         <div className={styles.promotion}>
                             <img src={img_feature} alt="Premium Feature" className={styles.promoIcon} />
-                            <Text className={styles.promoText} strong>{t('store.promoText')}</Text>
+                            <Text className={styles.promoText} strong>{t('store.promoText', { date: dayEnd })}</Text>
                         </div>
                         <Link to="/premium">
                             <button className={styles.ctaButton}>
