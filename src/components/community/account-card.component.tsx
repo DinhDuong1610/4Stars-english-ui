@@ -10,6 +10,7 @@ const { Title, Text } = Typography;
 const AccountCard = () => {
     const { t } = useTranslation();
     const { user } = useAuthStore();
+    const isProfile = window.location.href.toString().endsWith('profile');
 
     if (!user) {
         return null;
@@ -30,11 +31,17 @@ const AccountCard = () => {
                     <Text><strong>{user.point || 0}</strong> {t('community.points')}</Text>
                     <Text>{t('community.rank')} <strong>{user.badge?.name || 'N/A'}</strong></Text>
                 </div>
-                <Link to="/account">
-                    <Button type="primary" block icon={<SettingOutlined />}>
-                        {t('community.editProfile')}
-                    </Button>
-                </Link>
+
+                {
+                    !isProfile ? (
+                        <Link to="/profile">
+                            <Button style={{ width: '100%' }} type="primary" icon={<SettingOutlined />}>{t('community.editProfile')}</Button>
+                        </Link>
+                    ) : (
+                        <Button style={{ width: '100%' }} type="primary" icon={<SettingOutlined />}>{t('community.editProfile')}</Button>
+                    )
+
+                }
             </div>
         </Card>
     );

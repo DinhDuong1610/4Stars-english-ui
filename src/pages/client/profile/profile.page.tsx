@@ -1,0 +1,121 @@
+import { useState, useEffect } from 'react';
+import { Row, Col, message, Skeleton, Card } from 'antd';
+import { useTranslation } from 'react-i18next';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import styles from './profile.page.module.scss';
+import { useAuthStore } from 'stores/auth.store';
+import type { IPost } from 'types/post.type';
+import { fetchPostsAPI } from 'services/post.service';
+import PostCard from 'components/community/post-card.component';
+import AccountCard from 'components/community/account-card.component';
+import icon_streak from '@/assets/icons/dashboard/streak.png';
+import icon_point from '@/assets/icons/dashboard/point.png';
+import type { IUserDashboard } from 'types/user-dashboard.type';
+import { fetchUserDashboardAPI } from 'services/user-dashboard.service';
+
+const ProfilePage = () => {
+    const { t } = useTranslation();
+    const { user } = useAuthStore();
+    const [posts, setPosts] = useState<IPost[]>([]);
+    const [page, setPage] = useState(1);
+    const [hasMore, setHasMore] = useState(true);
+    const [dashboardData, setDashboardData] = useState<IUserDashboard | null>(null);
+
+
+    const fetchPosts = async () => {
+        try {
+            const res = await fetchPostsAPI(page, 10);
+            if (res && res.data) {
+                setPosts(prev => {
+                    if (prev != res.data.result)
+                        return [...prev, ...res.data.result]
+                    else
+                        return prev
+                });
+                if (res.data.meta.page >= res.data.meta.pages) {
+                    setHasMore(false);
+                }
+                setPage(prev => prev + 1);
+            }
+        } catch (error) {
+            message.error(t('errors.fetchPostsError'));
+        }
+    };
+
+    useEffect(() => {
+        fetchPosts();
+    }, []);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const dashboardRes = await fetchUserDashboardAPI();
+
+                if (dashboardRes && dashboardRes.data) {
+                    setDashboardData(dashboardRes.data);
+                }
+            } catch (error) {
+                message.error("Failed to fetch user data.");
+            }
+        };
+        fetchData();
+    }, []);
+
+    const handlePostDeleted = (postId: number) => {
+        setPosts(prev => prev.filter(p => p.id !== postId));
+    };
+
+    return (
+        <div className={styles.pageContainer}>
+            <Row gutter={[24, 24]}>
+                <Col xs={24} sm={24} md={16} lg={16}>
+                    <InfiniteScroll
+                        dataLength={posts.filter(p => p.user.id === user?.id).length}
+                        next={fetchPosts}
+                        hasMore={hasMore}
+                        loader={<Skeleton avatar paragraph={{ rows: 4 }} active />}
+                        endMessage={<p style={{ textAlign: 'center' }}><b>{t('common.endOfResults')}</b></p>}
+                    >
+                        {posts.filter(p => p.user.id === user?.id).map(post => (
+                            <PostCard key={post.id} post={post} onDelete={handlePostDeleted} />
+                        ))}
+                    </InfiniteScroll>
+                </Col>
+
+                <Col xs={24} sm={24} md={8} lg={8} className={styles.rightContainer}>
+                    <div className={styles.accountCardContainer}>
+                        <AccountCard />
+
+                        <Card bordered={false} className={styles.statsCard}>
+                            <div className={styles.statisc}>
+                                <div className={styles.statiscItem}>
+                                    <div className={styles.statiscItemIcon}>
+                                        <img src={icon_point} alt="point" />
+                                    </div>
+                                    <div className={styles.statiscItemValue}>{dashboardData?.userPoints}</div>
+                                    <div className={styles.statiscItemTitle}>{t('homepage.points')}</div>
+                                </div>
+                                <div className={styles.statiscItem}>
+                                    <div className={styles.statiscItemIcon}>
+                                        <img src={icon_streak} alt="streak" />
+                                    </div>
+                                    <div className={styles.statiscItemValue}>{dashboardData?.currentStreak}</div>
+                                    <div className={styles.statiscItemTitle}>{t('homepage.streak')}</div>
+                                </div>
+                                <div className={styles.statiscItem}>
+                                    <div className={styles.statiscItemIcon}>
+                                        <img src={`${import.meta.env.VITE_BACKEND_URL}${dashboardData?.badges?.image}`} alt="badge" />
+                                    </div>
+                                    <div className={styles.statiscItemValueRank}>{dashboardData?.badges?.name}</div>
+                                    <div className={styles.statiscItemTitle}>{t('homepage.rank')}</div>
+                                </div>
+                            </div>
+                        </Card>
+                    </div>
+                </Col>
+            </Row>
+        </div>
+    );
+};
+
+export default ProfilePage;
