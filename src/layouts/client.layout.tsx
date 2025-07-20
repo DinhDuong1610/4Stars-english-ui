@@ -6,7 +6,7 @@ import styles from './client.layout.module.scss';
 
 const { Sider, Content } = Layout;
 
-const ClientLayout: React.FC = () => {
+const ClientLayout = () => {
     return (
         <Layout className={styles.layout}>
             <Sider width={250} className={styles.sider}>

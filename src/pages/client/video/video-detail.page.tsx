@@ -11,7 +11,7 @@ import SuggestedVideoCard from 'components/video/suggested-video-card.component'
 
 const { Title, Paragraph } = Typography;
 
-const VideoDetailPage: React.FC = () => {
+const VideoDetailPage = () => {
     const { id } = useParams<{ id: string }>();
     const { t } = useTranslation();
     const playerRef = useRef(null);

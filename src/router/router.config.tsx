@@ -30,6 +30,7 @@ import ArticleDetailPage from '@/pages/client/article/article-detail.page';
 import VideoListPage from '@/pages/client/video/video-list.page';
 import VideoDetailPage from '@/pages/client/video/video-detail.page';
 import CommunityPage from 'pages/client/community/community.page';
+import PostDetailPage from 'pages/client/community/post-detail.page';
 
 const routes = [
     {
@@ -140,6 +141,12 @@ const routes = [
                 path: 'community',
                 element: (
                     <CommunityPage />
+                ),
+            },
+            {
+                path: 'posts/:id',
+                element: (
+                    <PostDetailPage />
                 ),
             },
         ],

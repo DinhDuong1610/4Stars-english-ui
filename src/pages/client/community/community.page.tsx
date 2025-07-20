@@ -11,7 +11,7 @@ import CreatePostModal from 'components/community/create-post-modal.component';
 import AccountCard from 'components/community/account-card.component';
 import ConnectCard from 'components/community/connect-card.component';
 
-const CommunityPage: React.FC = () => {
+const CommunityPage = () => {
     const { t } = useTranslation();
     const { user } = useAuthStore();
     const [isModalOpen, setIsModalOpen] = useState(false);
