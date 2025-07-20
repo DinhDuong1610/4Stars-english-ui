@@ -135,6 +135,36 @@
         "passwordRequired": "Vui lòng nhập mật khẩu!",
         "passwordsDoNotMatch": "Hai mật khẩu không khớp!"
     },
+    "store": {
+        "premiumTitle": "ĐĂNG KÝ PREMIUM",
+        "ctaButton": "XEM THÔNG TIN CHI TIẾT & NHẬN KHUYẾN MÃI",
+        "promoText": "Ưu đãi độc quyền dành cho Học sinh - Sinh viên mùa nhập học đến hết 31/07",
+        "activateByCode": "KÍCH HOẠT BẰNG MÃ",
+        "subscriberCountTitle": "Thời gian ưu đãi gói Premium còn lại",
+        "subscriberNote": "* Nguyễn Thu Dung vừa đăng ký Premium",
+        "individualPackagesTitle": "Đăng ký gói riêng lẻ",
+        "features": {
+            "noAds": "Không có quảng cáo",
+            "learnVocabulary": "Học từ vựng theo phương pháp lặp lại ngắt quảng",
+            "notebookLimit": "1500 sổ tay từ vựng & ngữ pháp chọn lọc",
+            "handbookAccess": "500 video bài học từ các nguồn uy tín",
+            "advancedSearch": "Tra cứu nâng cao từ vựng & ngữ pháp",
+            "premiumLessons": "Các bài học nâng cao dành riêng",
+            "expertExercises": "Hệ thống bài tập được soạn bởi chuyên gia",
+            "communityHighlight": "Ưu tiên xuất hiện trong Cộng đồng",
+            "aiFeatures": "Sử dụng các tính năng AI"
+        },
+        "packages": {
+            "notebookPackage": "Gói sổ tay từ vựng & ngữ pháp",
+            "noAdsPackage": "Gói quảng cáo",
+            "videoPackage": "Gói video bài học",
+            "searchPackage": "Gói tra cứu nâng cao",
+            "aiPackage": "Gói sử dụng tính năng AI",
+            "6months": "Gói 6 tháng",
+            "1year": "Gói 1 năm",
+            "lifetime": "Gói trọn đời"
+        }
+    },
     "errors": {
         "fetchBadges": "Tải danh sách giải đấu thất bại.",
         "fetchLeaderboard": "Tải bảng xếp hạng thất bại.",

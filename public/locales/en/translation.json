@@ -135,6 +135,36 @@
         "passwordRequired": "Please input your password!",
         "passwordsDoNotMatch": "The two passwords do not match!"
     },
+    "store": {
+        "premiumTitle": "PREMIUM SUBSCRIPTION",
+        "ctaButton": "VIEW DETAILS & GET PROMOTION",
+        "promoText": "Exclusive offer for students for the new school year, valid until 31/07",
+        "activateByCode": "ACTIVATE BY CODE",
+        "subscriberCountTitle": "Premium package promotion time remaining",
+        "subscriberNote": "* Nguyen Thu Dung just subscribed to Premium",
+        "individualPackagesTitle": "Individual Packages",
+        "features": {
+            "noAds": "No advertisements",
+            "learnVocabulary": "Learn vocabulary by repetition",
+            "notebookLimit": "1500 selected vocabulary & grammar notebooks",
+            "handbookAccess": "500 video lessons from reputable sources",
+            "advancedSearch": "Advanced vocabulary & grammar lookup",
+            "premiumLessons": "Exclusive advanced lessons",
+            "expertExercises": "Exercise system created by experts",
+            "communityHighlight": "Priority appearance in the Community",
+            "aiFeatures": "Access to AI features"
+        },
+        "packages": {
+            "notebookPackage": "Vocabulary & Grammar Notebook Package",
+            "noAdsPackage": "Ad-free Package",
+            "videoPackage": "Video Lessons Package",
+            "searchPackage": "Advanced Search Package",
+            "aiPackage": "AI Features Package",
+            "6months": "6 months Package",
+            "1year": "1 year Package",
+            "lifetime": "Lifetime Package"
+        }
+    },
     "errors": {
         "fetchBadges": "Failed to load the list of leagues.",
         "fetchLeaderboard": "Failed to load the leaderboard.",
