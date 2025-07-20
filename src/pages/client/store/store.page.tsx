@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Row, Col, Card, Typography, List } from 'antd';
+import { Row, Col, Card, Typography, List, Skeleton } from 'antd';
 import { GiftOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
@@ -8,21 +8,37 @@ import img_banner from 'assets/images/banner_store.png';
 import img_item_feature from 'assets/images/item_feature_store.png';
 import img_feature from 'assets/images/feature_big_store.png';
 import { formatCurrency } from 'utils/format.util';
+import type { IPlan } from 'types/plan.type';
+import { fetchPlansClientAPI } from 'services/plan.service';
 
 const { Title, Text } = Typography;
 
 const StorePage = () => {
     const { t } = useTranslation();
+    const [plans, setPlans] = useState<IPlan[]>([]);
+    const [isLoadingPlans, setIsLoadingPlans] = useState(true);
+
+    useEffect(() => {
+        const loadPlans = async () => {
+            try {
+                setIsLoadingPlans(true);
+                const res = await fetchPlansClientAPI('active=true');
+                if (res && res.data) {
+                    setPlans(res.data.result);
+                }
+            } catch (error) {
+                console.error("Failed to fetch plans:", error);
+            } finally {
+                setIsLoadingPlans(false);
+            }
+        };
+
+        loadPlans();
+    }, []);
 
     const premiumFeatures = [
         'learnVocabulary', 'notebookLimit', 'handbookAccess', 'advancedSearch',
         'premiumLessons', 'expertExercises', 'aiFeatures'
-    ];
-
-    const individualPackages = [
-        { key: '6months', price: '299000' },
-        { key: '1year', price: '499000' },
-        { key: 'lifetime', price: '999000' }
     ];
 
     const Digit = ({ value }: { value: number }) => {
@@ -183,15 +199,21 @@ const StorePage = () => {
                     </Card>
 
                     <Card className={styles.widgetCard}>
-                        <List
-                            dataSource={individualPackages}
-                            renderItem={item => (
-                                <List.Item className={styles.packageItem}>
-                                    <Text className={styles.packageName}>{t(`store.packages.${item.key}`)}</Text>
-                                    <Text className={styles.packagePrice} strong>{formatCurrency(parseInt(item.price))}</Text>
-                                </List.Item>
-                            )}
-                        />
+                        {isLoadingPlans ? (
+                            <Skeleton active paragraph={{ rows: 3 }} />
+                        ) : (
+                            <List
+                                dataSource={plans}
+                                renderItem={item => (
+                                    <List.Item className={styles.packageItem}>
+                                        <Text className={styles.packageName}>{item.name}</Text>
+                                        <Text className={styles.packagePrice} strong>
+                                            {formatCurrency(item.price)}
+                                        </Text>
+                                    </List.Item>
+                                )}
+                            />
+                        )}
                     </Card>
                 </Col>
             </Row>

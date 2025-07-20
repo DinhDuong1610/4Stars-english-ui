@@ -21,3 +21,8 @@ export const deletePlanAPI = (id: number) => {
     const url_backend = `/api/v1/admin/plans/${id}`;
     return instance.delete<any>(url_backend);
 }
+
+export const fetchPlansClientAPI = (query: string) => {
+    const url_backend = `/api/v1/plans?${query}`;
+    return instance.get<IBackendRes<IPlan[]>>(url_backend);
+}
