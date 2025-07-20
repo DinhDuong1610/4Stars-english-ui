@@ -23,7 +23,7 @@ const PostCard = ({ post, onDelete }: PostCardProps) => {
     const { user } = useAuthStore();
     const { stompClient, isConnected } = useWebSocket();
 
-    const [showComments, setShowComments] = useState(false);
+    const [showComments, setShowComments] = useState(true);
     const [isLiked, setIsLiked] = useState(post.likedByCurrentUser);
     const [likeCount, setLikeCount] = useState(post.likeCount);
     const [commentCount, setCommentCount] = useState(post.commentCount);
