@@ -31,7 +31,17 @@ const HomePage = () => {
                 ]);
 
                 if (dashboardRes && dashboardRes.data) {
-                    setDashboardData(dashboardRes.data);
+                    const apiData = dashboardRes.data;
+                    const completeLevels = { "1": 0, "2": 0, "3": 0, "4": 0, "5": 0 };
+                    const finalCounts = {
+                        ...completeLevels,
+                        ...apiData.vocabularyLevelCounts
+                    };
+                    const processedDashboardData = {
+                        ...apiData,
+                        vocabularyLevelCounts: finalCounts
+                    };
+                    setDashboardData(processedDashboardData);
                 }
                 if (leaderboardRes && leaderboardRes.data) {
                     setLeaderboardData(leaderboardRes.data.result);

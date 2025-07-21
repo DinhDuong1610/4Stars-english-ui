@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import styles from './grammar-detail.page.module.scss';
 import { fetchGrammarDetailClientAPI } from 'services/grammar.service';
 import type { IGrammar } from 'types/grammar.type';
+import Logo from 'assets/images/logo.png';
 
 const { Title } = Typography;
 
@@ -45,9 +46,11 @@ const GrammarDetailPage = () => {
 
     if (!grammar) {
         return <Card bordered={false} className={styles.detailContainer}>
-            <Empty >
-                {t('errors.grammarNotFound')}
-            </Empty>
+            <Empty
+                image={Logo}
+                imageStyle={{ height: 100 }}
+                description={t('errors.grammarNotFound')}
+            />
         </Card>;
     }
 

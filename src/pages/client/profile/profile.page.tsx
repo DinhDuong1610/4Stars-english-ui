@@ -1,21 +1,21 @@
 import { useState, useEffect } from 'react';
-import { Row, Col, message, Skeleton, Card, Space } from 'antd';
+import { Row, Col, message, Skeleton, Card, Empty } from 'antd';
 import { useTranslation } from 'react-i18next';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import styles from './profile.page.module.scss';
-import { useAuthStore } from 'stores/auth.store';
 import type { IPost } from 'types/post.type';
-import { fetchPostsAPI } from 'services/post.service';
+import { fetchMyPostsAPI } from 'services/post.service';
 import PostCard from 'components/community/post-card.component';
 import AccountCard from 'components/community/account-card.component';
 import icon_streak from '@/assets/icons/dashboard/streak.png';
 import icon_point from '@/assets/icons/dashboard/point.png';
 import type { IUserDashboard } from 'types/user-dashboard.type';
 import { fetchUserDashboardAPI } from 'services/user-dashboard.service';
+import Logo from 'assets/images/logo.png';
+import { Link } from 'react-router-dom';
 
 const ProfilePage = () => {
     const { t } = useTranslation();
-    const { user } = useAuthStore();
     const [posts, setPosts] = useState<IPost[]>([]);
     const [page, setPage] = useState(1);
     const [hasMore, setHasMore] = useState(true);
@@ -24,7 +24,7 @@ const ProfilePage = () => {
 
     const fetchPosts = async () => {
         try {
-            const res = await fetchPostsAPI(page, 10);
+            const res = await fetchMyPostsAPI(page, 10);
             if (res && res.data) {
                 setPosts(prev => {
                     if (prev != res.data.result)
@@ -70,13 +70,29 @@ const ProfilePage = () => {
             <Row gutter={[24, 24]}>
                 <Col xs={24} sm={24} md={16} lg={16}>
                     <InfiniteScroll
-                        dataLength={posts.filter(p => p.user.id === user?.id).length}
+                        dataLength={posts.length}
                         next={fetchPosts}
                         hasMore={hasMore}
                         loader={<Skeleton avatar paragraph={{ rows: 4 }} active />}
-                        endMessage={<p style={{ textAlign: 'center' }}><b>{t('common.endOfResults')}</b></p>}
+                        endMessage={
+                            <>
+                                {
+                                    posts.length === 0 && <Card style={{ height: 'calc(100vh - 48px)' }}>
+                                        <Empty
+                                            image={Logo}
+                                            imageStyle={{ height: 100 }}
+                                            description={
+                                                <>
+                                                    <h2>{t('common.noPost')}</h2>
+                                                    <Link to="/community">{t('sidebar.community')}</Link>
+                                                </>}
+                                        />
+                                    </Card>
+                                }
+                            </>
+                        }
                     >
-                        {posts.filter(p => p.user.id === user?.id).map(post => (
+                        {posts.map(post => (
                             <PostCard key={post.id} post={post} onDelete={handlePostDeleted} />
                         ))}
                     </InfiniteScroll>

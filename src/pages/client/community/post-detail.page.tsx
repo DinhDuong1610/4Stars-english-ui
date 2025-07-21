@@ -8,6 +8,7 @@ import PostCard from 'components/community/post-card.component';
 import AccountCard from 'components/community/account-card.component';
 import ConnectCard from 'components/community/connect-card.component';
 import { useParams } from 'react-router-dom';
+import Logo from 'assets/images/logo.png';
 
 const PostDetailPage = () => {
     const { t } = useTranslation();
@@ -33,8 +34,8 @@ const PostDetailPage = () => {
     if (!post) {
         return (
             <Empty
-                image={Empty.PRESENTED_IMAGE_SIMPLE}
-                imageStyle={{ height: 60 }}
+                image={Logo}
+                imageStyle={{ height: 100 }}
                 description={t('common.noData')}
             />
         );

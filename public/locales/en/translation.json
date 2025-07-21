@@ -6,7 +6,9 @@
         "delete": "Delete",
         "report": "Report",
         "endOfResults": "You have seen all posts.",
-        "cancel": "Cancel"
+        "cancel": "Cancel",
+        "noData": "No data",
+        "noPost": "You have no posts yet"
     },
     "menu": {
         "dashboard": "Dashboard",
