@@ -75,17 +75,21 @@ const ProfilePage = () => {
                         hasMore={hasMore}
                         loader={<Skeleton avatar paragraph={{ rows: 4 }} active />}
                         endMessage={
-                            <Card style={{ height: 'calc(100vh - 48px)' }}>
-                                <Empty
-                                    image={Logo}
-                                    imageStyle={{ height: 100 }}
-                                    description={
-                                        <>
-                                            <h2>{t('common.noPost')}</h2>
-                                            <Link to="/community">{t('sidebar.community')}</Link>
-                                        </>}
-                                />
-                            </Card>
+                            <>
+                                {
+                                    posts.length === 0 && <Card style={{ height: 'calc(100vh - 48px)' }}>
+                                        <Empty
+                                            image={Logo}
+                                            imageStyle={{ height: 100 }}
+                                            description={
+                                                <>
+                                                    <h2>{t('common.noPost')}</h2>
+                                                    <Link to="/community">{t('sidebar.community')}</Link>
+                                                </>}
+                                        />
+                                    </Card>
+                                }
+                            </>
                         }
                     >
                         {posts.map(post => (
