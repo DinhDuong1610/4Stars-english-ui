@@ -7,6 +7,11 @@ export const fetchPostsAPI = (page: number = 1, size: number = 10) => {
     return instance.get<IBackendRes<IPost[]>>(url_backend);
 }
 
+export const fetchMyPostsAPI = (page: number = 1, size: number = 10) => {
+    const url_backend = `/api/v1/posts/me?page=${page}&size=${size}&sort=createdAt,desc`;
+    return instance.get<IBackendRes<IPost[]>>(url_backend);
+}
+
 export const fetchPostDetailAPI = (id: number) => {
     const url_backend = `/api/v1/posts/${id}`;
     return instance.get<IResponse<IPost>>(url_backend);

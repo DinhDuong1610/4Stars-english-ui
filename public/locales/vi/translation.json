@@ -6,7 +6,9 @@
         "delete": "Xóa",
         "report": "Báo cáo",
         "endOfResults": "Bạn đã xem hết bài viết.",
-        "cancel": "Hủy"
+        "cancel": "Hủy",
+        "noData": "Chưa có dữ liệu",
+        "noPost": "Bạn chưa có bài viết nào"
     },
     "menu": {
         "dashboard": "Bảng điều khiển",

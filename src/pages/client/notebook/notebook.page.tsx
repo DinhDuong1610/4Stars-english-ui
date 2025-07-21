@@ -6,6 +6,7 @@ import type { IVocabulary } from 'types/vocabulary.type';
 import { fetchNotebookByLevelAPI, removeNotebookItemAPI } from 'services/notebook.service';
 import TextToSpeech from 'components/common/text-to-speech/text-to-speech.component';
 import NotebookDetail from 'components/notebook/notebook-detail.component';
+import Logo from 'assets/images/logo.png';
 
 const { Title, Text } = Typography;
 
@@ -112,7 +113,13 @@ const NotebookPage = () => {
                 {selectedVocabulary ? (
                     <NotebookDetail vocabulary={selectedVocabulary} onDelete={handleRemoveVocabulary} />
                 ) : (
-                    !isLoading && <Card style={{ height: '100%' }}><Empty description={t('notebook.noVocabSelected')} /></Card>
+                    !isLoading && <Card style={{ height: '100%' }}>
+                        <Empty
+                            image={Logo}
+                            imageStyle={{ height: 100 }}
+                            description={t('notebook.noVocabSelected')}
+                        />
+                    </Card>
                 )}
             </Col>
         </Row>

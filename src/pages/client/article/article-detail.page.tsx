@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import styles from './article-detail.page.module.scss';
 import type { IArticle } from 'types/article.type';
 import { fetchArticleDetailClientAPI } from 'services/article.service';
+import Logo from 'assets/images/logo.png';
 
 const { Title } = Typography;
 
@@ -44,9 +45,11 @@ const ArticleDetailPage = () => {
 
     if (!article) {
         return <Card bordered={false} className={styles.detailContainer}>
-            <Empty >
-                {t('errors.articleNotFound')}
-            </Empty>
+            <Empty
+                image={Logo}
+                imageStyle={{ height: 100 }}
+                description={t('errors.articleNotFound')}
+            />
         </Card>;
     }
 
