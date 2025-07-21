@@ -1,4 +1,3 @@
-import { useMemo } from 'react';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import ProLayout from '@ant-design/pro-layout';
 import {
@@ -6,6 +5,8 @@ import {
     BookOutlined,
     CodeOutlined,
     DashboardOutlined,
+    FileDoneOutlined,
+    LineChartOutlined,
     LockOutlined,
     PicCenterOutlined,
     PicLeftOutlined,
@@ -23,6 +24,8 @@ const menuItems = [
     { path: '/admin/permissions', name: 'Permission', icon: <LockOutlined /> },
     { path: '/admin/users', name: 'User', icon: <UserOutlined /> },
     { path: '/admin/plans', name: 'Plan', icon: <AppstoreOutlined /> },
+    { path: '/admin/subscriptions', name: 'Subscription', icon: <FileDoneOutlined /> },
+    { path: '/admin/statistics', name: 'Statistic', icon: <LineChartOutlined /> },
     { path: '/admin/badges', name: 'Badge', icon: <TrophyOutlined /> },
     { path: '/admin/articles', name: 'Article', icon: <BookOutlined /> },
     { path: '/admin/videos', name: 'Video', icon: <VideoCameraOutlined /> },

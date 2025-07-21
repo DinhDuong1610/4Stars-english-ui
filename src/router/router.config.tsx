@@ -34,6 +34,8 @@ import PostDetailPage from 'pages/client/community/post-detail.page';
 import ProfilePage from 'pages/client/profile/profile.page';
 import StorePage from 'pages/client/store/store.page';
 import PremiumPage from 'pages/client/premium/premium.page';
+import SubscriptionPage from 'pages/admin/subscription.page';
+import RevenueStatisticPage from 'pages/admin/statistic.page';
 
 const routes = [
     {
@@ -251,6 +253,22 @@ const routes = [
                             <PermissionGuard apiPath="/api/v1/admin/permissions" method="GET">
                                 <PermissionsPage />
                             </PermissionGuard>
+                        ),
+                    },
+                    {
+                        path: 'subscriptions',
+                        element: (
+                            <PermissionGuard apiPath="/api/v1/admin/subscriptions" method="GET">
+                                <SubscriptionPage />
+                            </PermissionGuard>
+                        ),
+                    },
+                    {
+                        path: 'statistics',
+                        element: (
+                            // <PermissionGuard apiPath="/api/v1/admin/statistics/revenue" method="GET">
+                            <RevenueStatisticPage />
+                            // </PermissionGuard>
                         ),
                     },
                     {
