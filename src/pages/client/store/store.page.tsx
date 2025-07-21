@@ -78,8 +78,8 @@ const StorePage = () => {
     useEffect(() => {
         const timer = setInterval(() => {
             const now = new Date();
-            const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59);
-            const difference = endOfMonth.getTime() - now.getTime();
+            const endOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59);
+            const difference = endOfDay.getTime() - now.getTime();
 
             if (difference > 0) {
                 const days = Math.floor(difference / (1000 * 60 * 60 * 24));

@@ -165,6 +165,66 @@
             "lifetime": "Lifetime Package"
         }
     },
+    "premium": {
+        "hero": {
+            "title": "Master English without Limits with 4Stars Premium",
+            "subtitle": "Subscribe to the Premium plan to experience all learning, review, and lookup features without limits.",
+            "cta": "LEARN NOW"
+        },
+        "featuresTitle": "Learn + Review English with modern systems",
+        "feature1": {
+            "title": "Learn + Review",
+            "desc": "Learn vocabulary, grammar, and practice through various tests."
+        },
+        "feature2": {
+            "title": "Dictionary Lookup",
+            "desc": "English-Vietnamese dictionary with pronunciation, examples, and related words."
+        },
+        "feature3": {
+            "title": "Learning Community",
+            "desc": "Share knowledge, ask questions, and interact with thousands of other learners."
+        },
+        "detail1": {
+            "title": "Learn + Review from effective methods",
+            "desc": "The spaced repetition method helps you remember vocabulary and grammar longer.",
+            "f1": "Content built on a roadmap",
+            "f2": "Personalized review sessions",
+            "f3": "Track your learning progress"
+        },
+        "detail2": {
+            "title": "Fast and Accurate Lookup",
+            "desc": "Our dictionary and grammar system is compiled by leading language experts.",
+            "f1": "Unlimited lookups",
+            "f2": "Standard US-UK pronunciation",
+            "f3": "Practical, easy-to-understand examples"
+        },
+        "detail3": {
+            "title": "Exclusive Video Lessons",
+            "desc": "Enhance your listening skills and expand your vocabulary with hundreds of exclusive video lessons.",
+            "f1": "Bilingual English-Vietnamese videos",
+            "f2": "Diverse, practical topics",
+            "f3": "New videos updated weekly"
+        },
+        "detail4": {
+            "title": "Dynamic English Learning Community",
+            "desc": "Join the community to never feel alone on your journey to conquer English.",
+            "f1": "Q&A with experts",
+            "f2": "Share learning experiences",
+            "f3": "Participate in weekly challenges"
+        },
+        "pricing": {
+            "title": "SHOCKING DISCOUNT",
+            "days": "Days",
+            "hours": "Hours",
+            "minutes": "Minutes",
+            "seconds": "Seconds",
+            "plan1": "1-MONTH PLAN",
+            "cta1": "START FREE TRIAL",
+            "plan2": "12-MONTH PLAN",
+            "cta2": "SUBSCRIBE & SAVE",
+            "cta": "SUBSCRIBE NOW"
+        }
+    },
     "errors": {
         "fetchBadges": "Failed to load the list of leagues.",
         "fetchLeaderboard": "Failed to load the leaderboard.",

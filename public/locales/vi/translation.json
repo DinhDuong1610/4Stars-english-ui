@@ -165,6 +165,66 @@
             "lifetime": "Gói trọn đời"
         }
     },
+    "premium": {
+        "hero": {
+            "title": "Giỏi tiếng Anh không giới hạn cùng 4Stars Premium",
+            "subtitle": "Đăng ký gói Premium để trải nghiệm toàn bộ tính năng học tập, ôn luyện và tra cứu không giới hạn.",
+            "cta": "HỌC NGAY"
+        },
+        "featuresTitle": "Học + Ôn tập tiếng anh với hệ thống hiện đại",
+        "feature1": {
+            "title": "Học + Ôn tập",
+            "desc": "Học từ vựng, ngữ pháp và luyện tập qua các bài kiểm tra đa dạng."
+        },
+        "feature2": {
+            "title": "Tra cứu từ điển",
+            "desc": "Từ điển Anh-Việt với phát âm, ví dụ và các từ liên quan."
+        },
+        "feature3": {
+            "title": "Cộng đồng học tập",
+            "desc": "Chia sẻ kiến thức, đặt câu hỏi và tương tác với hàng ngàn người học khác."
+        },
+        "detail1": {
+            "title": "Học + Ôn tập với phương pháp hiệu quả",
+            "desc": "Phương pháp lặp lại ngắt quãng giúp bạn ghi nhớ từ vựng và ngữ pháp lâu hơn.",
+            "f1": "Nội dung được xây dựng theo lộ trình",
+            "f2": "Ôn tập được cá nhân hóa",
+            "f3": "Theo dõi được tiến độ học tập"
+        },
+        "detail2": {
+            "title": "Tra cứu nhanh và chính xác",
+            "desc": "Hệ thống từ điển và ngữ pháp được biên soạn bởi các chuyên gia ngôn ngữ hàng đầu.",
+            "f1": "Tra cứu không giới hạn",
+            "f2": "Phát âm chuẩn Anh-Mỹ",
+            "f3": "Ví dụ thực tế, dễ hiểu"
+        },
+        "detail3": {
+            "title": "Video bài học độc quyền",
+            "desc": "Nâng cao kỹ năng nghe và mở rộng vốn từ qua hàng trăm video bài học độc quyền.",
+            "f1": "Video song ngữ Anh-Việt",
+            "f2": "Chủ đề đa dạng, thực tế",
+            "f3": "Cập nhật video mới hàng tuần"
+        },
+        "detail4": {
+            "title": "Cộng đồng học tiếng Anh năng động",
+            "desc": "Tham gia cộng đồng để không bao giờ cảm thấy đơn độc trên hành trình chinh phục tiếng Anh.",
+            "f1": "Hỏi đáp cùng chuyên gia",
+            "f2": "Chia sẻ kinh nghiệm học tập",
+            "f3": "Tham gia các thử thách hàng tuần"
+        },
+        "pricing": {
+            "title": "ƯU ĐÃI GIẢM SỐC",
+            "days": "Ngày",
+            "hours": "Giờ",
+            "minutes": "Phút",
+            "seconds": "Giây",
+            "plan1": "GÓI 1 THÁNG",
+            "cta1": "DÙNG THỬ MIỄN PHÍ",
+            "plan2": "GÓI 12 THÁNG",
+            "cta2": "ĐĂNG KÝ GÓI TIẾT KIỆM",
+            "cta": "ĐĂNG KÝ NGAY"
+        }
+    },
     "errors": {
         "fetchBadges": "Tải danh sách giải đấu thất bại.",
         "fetchLeaderboard": "Tải bảng xếp hạng thất bại.",
