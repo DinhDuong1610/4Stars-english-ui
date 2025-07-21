@@ -143,6 +143,8 @@
         "subscriberCountTitle": "Thời gian ưu đãi gói Premium còn lại",
         "subscriberNote": "* Nguyễn Thu Dung vừa đăng ký Premium",
         "individualPackagesTitle": "Đăng ký gói riêng lẻ",
+        "successUpgradeMessage": "Đã kích hoạt gói Premium!",
+        "failUpgradeMessage": "Kích hoạt gói Premium thất bại",
         "features": {
             "noAds": "Không có quảng cáo",
             "learnVocabulary": "Học từ vựng theo phương pháp lặp lại ngắt quảng",
@@ -225,6 +227,11 @@
             "cta": "ĐĂNG KÝ NGAY"
         }
     },
+    "payment": {
+        "creatingSubscription": "Đang tạo giao dịch, vui lòng chờ...",
+        "creatingPaymentLink": "Đang tạo liên kết thanh toán...",
+        "redirecting": "Đang chuyển hướng đến cổng thanh toán..."
+    },
     "errors": {
         "fetchBadges": "Tải danh sách giải đấu thất bại.",
         "fetchLeaderboard": "Tải bảng xếp hạng thất bại.",
@@ -252,6 +259,8 @@
         "unlikePostError": "Hủy thích bài viết thất bại.",
         "deleteCommentError": "Xóa bình luận thất bại.",
         "fetchSuggestedUsersError": "Tải người dùng gợi ý thất bại.",
-        "passwordUpdateError": "Cập nhật mật khẩu thất bại. Vui lòng kiểm tra lại."
+        "passwordUpdateError": "Cập nhật mật khẩu thất bại. Vui lòng kiểm tra lại.",
+        "loginRequired": "Bạn cần đăng nhập để thực hiện chức năng này.",
+        "paymentProcessError": "Đã xảy ra lỗi trong quá trình thanh toán. Vui lòng thử lại."
     }
 }

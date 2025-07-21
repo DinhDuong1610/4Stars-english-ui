@@ -143,6 +143,8 @@
         "subscriberCountTitle": "Premium package promotion time remaining",
         "subscriberNote": "* Nguyen Thu Dung just subscribed to Premium",
         "individualPackagesTitle": "Individual Packages",
+        "successUpgradeMessage": "You have successfully subscribed to Premium!",
+        "failUpgradeMessage": "Premium subscription failed",
         "features": {
             "noAds": "No advertisements",
             "learnVocabulary": "Learn vocabulary by repetition",
@@ -225,6 +227,11 @@
             "cta": "SUBSCRIBE NOW"
         }
     },
+    "payment": {
+        "creatingSubscription": "Creating transaction, please wait...",
+        "creatingPaymentLink": "Creating payment link...",
+        "redirecting": "Redirecting to payment gateway..."
+    },
     "errors": {
         "fetchBadges": "Failed to load the list of leagues.",
         "fetchLeaderboard": "Failed to load the leaderboard.",
@@ -252,6 +259,8 @@
         "unlikePostError": "Failed to unlike post.",
         "deleteCommentError": "Failed to delete comment.",
         "fetchSuggestedUsersError": "Failed to fetch suggested users.",
-        "passwordUpdateError": "Failed to update password. Please check again."
+        "passwordUpdateError": "Failed to update password. Please check again.",
+        "loginRequired": "You need to be logged in to perform this action.",
+        "paymentProcessError": "An error occurred during the payment process. Please try again."
     }
 }

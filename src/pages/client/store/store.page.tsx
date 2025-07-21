@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import { Row, Col, Card, Typography, List, Skeleton } from 'antd';
+import { Row, Col, Card, Typography, List, Skeleton, Modal, Result } from 'antd';
 import { GiftOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import styles from './store.page.module.scss';
 import img_banner from 'assets/images/banner_store.png';
 import img_item_feature from 'assets/images/item_feature_store.png';
@@ -17,6 +17,11 @@ const StorePage = () => {
     const { t } = useTranslation();
     const [plans, setPlans] = useState<IPlan[]>([]);
     const [isLoadingPlans, setIsLoadingPlans] = useState(true);
+
+    const [searchParams] = useSearchParams();
+    const [isModalSuccessOpen, setIsModalSuccessOpen] = useState(false);
+    const [isModalFailedOpen, setIsModalFailedOpen] = useState(false);
+    const [hasModalBeenShown, setHasModalBeenShown] = useState(false);
 
     const now = new Date();
     const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59);
@@ -39,6 +44,19 @@ const StorePage = () => {
 
         loadPlans();
     }, []);
+
+    useEffect(() => {
+        const status = searchParams.get('status');
+
+        if (status === 'success' && !hasModalBeenShown) {
+            setIsModalSuccessOpen(true);
+            setHasModalBeenShown(true);
+        } else if (status === 'failed' && !hasModalBeenShown) {
+            setIsModalFailedOpen(true);
+            setHasModalBeenShown(true);
+        }
+
+    }, [searchParams, hasModalBeenShown]);
 
     const premiumFeatures = [
         'learnVocabulary', 'notebookLimit', 'handbookAccess', 'advancedSearch',
@@ -221,6 +239,34 @@ const StorePage = () => {
                     </Card>
                 </Col>
             </Row>
+
+            <Modal
+                open={isModalSuccessOpen}
+                onCancel={() => setIsModalSuccessOpen(false)}
+                footer={
+                    <></>
+                }
+            >
+                <Result
+                    status="success"
+                    title="Success"
+                    subTitle={<><h2>{t('store.successUpgradeMessage')}</h2></>}
+                />
+            </Modal>
+
+            <Modal
+                open={isModalFailedOpen}
+                onCancel={() => setIsModalFailedOpen(false)}
+                footer={
+                    <></>
+                }
+            >
+                <Result
+                    status="error"
+                    title="Error"
+                    subTitle={<><h2>{t('store.failUpgradeMessage')}</h2></>}
+                />
+            </Modal>
         </div>
     );
 };

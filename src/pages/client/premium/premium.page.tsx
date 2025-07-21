@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
-import { Button, Typography, Row, Col, Card, Divider, List } from 'antd';
+import { Button, Typography, Row, Col, Card, Divider, message } from 'antd';
 import { useTranslation } from 'react-i18next';
 import styles from './premium.page.module.scss';
 import featureCommunity from 'assets/images/premium/feature-community.png';
 import FeatureBlock from 'components/premium/feature-block.component';
 import DetailedFeature from 'components/premium/detailed-feature.component';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import type { IPlan } from 'types/plan.type';
 import { fetchPlansClientAPI } from 'services/plan.service';
 import { formatCurrency } from 'utils/format.util';
@@ -16,12 +16,18 @@ import iconCommunity from 'assets/images/premium/icon-community.png';
 import featureLearn from 'assets/images/premium/feature-learn.png';
 import featureSearch from 'assets/images/premium/feature-search.png';
 import featureVideo from 'assets/images/premium/feature-video.png';
+import { useAuthStore } from 'stores/auth.store';
+import { createSubscriptionAPI } from 'services/subscription.service';
+import { createVNPayPaymentAPI } from 'services/payment.service';
 
 const { Title, Paragraph, Text } = Typography;
 
 const PremiumPage = () => {
     const { t } = useTranslation();
+    const navigate = useNavigate();
+    const { isAuthenticated } = useAuthStore();
     const [plans, setPlans] = useState<IPlan[]>([]);
+    const [isProcessingId, setIsProcessingId] = useState<number | null>(null);
 
     useEffect(() => {
         const loadPlans = async () => {
@@ -38,6 +44,40 @@ const PremiumPage = () => {
 
         loadPlans();
     }, []);
+
+    const handleSubscription = async (plan: IPlan) => {
+        if (!isAuthenticated) {
+            message.warning(t('errors.loginRequired'));
+            navigate('/login');
+            return;
+        }
+
+        setIsProcessingId(plan.id);
+        try {
+            message.loading({ content: t('payment.creatingSubscription'), key: 'payment' });
+            const subRes = await createSubscriptionAPI({ planId: plan.id });
+
+            if (subRes && subRes.data) {
+                const subscriptionId = subRes.data.id;
+
+                message.loading({ content: t('payment.creatingPaymentLink'), key: 'payment' });
+                const paymentRes = await createVNPayPaymentAPI(subscriptionId);
+
+                if (paymentRes && paymentRes.data.paymentUrl) {
+                    message.success({ content: t('payment.redirecting'), key: 'payment' });
+                    window.location.href = paymentRes.data.paymentUrl;
+                } else {
+                    throw new Error('Failed to get payment URL');
+                }
+            } else {
+                throw new Error('Failed to create subscription');
+            }
+        } catch (error) {
+            message.error({ content: t('errors.paymentProcessError'), key: 'payment', duration: 3 });
+        } finally {
+            setIsProcessingId(null);
+        }
+    };
 
 
     const featuresData = [
@@ -136,7 +176,11 @@ const PremiumPage = () => {
                                     <div key={index} className={styles.plan}>
                                         <Text className={styles.planName} strong>{plan.name}</Text>
                                         <Text strong className={styles.price}> {formatCurrency(plan.price)}</Text>
-                                        <Button type="primary" className={styles.blueButton}>{t('premium.pricing.cta')}</Button>
+                                        <Button type="primary" className={styles.blueButton}
+                                            onClick={() => handleSubscription(plan)}
+                                            loading={isProcessingId === plan.id}>
+                                            {t('premium.pricing.cta')}
+                                        </Button>
                                     </div>
                                 ))
                             }
@@ -144,6 +188,8 @@ const PremiumPage = () => {
                     </Row>
                 </Card>
             </div>
+
+
         </div>
     );
 };
