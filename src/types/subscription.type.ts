@@ -15,8 +15,8 @@ export type TPaymentStatus = 'PENDING' | 'PAID' | 'FAILED';
 
 export interface ISubscription {
     id: number;
-    userId: IUser;
-    planId: IPlan;
+    user: IUser;
+    plan: IPlan;
     paymentStatus: TPaymentStatus;
     active: boolean;
     startDate: string;
