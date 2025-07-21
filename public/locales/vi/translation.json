@@ -135,6 +135,103 @@
         "passwordRequired": "Vui lòng nhập mật khẩu!",
         "passwordsDoNotMatch": "Hai mật khẩu không khớp!"
     },
+    "store": {
+        "premiumTitle": "ĐĂNG KÝ PREMIUM",
+        "ctaButton": "XEM THÔNG TIN CHI TIẾT & NHẬN KHUYẾN MÃI",
+        "promoText": "Ưu đãi độc quyền dành cho Học sinh - Sinh viên mùa nhập học đến hết {{date}}",
+        "activateByCode": "KÍCH HOẠT BẰNG MÃ",
+        "subscriberCountTitle": "Thời gian ưu đãi gói Premium còn lại",
+        "subscriberNote": "* Nguyễn Thu Dung vừa đăng ký Premium",
+        "individualPackagesTitle": "Đăng ký gói riêng lẻ",
+        "successUpgradeMessage": "Đã kích hoạt gói Premium!",
+        "failUpgradeMessage": "Kích hoạt gói Premium thất bại",
+        "features": {
+            "noAds": "Không có quảng cáo",
+            "learnVocabulary": "Học từ vựng theo phương pháp lặp lại ngắt quảng",
+            "notebookLimit": "1500 sổ tay từ vựng & ngữ pháp chọn lọc",
+            "handbookAccess": "500 video bài học từ các nguồn uy tín",
+            "advancedSearch": "Tra cứu nâng cao từ vựng & ngữ pháp",
+            "premiumLessons": "Các bài học nâng cao dành riêng",
+            "expertExercises": "Hệ thống bài tập được soạn bởi chuyên gia",
+            "communityHighlight": "Ưu tiên xuất hiện trong Cộng đồng",
+            "aiFeatures": "Sử dụng các tính năng AI"
+        },
+        "packages": {
+            "notebookPackage": "Gói sổ tay từ vựng & ngữ pháp",
+            "noAdsPackage": "Gói quảng cáo",
+            "videoPackage": "Gói video bài học",
+            "searchPackage": "Gói tra cứu nâng cao",
+            "aiPackage": "Gói sử dụng tính năng AI",
+            "6months": "Gói 6 tháng",
+            "1year": "Gói 1 năm",
+            "lifetime": "Gói trọn đời"
+        }
+    },
+    "premium": {
+        "hero": {
+            "title": "Giỏi tiếng Anh không giới hạn cùng 4Stars Premium",
+            "subtitle": "Đăng ký gói Premium để trải nghiệm toàn bộ tính năng học tập, ôn luyện và tra cứu không giới hạn.",
+            "cta": "HỌC NGAY"
+        },
+        "featuresTitle": "Học + Ôn tập tiếng anh với hệ thống hiện đại",
+        "feature1": {
+            "title": "Học + Ôn tập",
+            "desc": "Học từ vựng, ngữ pháp và luyện tập qua các bài kiểm tra đa dạng."
+        },
+        "feature2": {
+            "title": "Tra cứu từ điển",
+            "desc": "Từ điển Anh-Việt với phát âm, ví dụ và các từ liên quan."
+        },
+        "feature3": {
+            "title": "Cộng đồng học tập",
+            "desc": "Chia sẻ kiến thức, đặt câu hỏi và tương tác với hàng ngàn người học khác."
+        },
+        "detail1": {
+            "title": "Học + Ôn tập với phương pháp hiệu quả",
+            "desc": "Phương pháp lặp lại ngắt quãng giúp bạn ghi nhớ từ vựng và ngữ pháp lâu hơn.",
+            "f1": "Nội dung được xây dựng theo lộ trình",
+            "f2": "Ôn tập được cá nhân hóa",
+            "f3": "Theo dõi được tiến độ học tập"
+        },
+        "detail2": {
+            "title": "Tra cứu nhanh và chính xác",
+            "desc": "Hệ thống từ điển và ngữ pháp được biên soạn bởi các chuyên gia ngôn ngữ hàng đầu.",
+            "f1": "Tra cứu không giới hạn",
+            "f2": "Phát âm chuẩn Anh-Mỹ",
+            "f3": "Ví dụ thực tế, dễ hiểu"
+        },
+        "detail3": {
+            "title": "Video bài học độc quyền",
+            "desc": "Nâng cao kỹ năng nghe và mở rộng vốn từ qua hàng trăm video bài học độc quyền.",
+            "f1": "Video song ngữ Anh-Việt",
+            "f2": "Chủ đề đa dạng, thực tế",
+            "f3": "Cập nhật video mới hàng tuần"
+        },
+        "detail4": {
+            "title": "Cộng đồng học tiếng Anh năng động",
+            "desc": "Tham gia cộng đồng để không bao giờ cảm thấy đơn độc trên hành trình chinh phục tiếng Anh.",
+            "f1": "Hỏi đáp cùng chuyên gia",
+            "f2": "Chia sẻ kinh nghiệm học tập",
+            "f3": "Tham gia các thử thách hàng tuần"
+        },
+        "pricing": {
+            "title": "ƯU ĐÃI GIẢM SỐC",
+            "days": "Ngày",
+            "hours": "Giờ",
+            "minutes": "Phút",
+            "seconds": "Giây",
+            "plan1": "GÓI 1 THÁNG",
+            "cta1": "DÙNG THỬ MIỄN PHÍ",
+            "plan2": "GÓI 12 THÁNG",
+            "cta2": "ĐĂNG KÝ GÓI TIẾT KIỆM",
+            "cta": "ĐĂNG KÝ NGAY"
+        }
+    },
+    "payment": {
+        "creatingSubscription": "Đang tạo giao dịch, vui lòng chờ...",
+        "creatingPaymentLink": "Đang tạo liên kết thanh toán...",
+        "redirecting": "Đang chuyển hướng đến cổng thanh toán..."
+    },
     "errors": {
         "fetchBadges": "Tải danh sách giải đấu thất bại.",
         "fetchLeaderboard": "Tải bảng xếp hạng thất bại.",
@@ -162,6 +259,8 @@
         "unlikePostError": "Hủy thích bài viết thất bại.",
         "deleteCommentError": "Xóa bình luận thất bại.",
         "fetchSuggestedUsersError": "Tải người dùng gợi ý thất bại.",
-        "passwordUpdateError": "Cập nhật mật khẩu thất bại. Vui lòng kiểm tra lại."
+        "passwordUpdateError": "Cập nhật mật khẩu thất bại. Vui lòng kiểm tra lại.",
+        "loginRequired": "Bạn cần đăng nhập để thực hiện chức năng này.",
+        "paymentProcessError": "Đã xảy ra lỗi trong quá trình thanh toán. Vui lòng thử lại."
     }
 }

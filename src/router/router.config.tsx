@@ -32,6 +32,8 @@ import VideoDetailPage from '@/pages/client/video/video-detail.page';
 import CommunityPage from 'pages/client/community/community.page';
 import PostDetailPage from 'pages/client/community/post-detail.page';
 import ProfilePage from 'pages/client/profile/profile.page';
+import StorePage from 'pages/client/store/store.page';
+import PremiumPage from 'pages/client/premium/premium.page';
 
 const routes = [
     {
@@ -154,6 +156,18 @@ const routes = [
                 path: 'profile',
                 element: (
                     <ProfilePage />
+                ),
+            },
+            {
+                path: 'store',
+                element: (
+                    <StorePage />
+                ),
+            },
+            {
+                path: 'premium',
+                element: (
+                    <PremiumPage />
                 ),
             },
         ],
