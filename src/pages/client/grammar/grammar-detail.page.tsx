@@ -7,7 +7,7 @@ import styles from './grammar-detail.page.module.scss';
 import { fetchGrammarDetailClientAPI } from 'services/grammar.service';
 import type { IGrammar } from 'types/grammar.type';
 import Logo from 'assets/images/logo.png';
-import { fetchQuizzesClientAPI } from '../../../services/quiz.service';
+import { fetchQuizzesClientAPI } from 'services/quiz.service';
 
 const { Title } = Typography;
 

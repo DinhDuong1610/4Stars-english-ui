@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { Row, Col, Typography, Input, Breadcrumb, message, Skeleton, Card, Button } from 'antd';
-import { HomeOutlined, SearchOutlined } from '@ant-design/icons';
+import { EditOutlined, HomeOutlined, SearchOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
 import styles from './vocabulary-list.page.module.scss';
 import type { ICategory } from 'types/category.type';
@@ -10,12 +10,14 @@ import CategoryCard from 'components/category/category-card.component';
 import VocabularyCard from 'components/vocabulary/vocabulary-card.component';
 import { fetchCategoriesClientAPI } from 'services/category.service';
 import { fetchVocabulariesClientAPI } from 'services/vocabulary.service';
+import { fetchQuizzesClientAPI } from 'services/quiz.service';
 const { Title } = Typography;
 
 
 const VocabularyListPage = () => {
     const { categoryId } = useParams<{ categoryId?: string }>();
     const { t } = useTranslation();
+    const navigate = useNavigate();
     const [categoryTree, setCategoryTree] = useState<ICategory[]>([]);
     const [currentSubCategories, setCurrentSubCategories] = useState<ICategory[]>([]);
     const [vocabularies, setVocabularies] = useState<IVocabulary[]>([]);
@@ -23,6 +25,8 @@ const VocabularyListPage = () => {
     const [breadcrumbPath, setBreadcrumbPath] = useState<ICategory[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [currentCategoryName, setCurrentCategoryName] = useState<string>('');
+    const [isGeneratingQuiz, setIsGeneratingQuiz] = useState(false);
+
 
     useEffect(() => {
         const getCategoryTree = async () => {
@@ -104,6 +108,24 @@ const VocabularyListPage = () => {
         return { category: null, path: [] };
     };
 
+    const handleStartQuiz = async () => {
+        if (!categoryId) return;
+
+        setIsGeneratingQuiz(true);
+        try {
+            const res = await fetchQuizzesClientAPI(parseInt(categoryId));
+            if (res && res.data) {
+                navigate('/review/quiz', { state: { quizData: res.data.result[0] } });
+            } else {
+                message.info(t('vocabulary.noQuizAvailable'));
+            }
+        } catch (error) {
+            message.error(t('errors.generateQuizError'));
+        } finally {
+            setIsGeneratingQuiz(false);
+        }
+    };
+
     const renderBreadcrumb = () => (
         <>
             <Breadcrumb className={styles.breadcrumb}>
@@ -159,7 +181,7 @@ const VocabularyListPage = () => {
 
             {categoryId && currentSubCategories.length === 0 && (
                 <div className={styles.vocabContainer}>
-                    <Row className={styles.rowSearch}>
+                    <Row justify={'space-between'} className={styles.rowSearch}>
                         <Input.Search
                             size="large"
                             placeholder={t('vocabulary.searchPlaceholder')}
@@ -168,7 +190,18 @@ const VocabularyListPage = () => {
                             className={styles.searchBar}
                             loading={isLoading}
                             allowClear
+                            style={{ width: '80%' }}
                         />
+
+                        <Button
+                            type="primary"
+                            size="large"
+                            icon={<EditOutlined />}
+                            onClick={handleStartQuiz}
+                            loading={isGeneratingQuiz}
+                        >
+                            {t('vocabulary.learnNewVocab')}
+                        </Button>
                     </Row>
                     <Row gutter={[12, 12]} className={styles.vocabCards}>
                         {filteredVocabularies.map(vocab => (

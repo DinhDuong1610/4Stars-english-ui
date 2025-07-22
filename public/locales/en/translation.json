@@ -75,7 +75,9 @@
         "synonyms": "Synonyms",
         "relatedWords": "Related Words & Phrases",
         "pageTitle": "Vocabulary topics",
-        "searchPlaceholder": "Search for vocabularies in this category..."
+        "searchPlaceholder": "Search for vocabularies in this category...",
+        "learnNewVocab": "Learn New Vocabulary",
+        "noQuizAvailable": "No exercises are available for this topic yet."
     },
     "notebook": {
         "pageTitle": "Your Notebook",

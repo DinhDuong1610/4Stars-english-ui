@@ -75,7 +75,9 @@
         "synonyms": "Từ đồng nghĩa",
         "relatedWords": "Từ và cụm từ liên quan",
         "pageTitle": "Chủ đề từ vựng",
-        "searchPlaceholder": "Tìm kiếm từ vựng trong danh mục này..."
+        "searchPlaceholder": "Tìm kiếm từ vựng trong danh mục này...",
+        "learnNewVocab": "HỌC TỪ MỚI",
+        "noQuizAvailable": "Hiện chưa có bài tập cho chủ đề này."
     },
     "notebook": {
         "pageTitle": "Sổ tay của bạn",
