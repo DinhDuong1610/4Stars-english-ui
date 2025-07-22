@@ -6,6 +6,10 @@ export const loginAPI = (data: ILoginCredentials) => {
     return instance.post<IResponse<ILoginResponse>>(`/api/v1/auth/login`, data);
 }
 
+export const loginGoogleAPI = (data: { code: string }) => {
+    return instance.post<IResponse<ILoginResponse>>(`/api/v1/auth/google`, data);
+}
+
 export const getAccountAPI = () => {
     return instance.get<IResponse<ILoginResponse>>(`/api/v1/auth/account`);
 }
