@@ -25,7 +25,7 @@ const TranslateEnToViQuestion = ({ question, onAnswer }: ITranslateEnToViProps) 
 
     return (
         <div className={`${styles.question} ${styles.translation}`}>
-            <Title level={3}>{question.prompt}</Title>
+            <Title level={3}>Translate English to Vietnamese</Title>
             <Text className={styles.sentenceToTranslate}>{question.prompt}</Text>
             <Input.TextArea
                 rows={3}

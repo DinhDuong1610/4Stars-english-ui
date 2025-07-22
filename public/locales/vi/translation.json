@@ -89,7 +89,9 @@
     },
     "grammar": {
         "pageTitle": "Khám phá Ngữ pháp",
-        "searchPlaceholder": "Tìm kiếm chủ đề ngữ pháp..."
+        "searchPlaceholder": "Tìm kiếm chủ đề ngữ pháp...",
+        "doExercise": "Làm bài tập",
+        "noQuizAvailable": "Hiện chưa có bài tập cho chủ đề này."
     },
     "article": {
         "pageTitle": "Bài viết"

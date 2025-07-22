@@ -10,6 +10,10 @@ import MultipleChoiceImageQuestion from 'components/quiz/question/multiple-choic
 import ListeningQuestion from 'components/quiz/question/listening.component';
 import FillBlankQuestion from 'components/quiz/question/fill-blank.component';
 import MultipleChoiceTextQuestion from 'components/quiz/question/multiple-choice-text.component';
+import TranslateEnToViQuestion from 'components/quiz/question/translate-en-to-vi.component';
+import TranslateViToEnQuestion from 'components/quiz/question/translate-vi-to-en.component';
+import ListeningTranscriptionQuestion from 'components/quiz/question/listening-transcript.component';
+import ArrangeWordsQuestion from 'components/quiz/question/arrange-word.component';
 
 const { Title, Text } = Typography;
 
@@ -115,6 +119,14 @@ const ReviewPage = () => {
                 return <ListeningQuestion question={currentQuestion} onAnswer={handleAnswerSubmit} />;
             case 'FILL_IN_BLANK':
                 return <FillBlankQuestion question={currentQuestion} onAnswer={handleAnswerSubmit} />;
+            case 'TRANSLATE_EN_TO_VI':
+                return <TranslateEnToViQuestion question={currentQuestion} onAnswer={handleAnswerSubmit} />;
+            case 'TRANSLATE_VI_TO_EN':
+                return <TranslateViToEnQuestion question={currentQuestion} onAnswer={handleAnswerSubmit} />;
+            case 'LISTENING_TRANSCRIPTION':
+                return <ListeningTranscriptionQuestion question={currentQuestion} onAnswer={handleAnswerSubmit} />;
+            case 'ARRANGE_WORDS':
+                return <ArrangeWordsQuestion question={currentQuestion} onAnswer={handleAnswerSubmit} />;
             default:
                 return <p>{t('quiz.unsupportedQuestion', { type: currentQuestion.questionType })}</p>;
         }

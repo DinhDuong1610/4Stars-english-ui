@@ -24,6 +24,11 @@ export const createQuizAPI = (data: ICreateQuiz) => {
 
 // review vocabulary 
 
+export const fetchQuizzesClientAPI = (categoryId: number) => {
+    const url_backend = `/api/v1/quizzes?categoryId=${categoryId}`;
+    return instance.get<IBackendRes<IQuiz[]>>(url_backend);
+}
+
 export const generateReviewQuizAPI = () => {
     const url_backend = `/api/v1/vocabularies/review/generate-quiz`;
     return instance.post<IResponse<IGeneratedQuiz>>(url_backend);

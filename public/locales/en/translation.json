@@ -89,7 +89,9 @@
     },
     "grammar": {
         "pageTitle": "Explore Grammar",
-        "searchPlaceholder": "Search for grammar topics..."
+        "searchPlaceholder": "Search for grammar topics...",
+        "doExercise": "Do Exercise",
+        "noQuizAvailable": "No exercises are available for this topic yet."
     },
     "article": {
         "pageTitle": "Blogs"

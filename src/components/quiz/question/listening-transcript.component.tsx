@@ -25,7 +25,7 @@ const ListeningTranscriptionQuestion = ({ question, onAnswer }: IListeningTransc
     };
 
     return (
-        <div className={`${styles.question} ${styles.transcription}`}>
+        <div className={`${styles.question} ${styles.listening}`}>
             <Title level={4}>{question.prompt}</Title>
             <Button
                 className={styles.playButton}

@@ -51,7 +51,7 @@ const ArrangeWordsQuestion = ({ question, onAnswer }: IArrangeWordsProps) => {
 
     return (
         <div className={`${styles.question} ${styles.arrangeWords}`}>
-            <Title level={4}>{question.prompt}</Title>
+            <Title level={3}>{t('quiz.arrangeWordsPrompt')}</Title>
             <div className={styles.sentenceArea}>
                 {selectedWords.length > 0 ? (
                     selectedWords.map(wordObj => (
@@ -64,7 +64,7 @@ const ArrangeWordsQuestion = ({ question, onAnswer }: IArrangeWordsProps) => {
                         </Tag>
                     ))
                 ) : (
-                    <Text type="secondary">{t('quiz.arrangeWordsPrompt')}</Text>
+                    <Text type="secondary">__ __ __ __ __ __</Text>
                 )}
             </div>
             <div className={styles.wordBank}>

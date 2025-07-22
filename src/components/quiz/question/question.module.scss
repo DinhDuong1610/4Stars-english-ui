@@ -81,3 +81,25 @@
         }
     }
 }
+
+.translation {
+    .sentenceToTranslate {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: var(--ant-text-color, #2994FF);
+    }
+}
+
+.arrangeWords {
+
+    .wordTag {
+        font-size: 2rem;
+        font-weight: bold;
+        color: var(--ant-text-color, #000000);
+        padding: 5px 10px;
+        border: 1px solid var(--ant-border-color, #2994FF);
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+}

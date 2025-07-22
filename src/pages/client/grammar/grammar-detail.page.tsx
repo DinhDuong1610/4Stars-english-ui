@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Card, Typography, message, Skeleton, Button, Empty } from 'antd';
-import { ArrowLeftOutlined } from '@ant-design/icons';
+import { ArrowLeftOutlined, EditOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
 import styles from './grammar-detail.page.module.scss';
 import { fetchGrammarDetailClientAPI } from 'services/grammar.service';
 import type { IGrammar } from 'types/grammar.type';
 import Logo from 'assets/images/logo.png';
+import { fetchQuizzesClientAPI } from '../../../services/quiz.service';
 
 const { Title } = Typography;
 
@@ -17,6 +18,8 @@ const GrammarDetailPage = () => {
 
     const [grammar, setGrammar] = useState<IGrammar | null>(null);
     const [isLoading, setIsLoading] = useState(true);
+
+    const [isGeneratingQuiz, setIsGeneratingQuiz] = useState(false);
 
     useEffect(() => {
         if (!id) return;
@@ -39,6 +42,24 @@ const GrammarDetailPage = () => {
 
         getGrammarDetail();
     }, [id, t]);
+
+    const handleStartQuiz = async () => {
+        if (!grammar) return;
+
+        setIsGeneratingQuiz(true);
+        try {
+            const res = await fetchQuizzesClientAPI(grammar.category.id);
+            if (res && res.data) {
+                navigate('/review/quiz', { state: { quizData: res.data.result[0] } });
+            } else {
+                message.info(t('grammar.noQuizAvailable'));
+            }
+        } catch (error) {
+            message.error(t('errors.generateQuizError'));
+        } finally {
+            setIsGeneratingQuiz(false);
+        }
+    };
 
     if (isLoading) {
         return <Card className={styles.detailContainer}><Skeleton active paragraph={{ rows: 10 }} /></Card>;
@@ -72,6 +93,18 @@ const GrammarDetailPage = () => {
                     className={styles.grammarContent}
                     dangerouslySetInnerHTML={{ __html: grammar.content }}
                 />
+
+                <div className={styles.actionsContainer}>
+                    <Button
+                        type="primary"
+                        size="large"
+                        icon={<EditOutlined />}
+                        onClick={handleStartQuiz}
+                        loading={isGeneratingQuiz}
+                    >
+                        {t('grammar.doExercise')}
+                    </Button>
+                </div>
             </div>
         </Card>
     );
