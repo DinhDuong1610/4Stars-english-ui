@@ -8,11 +8,12 @@ import styles from './home.page.module.scss';
 import type { IUser } from 'types/user.type';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { fetchLeaderboardAPI } from 'services/leaderboard.service';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import icon_streak from '@/assets/icons/dashboard/streak.png';
 import icon_point from '@/assets/icons/dashboard/point.png';
 import { useTranslation } from 'react-i18next';
 import NotFoundPage from 'pages/error/404.page';
+import { generateReviewQuizAPI } from 'services/quiz.service';
 
 const HomePage = () => {
     const { t } = useTranslation();
@@ -20,6 +21,9 @@ const HomePage = () => {
     const [dashboardData, setDashboardData] = useState<IUserDashboard | null>(null);
     const [leaderboardData, setLeaderboardData] = useState<IUser[]>([]);
     const [isLoading, setIsLoading] = useState(true);
+
+    const navigate = useNavigate();
+    const [isGeneratingQuiz, setIsGeneratingQuiz] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -54,6 +58,24 @@ const HomePage = () => {
         };
         fetchData();
     }, []);
+
+    const handleStartReview = async () => {
+        if (dashboardData!.wordsToReviewCount > 0) {
+            setIsGeneratingQuiz(true);
+            try {
+                const res = await generateReviewQuizAPI();
+                if (res && res.data) {
+                    navigate('/review/quiz', { state: { quizData: res.data } });
+                } else {
+                    message.success(t('homepage.noReviewNeeded'));
+                }
+            } catch (error) {
+                message.error(t('errors.generateQuizError'));
+            } finally {
+                setIsGeneratingQuiz(false);
+            }
+        }
+    };
 
     if (isLoading) {
         return (
@@ -134,7 +156,9 @@ const HomePage = () => {
                         <div className={styles.vocabSummary}>
                             <h2 className={styles.vocabCount}>{t('homepage.wordsToReview')} <strong>{dashboardData.wordsToReviewCount ?? 0} {t('homepage.wordsUnit')}</strong></h2>
                             <Space>
-                                <button className={styles.button}>{t('homepage.reviewNow')}</button>
+                                <button className={styles.button} onClick={handleStartReview} disabled={isGeneratingQuiz}>
+                                    {isGeneratingQuiz ? t('common.loading') : t('homepage.reviewNow')}
+                                </button>
                             </Space>
                         </div>
                     </Card>

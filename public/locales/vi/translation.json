@@ -8,7 +8,9 @@
         "endOfResults": "Bạn đã xem hết bài viết.",
         "cancel": "Hủy",
         "noData": "Chưa có dữ liệu",
-        "noPost": "Bạn chưa có bài viết nào"
+        "noPost": "Bạn chưa có bài viết nào",
+        "loading": "Đang tải",
+        "backToHome": "Về trang chủ"
     },
     "menu": {
         "dashboard": "Bảng điều khiển",
@@ -39,7 +41,8 @@
         "rank": "Hạng",
         "leaderboardTitle": "BẢNG XẾP HẠNG",
         "viewAll": "Xem tất cả",
-        "pointsUnit": "điểm"
+        "pointsUnit": "điểm",
+        "noReviewNeeded": "Tuyệt vời! Bạn đã ôn hết từ vựng rồi."
     },
     "leaderboard": {
         "weeklyRanking": "BẢNG XẾP HẠNG TUẦN",
@@ -72,7 +75,9 @@
         "synonyms": "Từ đồng nghĩa",
         "relatedWords": "Từ và cụm từ liên quan",
         "pageTitle": "Chủ đề từ vựng",
-        "searchPlaceholder": "Tìm kiếm từ vựng trong danh mục này..."
+        "searchPlaceholder": "Tìm kiếm từ vựng trong danh mục này...",
+        "learnNewVocab": "HỌC TỪ MỚI",
+        "noQuizAvailable": "Hiện chưa có bài tập cho chủ đề này."
     },
     "notebook": {
         "pageTitle": "Sổ tay của bạn",
@@ -86,7 +91,9 @@
     },
     "grammar": {
         "pageTitle": "Khám phá Ngữ pháp",
-        "searchPlaceholder": "Tìm kiếm chủ đề ngữ pháp..."
+        "searchPlaceholder": "Tìm kiếm chủ đề ngữ pháp...",
+        "doExercise": "Làm bài tập",
+        "noQuizAvailable": "Hiện chưa có bài tập cho chủ đề này."
     },
     "article": {
         "pageTitle": "Bài viết"
@@ -234,6 +241,28 @@
         "creatingPaymentLink": "Đang tạo liên kết thanh toán...",
         "redirecting": "Đang chuyển hướng đến cổng thanh toán..."
     },
+    "quiz": {
+        "submit": "Nộp bài",
+        "processingTitle": "Đang chấm điểm bài làm của bạn...",
+        "processingSubtitle": "Kết quả sẽ được thông báo ngay khi có. Vui lòng không rời khỏi trang này.",
+        "resultTitle": "Hoàn thành bài ôn tập!",
+        "reviewAnswers": "Xem lại đáp án chi tiết",
+        "scoreResult": "Bạn đạt {{score}}/{{totalPoints}} điểm.",
+        "loadingQuestion": "Đang tải câu hỏi...",
+        "unsupportedQuestion": "Không hỗ trợ loại câu hỏi: {{type}}",
+        "correct": "Chính xác!",
+        "incorrect": "Không đúng rồi!",
+        "correctAnswerIs": "Đáp án đúng",
+        "correctAnswerAlt": "hình ảnh đáp án đúng",
+        "finish": "Hoàn thành",
+        "continue": "Tiếp tục",
+        "enterAnswerPlaceholder": "Nhập câu trả lời của bạn",
+        "checkAnswer": "Kiểm tra",
+        "enterVietnameseTranslation": "Nhập bản dịch tiếng Việt của bạn",
+        "enterEnglishTranslation": "Nhập bản dịch tiếng Anh của bạn",
+        "transcribeWhatYouHear": "Gõ lại những gì bạn nghe được...",
+        "arrangeWordsPrompt": "Chọn các từ bên dưới để tạo thành câu"
+    },
     "errors": {
         "fetchBadges": "Tải danh sách giải đấu thất bại.",
         "fetchLeaderboard": "Tải bảng xếp hạng thất bại.",
@@ -263,6 +292,10 @@
         "fetchSuggestedUsersError": "Tải người dùng gợi ý thất bại.",
         "passwordUpdateError": "Cập nhật mật khẩu thất bại. Vui lòng kiểm tra lại.",
         "loginRequired": "Bạn cần đăng nhập để thực hiện chức năng này.",
-        "paymentProcessError": "Đã xảy ra lỗi trong quá trình thanh toán. Vui lòng thử lại."
+        "paymentProcessError": "Đã xảy ra lỗi trong quá trình thanh toán. Vui lòng thử lại.",
+        "noQuizData": "Không có dữ liệu bài ôn tập. Đang chuyển hướng về trang chủ.",
+        "startQuizError": "Không thể bắt đầu bài ôn tập. Vui lòng thử lại.",
+        "submitQuizError": "Nộp bài thất bại. Vui lòng thử lại.",
+        "generateQuizError": "Tạo bài ôn tập thất bại. Vui lòng thử lại."
     }
 }
