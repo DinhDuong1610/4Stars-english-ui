@@ -253,7 +253,11 @@
         "finish": "Finish",
         "continue": "Continue",
         "enterAnswerPlaceholder": "Enter your answer",
-        "checkAnswer": "Check"
+        "checkAnswer": "Check",
+        "enterVietnameseTranslation": "Enter your Vietnamese translation",
+        "enterEnglishTranslation": "Enter your English translation",
+        "transcribeWhatYouHear": "Transcribe what you hear...",
+        "arrangeWordsPrompt": "Select the words below to form a sentence"
     },
     "errors": {
         "fetchBadges": "Failed to load the list of leagues.",

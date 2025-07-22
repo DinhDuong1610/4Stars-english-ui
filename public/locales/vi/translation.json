@@ -253,7 +253,11 @@
         "finish": "Hoàn thành",
         "continue": "Tiếp tục",
         "enterAnswerPlaceholder": "Nhập câu trả lời của bạn",
-        "checkAnswer": "Kiểm tra"
+        "checkAnswer": "Kiểm tra",
+        "enterVietnameseTranslation": "Nhập bản dịch tiếng Việt của bạn",
+        "enterEnglishTranslation": "Nhập bản dịch tiếng Anh của bạn",
+        "transcribeWhatYouHear": "Gõ lại những gì bạn nghe được...",
+        "arrangeWordsPrompt": "Chọn các từ bên dưới để tạo thành câu"
     },
     "errors": {
         "fetchBadges": "Tải danh sách giải đấu thất bại.",
