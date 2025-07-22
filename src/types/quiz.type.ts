@@ -69,3 +69,46 @@ export interface ICreateQuiz {
     categoryId: number;
     questions: ICreateQuestion[];
 }
+
+// quiz review
+
+export interface IGeneratedQuiz {
+    id: number;
+    title: string;
+    description: string;
+    questions: IQuestion[];
+}
+
+export interface IQuizAttemptStart {
+    attemptId: number;
+    quizTitle: string;
+    questions: IQuestion[];
+}
+
+export interface IAnswerPayload {
+    questionId: number;
+    selectedChoiceId?: number | null;
+    userAnswerText?: string | null;
+}
+
+export interface ISubmitPayload {
+    userQuizAttemptId: number;
+    answers: IAnswerPayload[];
+}
+
+export interface IQuizAttemptResult {
+    id: number,
+    quizId: number,
+    quizTitle: string,
+    status: 'IN_PROGRESS' | 'COMPLETED',
+    score: number,
+    totalPoints: number,
+    startedAt: string,
+    completedAt: string,
+    userAnswers: {
+        questionId: number;
+        selectedChoiceId?: number;
+        userAnswerText?: string;
+        isCorrect: boolean;
+    }[];
+}

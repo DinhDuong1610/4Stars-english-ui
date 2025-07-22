@@ -2,16 +2,20 @@ import { createContext, useContext, useEffect, useState, type ReactNode } from '
 import { Client } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
 import { useAuthStore } from 'stores/auth.store';
+import type { INotification } from 'types/notification.type';
+
+type NotificationCallback = (notification: INotification) => void;
 
 interface IWebSocketContext {
     stompClient: Client | null;
     isConnected: boolean;
+    subscribeToNotifications: (callback: NotificationCallback) => (() => void) | undefined;
 }
 
 const WebSocketContext = createContext<IWebSocketContext | null>(null);
 
 export const WebSocketProvider = ({ children }: { children: ReactNode }) => {
-    const { accessToken } = useAuthStore();
+    const { accessToken, user } = useAuthStore();
     const [stompClient, setStompClient] = useState<Client | null>(null);
     const [isConnected, setIsConnected] = useState(false);
 
@@ -63,8 +67,25 @@ export const WebSocketProvider = ({ children }: { children: ReactNode }) => {
         }
     }, [accessToken]);
 
+    const subscribeToNotifications = (callback: NotificationCallback) => {
+        if (isConnected && stompClient) {
+            const subscription = stompClient.subscribe(`/topic/notifications.${user?.id}`, (message) => {
+                const newNotification: INotification = JSON.parse(message.body);
+                callback(newNotification);
+            });
+            return () => subscription.unsubscribe();
+        }
+        return undefined;
+    };
+
+    const contextValue = {
+        stompClient,
+        isConnected,
+        subscribeToNotifications,
+    };
+
     return (
-        <WebSocketContext.Provider value={{ stompClient, isConnected }}>
+        <WebSocketContext.Provider value={contextValue}>
             {children}
         </WebSocketContext.Provider>
     );

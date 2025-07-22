@@ -36,6 +36,9 @@ import StorePage from 'pages/client/store/store.page';
 import PremiumPage from 'pages/client/premium/premium.page';
 import SubscriptionPage from 'pages/admin/subscription.page';
 import RevenueStatisticPage from 'pages/admin/statistic.page';
+import ReviewPage from 'pages/client/review/review.page';
+import ProcessingPage from 'pages/client/review/processing.page';
+import ResultPage from 'pages/client/review/result.page';
 
 const routes = [
     {
@@ -170,6 +173,24 @@ const routes = [
                 path: 'premium',
                 element: (
                     <PremiumPage />
+                ),
+            },
+            {
+                path: 'review/quiz',
+                element: (
+                    <ReviewPage />
+                ),
+            },
+            {
+                path: 'review/processing',
+                element: (
+                    <ProcessingPage />
+                ),
+            },
+            {
+                path: 'quiz/results/:attemptId',
+                element: (
+                    <ResultPage />
                 ),
             },
         ],

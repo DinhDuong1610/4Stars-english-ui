@@ -8,7 +8,9 @@
         "endOfResults": "You have seen all posts.",
         "cancel": "Cancel",
         "noData": "No data",
-        "noPost": "You have no posts yet"
+        "noPost": "You have no posts yet",
+        "loading": "Loading",
+        "backToHome": "Back to Home"
     },
     "menu": {
         "dashboard": "Dashboard",
@@ -39,7 +41,8 @@
         "rank": "Rank",
         "leaderboardTitle": "LEADERBOARD",
         "viewAll": "View All",
-        "pointsUnit": "points"
+        "pointsUnit": "points",
+        "noReviewNeeded": "Great! You have reviewed all your words."
     },
     "leaderboard": {
         "weeklyRanking": "WEEKLY RANKING",
@@ -234,6 +237,24 @@
         "creatingPaymentLink": "Creating payment link...",
         "redirecting": "Redirecting to payment gateway..."
     },
+    "quiz": {
+        "submit": "Submit",
+        "processingTitle": "Grading your submission...",
+        "processingSubtitle": "You will be notified once the results are ready. Please do not leave this page.",
+        "resultTitle": "Review Completed!",
+        "reviewAnswers": "Review Detailed Answers",
+        "scoreResult": "You scored {{score}}/{{totalPoints}} points.",
+        "loadingQuestion": "Loading question...",
+        "unsupportedQuestion": "Unsupported question type: {{type}}",
+        "correct": "Correct!",
+        "incorrect": "Incorrect!",
+        "correctAnswerIs": "Correct answer",
+        "correctAnswerAlt": "correct answer image",
+        "finish": "Finish",
+        "continue": "Continue",
+        "enterAnswerPlaceholder": "Enter your answer",
+        "checkAnswer": "Check"
+    },
     "errors": {
         "fetchBadges": "Failed to load the list of leagues.",
         "fetchLeaderboard": "Failed to load the leaderboard.",
@@ -263,6 +284,10 @@
         "fetchSuggestedUsersError": "Failed to fetch suggested users.",
         "passwordUpdateError": "Failed to update password. Please check again.",
         "loginRequired": "You need to be logged in to perform this action.",
-        "paymentProcessError": "An error occurred during the payment process. Please try again."
+        "paymentProcessError": "An error occurred during the payment process. Please try again.",
+        "noQuizData": "No quiz data found. Redirecting to homepage.",
+        "startQuizError": "Could not start the quiz. Please try again.",
+        "submitQuizError": "Failed to submit quiz. Please try again.",
+        "generateQuizError": "Failed to generate quiz. Please try again."
     }
 }
