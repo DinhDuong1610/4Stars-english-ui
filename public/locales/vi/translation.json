@@ -140,10 +140,6 @@
         "confirmNewPassword": "Xác nhận mật khẩu mới",
         "passwordUpdateSuccess": "Cập nhật mật khẩu thành công!"
     },
-    "validation": {
-        "passwordRequired": "Vui lòng nhập mật khẩu!",
-        "passwordsDoNotMatch": "Hai mật khẩu không khớp!"
-    },
     "store": {
         "premiumTitle": "ĐĂNG KÝ PREMIUM",
         "ctaButton": "XEM THÔNG TIN CHI TIẾT & NHẬN KHUYẾN MÃI",
@@ -263,6 +259,24 @@
         "transcribeWhatYouHear": "Gõ lại những gì bạn nghe được...",
         "arrangeWordsPrompt": "Chọn các từ bên dưới để tạo thành câu"
     },
+    "login": {
+        "title": "Đăng nhập",
+        "emailPlaceholder": "Email hoặc tên người dùng",
+        "passwordPlaceholder": "Mật khẩu",
+        "forgotPassword": "Quên mật khẩu?",
+        "submit": "ĐĂNG NHẬP",
+        "or": "hoặc",
+        "continueWithGoogle": "Tiếp tục với Google",
+        "loginSuccess": "Đăng nhập thành công!",
+        "continueWithFacebook": "Tiếp tục với Facebook"
+    },
+    "validation": {
+        "passwordRequired": "Vui lòng nhập mật khẩu!",
+        "passwordsDoNotMatch": "Hai mật khẩu không khớp!",
+        "emailRequired": "Vui lòng nhập email!",
+        "emailInvalid": "Định dạng email không hợp lệ!",
+        "passwordMinLength": "Mật khẩu phải có ít nhất 8 ký tự!"
+    },
     "errors": {
         "fetchBadges": "Tải danh sách giải đấu thất bại.",
         "fetchLeaderboard": "Tải bảng xếp hạng thất bại.",
@@ -296,6 +310,8 @@
         "noQuizData": "Không có dữ liệu bài ôn tập. Đang chuyển hướng về trang chủ.",
         "startQuizError": "Không thể bắt đầu bài ôn tập. Vui lòng thử lại.",
         "submitQuizError": "Nộp bài thất bại. Vui lòng thử lại.",
-        "generateQuizError": "Tạo bài ôn tập thất bại. Vui lòng thử lại."
+        "generateQuizError": "Tạo bài ôn tập thất bại. Vui lòng thử lại.",
+        "loginFailed": "Đăng nhập thất bại. Vui lòng kiểm tra lại thông tin.",
+        "googleLoginFailed": "Đăng nhập bằng Google thất bại."
     }
 }

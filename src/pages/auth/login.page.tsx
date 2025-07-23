@@ -1,15 +1,15 @@
-import { LoginForm, ProFormText } from '@ant-design/pro-form';
-import { Card, message, Button, Divider, Typography } from 'antd';
+import { Form, Input, Button, Divider, Typography, message } from 'antd';
 import { useNavigate } from 'react-router-dom';
+import { useGoogleLogin } from '@react-oauth/google';
+import { GoogleOutlined, UserOutlined, LockOutlined } from '@ant-design/icons';
+import { useTranslation } from 'react-i18next';
+import styles from './login.page.module.scss';
+import { useAuthStore } from 'stores/auth.store';
 import { loginAPI, loginGoogleAPI } from 'services/auth.service';
 import type { ILoginCredentials, ILoginResponse } from 'types/auth.type';
-import { useAuthStore } from 'stores/auth.store';
-import { GoogleOutlined } from '@ant-design/icons';
-import { useGoogleLogin } from '@react-oauth/google';
-import styles from './login.page.module.scss';
-import { useTranslation } from 'react-i18next';
+import loginIllustration from '@/assets/images/logo.png';
 
-const { Title } = Typography;
+const { Title, Text, Link } = Typography;
 
 const LoginPage = () => {
     const { t } = useTranslation();
@@ -19,7 +19,7 @@ const LoginPage = () => {
     const handleAuthSuccess = (data: ILoginResponse) => {
         setAccessToken(data.accessToken);
         setUser(data.user);
-        message.success('Login successful!');
+        message.success(t('login.loginSuccess'));
         if (data.user.role.name === 'ADMIN') {
             navigate('/admin');
         } else {
@@ -33,10 +33,10 @@ const LoginPage = () => {
             if (res && res.data) {
                 handleAuthSuccess(res.data);
             } else {
-                message.error(res.message);
+                message.error(res.message || t('errors.loginFailed'));
             }
         } catch (error) {
-            message.error('An error occurred during login.');
+            message.error(t('errors.loginFailed'));
         }
     };
 
@@ -48,41 +48,60 @@ const LoginPage = () => {
                 if (res && res.data) {
                     handleAuthSuccess(res.data);
                 } else {
-                    message.error(res.message);
+                    message.error(res.message || t('errors.googleLoginFailed'));
                 }
             } catch (error) {
-                message.error('An error occurred during Google login.');
+                message.error(t('errors.googleLoginFailed'));
             }
         },
         onError: (errorResponse) => {
             console.error("Google login error", errorResponse);
-            message.error('Google login failed.');
+            message.error(t('errors.googleLoginFailed'));
         },
     });
 
     return (
-        <div className={styles.container}>
-            <Card className={styles.loginCard}>
-                <Title level={3} style={{ textAlign: 'center', marginBottom: '24px' }}>
-                    {t('login.title')}
-                </Title>
-                <LoginForm onFinish={handleEmailLogin} submitter={{
-                    searchConfig: {
-                        submitText: t('login.submit') as string,
-                    }
-                }}>
-                    <ProFormText name="username" label="Email" rules={[{ required: true }]} />
-                    <ProFormText.Password name="password" label={t('login.password')} rules={[{ required: true }]} />
-                </LoginForm>
-                <Divider>{t('login.or')}</Divider>
-                <Button
-                    icon={<GoogleOutlined />}
-                    onClick={() => handleGoogleLogin()}
-                    block
-                >
-                    {t('login.continueWithGoogle')}
-                </Button>
-            </Card>
+        <div className={styles.loginContainer}>
+            <div className={styles.loginBox}>
+                <div className={styles.illustrationWrapper}>
+                    <img src={loginIllustration} alt="Login Illustration" />
+                </div>
+                <div className={styles.formWrapper}>
+                    <Title level={2} className={styles.title}>{t('login.title')}</Title>
+                    <Form onFinish={handleEmailLogin} layout="vertical">
+                        <Form.Item
+                            name="username"
+                            rules={[
+                                { required: true, message: t('validation.emailRequired') },
+                                { type: 'email', message: t('validation.emailInvalid') }
+                            ]}
+                        >
+                            <Input prefix={<UserOutlined />} placeholder={t('login.emailPlaceholder')} size="large" />
+                        </Form.Item>
+                        <Form.Item
+                            name="password"
+                            rules={[
+                                { required: true, message: t('validation.passwordRequired') },
+                                { min: 8, message: t('validation.passwordMinLength') }
+                            ]}
+                        >
+                            <Input.Password prefix={<LockOutlined />} placeholder={t('login.passwordPlaceholder')} size="large" />
+                        </Form.Item>
+                        <Form.Item>
+                            <Link href="#" className={styles.forgotPassword}>{t('login.forgotPassword')}</Link>
+                        </Form.Item>
+                        <Form.Item>
+                            <Button type="primary" htmlType="submit" size="large" block>
+                                {t('login.submit')}
+                            </Button>
+                        </Form.Item>
+                    </Form>
+                    <Divider><Text type="secondary">{t('login.or')}</Text></Divider>
+                    <div className={styles.socialLogin}>
+                        <Button size="large" icon={<GoogleOutlined />} onClick={() => handleGoogleLogin()}>Google</Button>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 };
