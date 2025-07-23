@@ -10,6 +10,7 @@ import PostCard from 'components/community/post-card.component';
 import CreatePostModal from 'components/community/create-post-modal.component';
 import AccountCard from 'components/community/account-card.component';
 import ConnectCard from 'components/community/connect-card.component';
+import Accept from 'components/common/share/accept.component';
 
 const CommunityPage = () => {
     const { t } = useTranslation();
@@ -55,12 +56,14 @@ const CommunityPage = () => {
         <div className={styles.pageContainer}>
             <Row gutter={[24, 24]}>
                 <Col xs={24} sm={24} md={16} lg={16}>
-                    <Card className={styles.createPostTrigger}>
-                        <Avatar style={{ backgroundColor: '#1677ff' }}>{user?.name?.charAt(0)}</Avatar>
-                        <Button type="text" onClick={() => setIsModalOpen(true)} className={styles.triggerButton}>
-                            {t('community.postPlaceholder')}
-                        </Button>
-                    </Card>
+                    <Accept apiPath="/api/v1/posts" method="POST" hide>
+                        <Card className={styles.createPostTrigger}>
+                            <Avatar style={{ backgroundColor: '#1677ff' }}>{user?.name?.charAt(0)}</Avatar>
+                            <Button type="text" onClick={() => setIsModalOpen(true)} className={styles.triggerButton}>
+                                {t('community.postPlaceholder')}
+                            </Button>
+                        </Card>
+                    </Accept>
 
                     <InfiniteScroll
                         dataLength={posts.length}

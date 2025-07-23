@@ -14,6 +14,7 @@ import icon_point from '@/assets/icons/dashboard/point.png';
 import { useTranslation } from 'react-i18next';
 import NotFoundPage from 'pages/error/404.page';
 import { generateReviewQuizAPI } from 'services/quiz.service';
+import Accept from 'components/common/share/accept.component';
 
 const HomePage = () => {
     const { t } = useTranslation();
@@ -156,9 +157,11 @@ const HomePage = () => {
                         <div className={styles.vocabSummary}>
                             <h2 className={styles.vocabCount}>{t('homepage.wordsToReview')} <strong>{dashboardData.wordsToReviewCount ?? 0} {t('homepage.wordsUnit')}</strong></h2>
                             <Space>
-                                <button className={styles.button} onClick={handleStartReview} disabled={isGeneratingQuiz}>
-                                    {isGeneratingQuiz ? t('common.loading') : t('homepage.reviewNow')}
-                                </button>
+                                <Accept apiPath="/api/v1/quizzes/{id}/start" method="POST">
+                                    <button className={styles.button} onClick={handleStartReview} disabled={isGeneratingQuiz}>
+                                        {isGeneratingQuiz ? t('common.loading') : t('homepage.reviewNow')}
+                                    </button>
+                                </Accept>
                             </Space>
                         </div>
                     </Card>
