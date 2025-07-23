@@ -20,7 +20,7 @@ const Accept = (
         hide = false,
         promptTitle = 'You don\'t have permission',
         promptDescription = 'Please upgrade your account',
-        promptButtonUrl = '/'
+        promptButtonUrl = '/store'
     }: AcceptProps) => {
     const { user } = useAuthStore();
     const permissions = user?.role.permissions || [];
@@ -40,7 +40,7 @@ const Accept = (
     return (
         <Tooltip title={<><b>{promptTitle}</b><br />{promptDescription}</>} color='#FFD14E'>
             <Link to={promptButtonUrl}>
-                <Badge count={<CrownFilled style={{ color: '#fadb14' }} />}>
+                <Badge count={<CrownFilled style={{ color: '#fadb14', fontSize: 18 }} />}>
                     {children}
                 </Badge>
             </Link>

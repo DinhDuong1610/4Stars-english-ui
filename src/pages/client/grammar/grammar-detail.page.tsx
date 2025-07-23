@@ -8,6 +8,7 @@ import { fetchGrammarDetailClientAPI } from 'services/grammar.service';
 import type { IGrammar } from 'types/grammar.type';
 import Logo from 'assets/images/logo.png';
 import { fetchQuizzesClientAPI } from 'services/quiz.service';
+import Accept from 'components/common/share/accept.component';
 
 const { Title } = Typography;
 
@@ -95,15 +96,17 @@ const GrammarDetailPage = () => {
                 />
 
                 <div className={styles.actionsContainer}>
-                    <Button
-                        type="primary"
-                        size="large"
-                        icon={<EditOutlined />}
-                        onClick={handleStartQuiz}
-                        loading={isGeneratingQuiz}
-                    >
-                        {t('grammar.doExercise')}
-                    </Button>
+                    <Accept apiPath="/api/v1/quizzes/{id}/start" method="POST">
+                        <Button
+                            type="primary"
+                            size="large"
+                            icon={<EditOutlined />}
+                            onClick={handleStartQuiz}
+                            loading={isGeneratingQuiz}
+                        >
+                            {t('grammar.doExercise')}
+                        </Button>
+                    </Accept>
                 </div>
             </div>
         </Card>

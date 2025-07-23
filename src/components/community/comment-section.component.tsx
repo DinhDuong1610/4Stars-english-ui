@@ -11,6 +11,7 @@ import { useAuthStore } from 'stores/auth.store';
 import type { IUser } from 'types/user.type';
 import { useWebSocket } from 'context/websocket.context';
 import type { INotification } from 'types/notification.type';
+import Accept from 'components/common/share/accept.component';
 
 const CommentItem = ({
     comment,
@@ -35,9 +36,11 @@ const CommentItem = ({
 }) => {
     const { t } = useTranslation();
     const actions = [
-        <Button type='text' key="reply-action" onClick={() => onReplyClick(comment.id)}>
-            {t('community.reply')}
-        </Button>,
+        <Accept apiPath="/api/v1/comments" method="POST" hide>
+            <Button type='text' key="reply-action" onClick={() => onReplyClick(comment.id)}>
+                {t('community.reply')}
+            </Button>
+        </Accept>,
         user?.id === comment.user.id && (
             <Popconfirm
                 key="delete-action"
@@ -234,21 +237,23 @@ const CommentSection = ({ postId, onCommentPosted, onCommentDeleted }: CommentSe
                 )}
                 loading={isLoading}
             />
-            <Comment
-                avatar={<Avatar>{user?.name?.charAt(0)}</Avatar>}
-                content={
-                    <>
-                        <Input.TextArea
-                            rows={2}
-                            onChange={e => setNewCommentContent(e.target.value)}
-                            value={newCommentContent}
-                        />
-                        <Button variant="outlined" onClick={() => handlePostComment(newCommentContent, null)} style={{ marginTop: 8 }}>
-                            {t('community.addComment')} <SendOutlined />
-                        </Button>
-                    </>
-                }
-            />
+            <Accept apiPath="/api/v1/comments" method="POST" hide>
+                <Comment
+                    avatar={<Avatar>{user?.name?.charAt(0)}</Avatar>}
+                    content={
+                        <>
+                            <Input.TextArea
+                                rows={2}
+                                onChange={e => setNewCommentContent(e.target.value)}
+                                value={newCommentContent}
+                            />
+                            <Button variant="outlined" onClick={() => handlePostComment(newCommentContent, null)} style={{ marginTop: 8 }}>
+                                {t('community.addComment')} <SendOutlined />
+                            </Button>
+                        </>
+                    }
+                />
+            </Accept>
         </div>
     );
 };

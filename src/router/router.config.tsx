@@ -56,152 +56,215 @@ const routes = [
         element: <ForgotPasswordPage />,
     },
     {
-        path: '/',
-        element: <ClientLayout />,
+        element: <ProtectedRoute />,
         children: [
             {
-                index: true,
-                element: (
-                    <HomePage />
-                ),
-            },
-            {
-                path: 'leaderboard',
-                element: (
-                    <LeaderboardPage />
-                ),
-            },
-            {
-                path: 'dictionary',
-                element: (
-                    <DictionaryPage />
-                ),
-            },
-            {
-                path: 'vocabularies',
-                element: (
-                    <VocabularyListPage />
-                ),
-            },
-            {
-                path: 'vocabularies/category/:categoryId',
-                element: (
-                    <VocabularyListPage />
-                ),
-            },
-            {
-                path: 'vocabularies/:id',
-                element: (
-                    <VocabularyDetailPage />
-                ),
-            },
-            {
-                path: 'notebook',
-                element: (
-                    <NotebookPage />
-                ),
-            },
-            {
-                path: 'grammars',
-                element: (
-                    <GrammarListPage />
-                ),
-            },
-            {
-                path: 'grammars/category/:categoryId',
-                element: (
-                    <GrammarListPage />
-                ),
-            },
-            {
-                path: 'grammars/:id',
-                element: (
-                    <GrammarDetailPage />
-                ),
-            },
-            {
-                path: 'articles',
-                element: (
-                    <ArticleListPage />
-                ),
-            },
-            {
-                path: 'articles/category/:categoryId',
-                element: (
-                    <ArticleListPage />
-                ),
-            },
-            {
-                path: 'articles/:id',
-                element: (
-                    <ArticleDetailPage />
-                ),
-            },
-            {
-                path: 'videos',
-                element: (
-                    <VideoListPage />
-                ),
-            },
-            {
-                path: 'videos/category/:categoryId',
-                element: (
-                    <VideoListPage />
-                ),
-            },
-            {
-                path: 'videos/:id',
-                element: (
-                    <VideoDetailPage />
-                ),
-            },
-            {
-                path: 'community',
-                element: (
-                    <CommunityPage />
-                ),
-            },
-            {
-                path: 'posts/:id',
-                element: (
-                    <PostDetailPage />
-                ),
-            },
-            {
-                path: 'profile',
-                element: (
-                    <ProfilePage />
-                ),
-            },
-            {
-                path: 'store',
-                element: (
-                    <StorePage />
-                ),
-            },
-            {
-                path: 'premium',
-                element: (
-                    <PremiumPage />
-                ),
-            },
-            {
-                path: 'review/quiz',
-                element: (
-                    <ReviewPage />
-                ),
-            },
-            {
-                path: 'review/processing',
-                element: (
-                    <ProcessingPage />
-                ),
-            },
-            {
-                path: 'quiz/results/:attemptId',
-                element: (
-                    <ResultPage />
-                ),
+                path: '/',
+                element: <ClientLayout />,
+                children: [
+                    {
+                        index: true,
+                        element: (
+                            <PermissionGuard apiPath="/api/v1/leaderboard" method="GET">
+                                <PermissionGuard apiPath="/api/v1/users/me/dashboard" method="GET">
+                                    <HomePage />
+                                </PermissionGuard>
+                            </PermissionGuard>
+                        ),
+                    },
+                    {
+                        path: 'leaderboard',
+                        element: (
+                            <PermissionGuard apiPath="/api/v1/leaderboard" method="GET">
+                                <PermissionGuard apiPath="/api/v1/users/me/dashboard" method="GET">
+                                    <LeaderboardPage />
+                                </PermissionGuard>
+                            </PermissionGuard>
+                        ),
+                    },
+                    {
+                        path: 'dictionary',
+                        element: (
+                            <PermissionGuard apiPath="/api/v1/categories" method="GET">
+                                <PermissionGuard apiPath="/api/v1/vocabularies" method="GET">
+                                    <DictionaryPage />
+                                </PermissionGuard>
+                            </PermissionGuard>
+                        ),
+                    },
+                    {
+                        path: 'vocabularies',
+                        element: (
+                            <PermissionGuard apiPath="/api/v1/categories" method="GET">
+                                <PermissionGuard apiPath="/api/v1/vocabularies" method="GET">
+                                    <VocabularyListPage />
+                                </PermissionGuard>
+                            </PermissionGuard>
+                        ),
+                    },
+                    {
+                        path: 'vocabularies/category/:categoryId',
+                        element: (
+                            <PermissionGuard apiPath="/api/v1/categories" method="GET">
+                                <VocabularyListPage />
+                            </PermissionGuard>
+                        ),
+                    },
+                    {
+                        path: 'vocabularies/:id',
+                        element: (
+                            <PermissionGuard apiPath="/api/v1/vocabularies/{id}" method="GET">
+                                <VocabularyDetailPage />
+                            </PermissionGuard>
+                        ),
+                    },
+                    {
+                        path: 'notebook',
+                        element: (
+                            <PermissionGuard apiPath="/api/v1/notebook/level/{level}" method="GET">
+                                <NotebookPage />
+                            </PermissionGuard>
+                        ),
+                    },
+                    {
+                        path: 'grammars',
+                        element: (
+                            <PermissionGuard apiPath="/api/v1/categories" method="GET">
+                                <PermissionGuard apiPath="/api/v1/grammars" method="GET">
+                                    <GrammarListPage />
+                                </PermissionGuard>
+                            </PermissionGuard>
+                        ),
+                    },
+                    {
+                        path: 'grammars/category/:categoryId',
+                        element: (
+                            <PermissionGuard apiPath="/api/v1/categories" method="GET">
+                                <GrammarListPage />
+                            </PermissionGuard>
+                        ),
+                    },
+                    {
+                        path: 'grammars/:id',
+                        element: (
+                            <PermissionGuard apiPath="/api/v1/grammars/{id}" method="GET">
+                                <GrammarDetailPage />
+                            </PermissionGuard>
+                        ),
+                    },
+                    {
+                        path: 'articles',
+                        element: (
+                            <PermissionGuard apiPath="/api/v1/articles" method="GET">
+                                <ArticleListPage />
+                            </PermissionGuard>
+                        ),
+                    },
+                    {
+                        path: 'articles/category/:categoryId',
+                        element: (
+                            <PermissionGuard apiPath="/api/v1/categories" method="GET">
+                                <ArticleListPage />
+                            </PermissionGuard>
+                        ),
+                    },
+                    {
+                        path: 'articles/:id',
+                        element: (
+                            <PermissionGuard apiPath="/api/v1/articles/{id}" method="GET">
+                                <ArticleDetailPage />
+                            </PermissionGuard>
+                        ),
+                    },
+                    {
+                        path: 'videos',
+                        element: (
+                            <PermissionGuard apiPath="/api/v1/videos" method="GET">
+                                <VideoListPage />
+                            </PermissionGuard>
+                        ),
+                    },
+                    {
+                        path: 'videos/category/:categoryId',
+                        element: (
+                            <PermissionGuard apiPath="/api/v1/categories" method="GET">
+                                <VideoListPage />
+                            </PermissionGuard>
+                        ),
+                    },
+                    {
+                        path: 'videos/:id',
+                        element: (
+                            <PermissionGuard apiPath="/api/v1/videos/{id}" method="GET">
+                                <VideoDetailPage />
+                            </PermissionGuard>
+                        ),
+                    },
+                    {
+                        path: 'community',
+                        element: (
+                            <PermissionGuard apiPath="/api/v1/posts" method="GET">
+                                <CommunityPage />
+                            </PermissionGuard>
+                        ),
+                    },
+                    {
+                        path: 'posts/:id',
+                        element: (
+                            <PermissionGuard apiPath="/api/v1/posts/{id}" method="GET">
+                                <PostDetailPage />
+                            </PermissionGuard>
+                        ),
+                    },
+                    {
+                        path: 'profile',
+                        element: (
+                            <PermissionGuard apiPath="/api/v1/users/me/dashboard" method="GET">
+                                <ProfilePage />
+                            </PermissionGuard>
+                        ),
+                    },
+                    {
+                        path: 'store',
+                        element: (
+                            <PermissionGuard apiPath="/api/v1/plans" method="GET">
+                                <StorePage />
+                            </PermissionGuard>
+                        ),
+                    },
+                    {
+                        path: 'premium',
+                        element: (
+                            <PermissionGuard apiPath="/api/v1/plans" method="GET">
+                                <PremiumPage />
+                            </PermissionGuard>
+                        ),
+                    },
+                    {
+                        path: 'review/quiz',
+                        element: (
+                            <PermissionGuard apiPath="/api/v1/quizzes/{id}/start" method="POST">
+                                <ReviewPage />
+                            </PermissionGuard>
+                        ),
+                    },
+                    {
+                        path: 'review/processing',
+                        element: (
+                            <PermissionGuard apiPath="/api/v1/quizzes/{id}/start" method="POST">
+                                <ProcessingPage />
+                            </PermissionGuard>
+                        ),
+                    },
+                    {
+                        path: 'quiz/results/:attemptId',
+                        element: (
+                            <PermissionGuard apiPath="/api/v1/quizzes/attempts/{attemptId}" method="GET">
+                                <ResultPage />
+                            </PermissionGuard>
+                        ),
+                    },
+                ],
             },
         ],
     },
@@ -297,9 +360,9 @@ const routes = [
                     {
                         path: 'statistics',
                         element: (
-                            // <PermissionGuard apiPath="/api/v1/admin/statistics/revenue" method="GET">
-                            <RevenueStatisticPage />
-                            // </PermissionGuard>
+                            <PermissionGuard apiPath="/api/v1/admin/statistics/revenue" method="GET">
+                                <RevenueStatisticPage />
+                            </PermissionGuard>
                         ),
                     },
                     {

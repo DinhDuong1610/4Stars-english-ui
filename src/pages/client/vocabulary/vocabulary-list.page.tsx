@@ -11,6 +11,7 @@ import VocabularyCard from 'components/vocabulary/vocabulary-card.component';
 import { fetchCategoriesClientAPI } from 'services/category.service';
 import { fetchVocabulariesClientAPI } from 'services/vocabulary.service';
 import { fetchQuizzesClientAPI } from 'services/quiz.service';
+import Accept from 'components/common/share/accept.component';
 const { Title } = Typography;
 
 
@@ -193,15 +194,17 @@ const VocabularyListPage = () => {
                             style={{ width: '80%' }}
                         />
 
-                        <Button
-                            type="primary"
-                            size="large"
-                            icon={<EditOutlined />}
-                            onClick={handleStartQuiz}
-                            loading={isGeneratingQuiz}
-                        >
-                            {t('vocabulary.learnNewVocab')}
-                        </Button>
+                        <Accept apiPath="/api/v1/quizzes/{id}/start" method="POST">
+                            <Button
+                                type="primary"
+                                size="large"
+                                icon={<EditOutlined />}
+                                onClick={handleStartQuiz}
+                                loading={isGeneratingQuiz}
+                            >
+                                {t('vocabulary.learnNewVocab')}
+                            </Button>
+                        </Accept>
                     </Row>
                     <Row gutter={[12, 12]} className={styles.vocabCards}>
                         {filteredVocabularies.map(vocab => (

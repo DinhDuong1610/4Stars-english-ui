@@ -8,7 +8,8 @@ import type { IVocabulary } from 'types/vocabulary.type';
 import { fetchRelatedWordsAPI, fetchSynonymsAPI, fetchVocabularyDetailClientAPI } from 'services/vocabulary.service';
 import TextToSpeech from '@/components/common/text-to-speech/text-to-speech.component';
 import Logo from 'assets/images/logo.png';
-import { addVocabularyToNotebookAPI } from '../../../services/notebook.service';
+import { addVocabularyToNotebookAPI } from 'services/notebook.service';
+import Accept from 'components/common/share/accept.component';
 
 const { Title, Text, Paragraph } = Typography;
 
@@ -149,9 +150,11 @@ const VocabularyDetailPage = () => {
                             <Tag color="#0d47a1" className={styles.categoryTag}>{vocabulary.category.name}</Tag>
                         </div>
 
-                        <Button onClick={() => handleAddVocabularyToNotebook(vocabulary.id)} className={styles.addToNotebookButton}>
-                            <PlusSquareFilled />{t('notebook.addToNotebook')}
-                        </Button>
+                        <Accept apiPath="/api/v1/notebook/add/{vocabularyId}" method='POST' hide>
+                            <Button onClick={() => handleAddVocabularyToNotebook(vocabulary.id)} className={styles.addToNotebookButton}>
+                                <PlusSquareFilled />{t('notebook.addToNotebook')}
+                            </Button>
+                        </Accept>
 
                         <div>
                             <Paragraph className={styles.meaning}>{vocabulary.meaningVi}</Paragraph>
