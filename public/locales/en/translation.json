@@ -282,6 +282,20 @@
         "registerSuccess": "Registration successful! Please log in.",
         "alreadyHaveAccount": "Already have an account?"
     },
+    "forgotPassword": {
+        "title": "Forgot Password",
+        "step1Title": "Enter Email",
+        "step2Title": "Verify & Reset",
+        "step1Desc": "We will send an OTP code to your email for verification.",
+        "step2Desc": "An OTP code has been sent to {{email}}. Please check and enter it below.",
+        "sendOtpButton": "Send OTP Code",
+        "otpPlaceholder": "OTP Code",
+        "newPasswordPlaceholder": "New Password",
+        "resetButton": "Reset Password",
+        "backToLogin": "Back to Login",
+        "otpSent": "OTP code sent successfully! Please check your email.",
+        "resetSuccess": "Password reset successfully! You can now log in."
+    },
     "validation": {
         "passwordRequired": "Please input your password!",
         "passwordsDoNotMatch": "The two passwords do not match!",
@@ -290,7 +304,8 @@
         "passwordMinLength": "Password must be at least 8 characters!",
         "nameRequired": "Please input your name!",
         "nameMaxLength": "Name cannot exceed 100 characters.",
-        "confirmPasswordRequired": "Please confirm your password!"
+        "confirmPasswordRequired": "Please confirm your password!",
+        "otpRequired": "Please input the OTP code!"
     },
     "errors": {
         "fetchBadges": "Failed to load the list of leagues.",
@@ -328,6 +343,8 @@
         "generateQuizError": "Failed to generate quiz. Please try again.",
         "loginFailed": "Login failed. Please check your credentials.",
         "googleLoginFailed": "Google login failed.",
-        "registerFailed": "Registration failed. The email may already exist."
+        "registerFailed": "Registration failed. The email may already exist.",
+        "forgotPasswordError": "Failed to send OTP. Please try again.",
+        "resetPasswordError": "Failed to reset password. The OTP may be incorrect or expired."
     }
 }

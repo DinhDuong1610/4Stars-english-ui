@@ -40,6 +40,7 @@ import ReviewPage from 'pages/client/review/review.page';
 import ProcessingPage from 'pages/client/review/processing.page';
 import ResultPage from 'pages/client/review/result.page';
 import RegisterPage from 'pages/auth/register.page';
+import ForgotPasswordPage from 'pages/auth/forgot-password.page';
 
 const routes = [
     {
@@ -49,6 +50,10 @@ const routes = [
     {
         path: '/register',
         element: <RegisterPage />,
+    },
+    {
+        path: '/forgot-password',
+        element: <ForgotPasswordPage />,
     },
     {
         path: '/',

@@ -88,7 +88,7 @@ const LoginPage = () => {
                             <Input.Password prefix={<LockOutlined />} placeholder={t('login.passwordPlaceholder')} size="large" />
                         </Form.Item>
                         <Form.Item>
-                            <Link href="#" className={styles.forgotPassword}>{t('login.forgotPassword')}</Link>
+                            <Link href="/forgot-password" className={styles.forgotPassword}>{t('login.forgotPassword')}</Link>
                         </Form.Item>
                         <Form.Item>
                             <Button type="primary" htmlType="submit" size="large" block>

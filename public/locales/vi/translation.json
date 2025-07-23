@@ -282,6 +282,20 @@
         "registerSuccess": "Đăng ký thành công! Vui lòng đăng nhập.",
         "alreadyHaveAccount": "Bạn đã có tài khoản?"
     },
+    "forgotPassword": {
+        "title": "Quên mật khẩu",
+        "step1Title": "Nhập Email",
+        "step2Title": "Xác thực & Đặt lại",
+        "step1Desc": "Chúng tôi sẽ gửi một mã OTP đến email của bạn để xác thực.",
+        "step2Desc": "Một mã OTP đã được gửi đến {{email}}. Vui lòng kiểm tra và nhập vào bên dưới.",
+        "sendOtpButton": "Gửi mã OTP",
+        "otpPlaceholder": "Mã OTP",
+        "newPasswordPlaceholder": "Mật khẩu mới",
+        "resetButton": "Đặt lại mật khẩu",
+        "backToLogin": "Quay lại trang Đăng nhập",
+        "otpSent": "Đã gửi mã OTP thành công! Vui lòng kiểm tra email.",
+        "resetSuccess": "Đặt lại mật khẩu thành công! Bạn có thể đăng nhập ngay bây giờ."
+    },
     "validation": {
         "passwordRequired": "Vui lòng nhập mật khẩu!",
         "passwordsDoNotMatch": "Hai mật khẩu không khớp!",
@@ -290,7 +304,8 @@
         "passwordMinLength": "Mật khẩu phải có ít nhất 8 ký tự!",
         "nameRequired": "Vui lòng nhập họ tên!",
         "nameMaxLength": "Họ tên không được vượt quá 100 ký tự.",
-        "confirmPasswordRequired": "Vui lòng xác nhận mật khẩu!"
+        "confirmPasswordRequired": "Vui lòng xác nhận mật khẩu!",
+        "otpRequired": "Vui lòng nhập mã OTP!"
     },
     "errors": {
         "fetchBadges": "Tải danh sách giải đấu thất bại.",
@@ -328,6 +343,8 @@
         "generateQuizError": "Tạo bài ôn tập thất bại. Vui lòng thử lại.",
         "loginFailed": "Đăng nhập thất bại. Vui lòng kiểm tra lại thông tin.",
         "googleLoginFailed": "Đăng nhập bằng Google thất bại.",
-        "registerFailed": "Đăng ký thất bại. Email có thể đã tồn tại."
+        "registerFailed": "Đăng ký thất bại. Email có thể đã tồn tại.",
+        "forgotPasswordError": "Gửi OTP thất bại. Vui lòng thử lại.",
+        "resetPasswordError": "Đặt lại mật khẩu thất bại. Mã OTP có thể không đúng hoặc đã hết hạn."
     }
 }
