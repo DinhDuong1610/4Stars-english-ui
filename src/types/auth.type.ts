@@ -5,6 +5,12 @@ export interface ILoginCredentials {
     password: string;
 }
 
+export interface IRegisterPayload {
+    name: string;
+    email: string;
+    password: string;
+}
+
 export interface ILoginResponse {
     accessToken: string;
     user: IUser;

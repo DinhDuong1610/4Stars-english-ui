@@ -268,14 +268,29 @@
         "or": "hoặc",
         "continueWithGoogle": "Tiếp tục với Google",
         "loginSuccess": "Đăng nhập thành công!",
-        "continueWithFacebook": "Tiếp tục với Facebook"
+        "continueWithFacebook": "Tiếp tục với Facebook",
+        "dontHaveAccount": "Chưa có tài khoản?",
+        "register": "Đăng ký"
+    },
+    "register": {
+        "title": "Đăng ký",
+        "namePlaceholder": "Họ và tên",
+        "emailPlaceholder": "Email",
+        "passwordPlaceholder": "Mật khẩu",
+        "confirmPasswordPlaceholder": "Xác nhận mật khẩu",
+        "submit": "ĐĂNG KÝ",
+        "registerSuccess": "Đăng ký thành công! Vui lòng đăng nhập.",
+        "alreadyHaveAccount": "Bạn đã có tài khoản?"
     },
     "validation": {
         "passwordRequired": "Vui lòng nhập mật khẩu!",
         "passwordsDoNotMatch": "Hai mật khẩu không khớp!",
         "emailRequired": "Vui lòng nhập email!",
         "emailInvalid": "Định dạng email không hợp lệ!",
-        "passwordMinLength": "Mật khẩu phải có ít nhất 8 ký tự!"
+        "passwordMinLength": "Mật khẩu phải có ít nhất 8 ký tự!",
+        "nameRequired": "Vui lòng nhập họ tên!",
+        "nameMaxLength": "Họ tên không được vượt quá 100 ký tự.",
+        "confirmPasswordRequired": "Vui lòng xác nhận mật khẩu!"
     },
     "errors": {
         "fetchBadges": "Tải danh sách giải đấu thất bại.",
@@ -312,6 +327,7 @@
         "submitQuizError": "Nộp bài thất bại. Vui lòng thử lại.",
         "generateQuizError": "Tạo bài ôn tập thất bại. Vui lòng thử lại.",
         "loginFailed": "Đăng nhập thất bại. Vui lòng kiểm tra lại thông tin.",
-        "googleLoginFailed": "Đăng nhập bằng Google thất bại."
+        "googleLoginFailed": "Đăng nhập bằng Google thất bại.",
+        "registerFailed": "Đăng ký thất bại. Email có thể đã tồn tại."
     }
 }

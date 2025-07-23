@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useGoogleLogin } from '@react-oauth/google';
 import { GoogleOutlined, UserOutlined, LockOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
-import styles from './login.page.module.scss';
+import styles from './auth.page.module.scss';
 import { useAuthStore } from 'stores/auth.store';
 import { loginAPI, loginGoogleAPI } from 'services/auth.service';
 import type { ILoginCredentials, ILoginResponse } from 'types/auth.type';
@@ -61,7 +61,7 @@ const LoginPage = () => {
     });
 
     return (
-        <div className={styles.loginContainer}>
+        <div className={styles.container}>
             <div className={styles.loginBox}>
                 <div className={styles.illustrationWrapper}>
                     <img src={loginIllustration} alt="Login Illustration" />
@@ -100,6 +100,9 @@ const LoginPage = () => {
                     <div className={styles.socialLogin}>
                         <Button size="large" icon={<GoogleOutlined />} onClick={() => handleGoogleLogin()}>Google</Button>
                     </div>
+                    <Text className={styles.footerText}>
+                        {t('login.dontHaveAccount')} <Link href="/register">{t('login.register')}</Link>
+                    </Text>
                 </div>
             </div>
         </div>

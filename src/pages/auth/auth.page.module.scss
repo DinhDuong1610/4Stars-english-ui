@@ -1,4 +1,4 @@
-.loginContainer {
+.container {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -65,4 +65,11 @@
     :global(.ant-btn) {
         flex: 1;
     }
+}
+
+.footerText {
+    display: block;
+    text-align: center;
+    margin-top: 24px;
+    color: var(--ant-text-color-secondary);
 }

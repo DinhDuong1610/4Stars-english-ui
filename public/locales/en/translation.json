@@ -268,14 +268,29 @@
         "or": "or",
         "continueWithGoogle": "Continue with Google",
         "loginSuccess": "Login successful!",
-        "continueWithFacebook": "Continue with Facebook"
+        "continueWithFacebook": "Continue with Facebook",
+        "dontHaveAccount": "Don't have an account?",
+        "register": "Register"
+    },
+    "register": {
+        "title": "Register",
+        "namePlaceholder": "Full Name",
+        "emailPlaceholder": "Email",
+        "passwordPlaceholder": "Password",
+        "confirmPasswordPlaceholder": "Confirm Password",
+        "submit": "REGISTER",
+        "registerSuccess": "Registration successful! Please log in.",
+        "alreadyHaveAccount": "Already have an account?"
     },
     "validation": {
         "passwordRequired": "Please input your password!",
         "passwordsDoNotMatch": "The two passwords do not match!",
         "emailRequired": "Please input your email!",
         "emailInvalid": "The email format is not valid!",
-        "passwordMinLength": "Password must be at least 8 characters!"
+        "passwordMinLength": "Password must be at least 8 characters!",
+        "nameRequired": "Please input your name!",
+        "nameMaxLength": "Name cannot exceed 100 characters.",
+        "confirmPasswordRequired": "Please confirm your password!"
     },
     "errors": {
         "fetchBadges": "Failed to load the list of leagues.",
@@ -312,6 +327,7 @@
         "submitQuizError": "Failed to submit quiz. Please try again.",
         "generateQuizError": "Failed to generate quiz. Please try again.",
         "loginFailed": "Login failed. Please check your credentials.",
-        "googleLoginFailed": "Google login failed."
+        "googleLoginFailed": "Google login failed.",
+        "registerFailed": "Registration failed. The email may already exist."
     }
 }
