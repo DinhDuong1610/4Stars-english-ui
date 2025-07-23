@@ -1,0 +1,83 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: var(--ant-body-background, #fff);
+}
+
+.loginBox {
+    display: flex;
+    width: 100%;
+    max-width: 900px;
+    min-height: 600px;
+    background-color: var(--ant-card-background, #fff);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+
+    @media (max-width: 768px) {
+        flex-direction: column;
+    }
+}
+
+.illustrationWrapper {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    background: linear-gradient(to right, #6fcdff, #a1faff);
+
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    @media (max-width: 768px) {
+        display: none;
+    }
+}
+
+.formWrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 40px;
+}
+
+.title {
+    text-align: center;
+    margin-bottom: 32px !important;
+    color: var(--ant-primary-color);
+    font-weight: bold !important;
+}
+
+.forgotPassword {
+    float: right;
+}
+
+.socialLogin {
+    display: flex;
+    gap: 16px;
+
+    :global(.ant-btn) {
+        flex: 1;
+    }
+}
+
+.footerText {
+    display: block;
+    text-align: center;
+    margin-top: 24px;
+    color: var(--ant-text-color-secondary);
+}
+
+.steps {
+    margin-bottom: 24px;
+}
+
+.stepContent {
+    margin-top: 24px;
+}

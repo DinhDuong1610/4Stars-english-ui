@@ -140,10 +140,6 @@
         "confirmNewPassword": "Xác nhận mật khẩu mới",
         "passwordUpdateSuccess": "Cập nhật mật khẩu thành công!"
     },
-    "validation": {
-        "passwordRequired": "Vui lòng nhập mật khẩu!",
-        "passwordsDoNotMatch": "Hai mật khẩu không khớp!"
-    },
     "store": {
         "premiumTitle": "ĐĂNG KÝ PREMIUM",
         "ctaButton": "XEM THÔNG TIN CHI TIẾT & NHẬN KHUYẾN MÃI",
@@ -263,6 +259,54 @@
         "transcribeWhatYouHear": "Gõ lại những gì bạn nghe được...",
         "arrangeWordsPrompt": "Chọn các từ bên dưới để tạo thành câu"
     },
+    "login": {
+        "title": "Đăng nhập",
+        "emailPlaceholder": "Email hoặc tên người dùng",
+        "passwordPlaceholder": "Mật khẩu",
+        "forgotPassword": "Quên mật khẩu?",
+        "submit": "ĐĂNG NHẬP",
+        "or": "hoặc",
+        "continueWithGoogle": "Tiếp tục với Google",
+        "loginSuccess": "Đăng nhập thành công!",
+        "continueWithFacebook": "Tiếp tục với Facebook",
+        "dontHaveAccount": "Chưa có tài khoản?",
+        "register": "Đăng ký"
+    },
+    "register": {
+        "title": "Đăng ký",
+        "namePlaceholder": "Họ và tên",
+        "emailPlaceholder": "Email",
+        "passwordPlaceholder": "Mật khẩu",
+        "confirmPasswordPlaceholder": "Xác nhận mật khẩu",
+        "submit": "ĐĂNG KÝ",
+        "registerSuccess": "Đăng ký thành công! Vui lòng đăng nhập.",
+        "alreadyHaveAccount": "Bạn đã có tài khoản?"
+    },
+    "forgotPassword": {
+        "title": "Quên mật khẩu",
+        "step1Title": "Nhập Email",
+        "step2Title": "Xác thực & Đặt lại",
+        "step1Desc": "Chúng tôi sẽ gửi một mã OTP đến email của bạn để xác thực.",
+        "step2Desc": "Một mã OTP đã được gửi đến {{email}}. Vui lòng kiểm tra và nhập vào bên dưới.",
+        "sendOtpButton": "Gửi mã OTP",
+        "otpPlaceholder": "Mã OTP",
+        "newPasswordPlaceholder": "Mật khẩu mới",
+        "resetButton": "Đặt lại mật khẩu",
+        "backToLogin": "Quay lại trang Đăng nhập",
+        "otpSent": "Đã gửi mã OTP thành công! Vui lòng kiểm tra email.",
+        "resetSuccess": "Đặt lại mật khẩu thành công! Bạn có thể đăng nhập ngay bây giờ."
+    },
+    "validation": {
+        "passwordRequired": "Vui lòng nhập mật khẩu!",
+        "passwordsDoNotMatch": "Hai mật khẩu không khớp!",
+        "emailRequired": "Vui lòng nhập email!",
+        "emailInvalid": "Định dạng email không hợp lệ!",
+        "passwordMinLength": "Mật khẩu phải có ít nhất 8 ký tự!",
+        "nameRequired": "Vui lòng nhập họ tên!",
+        "nameMaxLength": "Họ tên không được vượt quá 100 ký tự.",
+        "confirmPasswordRequired": "Vui lòng xác nhận mật khẩu!",
+        "otpRequired": "Vui lòng nhập mã OTP!"
+    },
     "errors": {
         "fetchBadges": "Tải danh sách giải đấu thất bại.",
         "fetchLeaderboard": "Tải bảng xếp hạng thất bại.",
@@ -296,6 +340,11 @@
         "noQuizData": "Không có dữ liệu bài ôn tập. Đang chuyển hướng về trang chủ.",
         "startQuizError": "Không thể bắt đầu bài ôn tập. Vui lòng thử lại.",
         "submitQuizError": "Nộp bài thất bại. Vui lòng thử lại.",
-        "generateQuizError": "Tạo bài ôn tập thất bại. Vui lòng thử lại."
+        "generateQuizError": "Tạo bài ôn tập thất bại. Vui lòng thử lại.",
+        "loginFailed": "Đăng nhập thất bại. Vui lòng kiểm tra lại thông tin.",
+        "googleLoginFailed": "Đăng nhập bằng Google thất bại.",
+        "registerFailed": "Đăng ký thất bại. Email có thể đã tồn tại.",
+        "forgotPasswordError": "Gửi OTP thất bại. Vui lòng thử lại.",
+        "resetPasswordError": "Đặt lại mật khẩu thất bại. Mã OTP có thể không đúng hoặc đã hết hạn."
     }
 }

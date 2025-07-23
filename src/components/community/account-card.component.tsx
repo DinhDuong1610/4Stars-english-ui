@@ -102,7 +102,10 @@ const AccountCard = () => {
                                     <Form.Item
                                         name="newPassword"
                                         label={t('profile.newPassword')}
-                                        rules={[{ required: true, message: t('validation.passwordRequired') }]}
+                                        rules={[
+                                            { required: true, message: t('validation.passwordRequired') },
+                                            { min: 8, message: t('validation.passwordMinLength') }
+                                        ]}
                                     >
                                         <Input.Password prefix={<LockOutlined />} />
                                     </Form.Item>
