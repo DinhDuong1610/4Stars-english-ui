@@ -28,7 +28,8 @@
         "video": "Video",
         "community": "Community",
         "store": "Store",
-        "profile": "Profile"
+        "profile": "Profile",
+        "more": "Menu"
     },
     "homepage": {
         "vocabStatsTitle": "LEARNED VOCABULARY STATISTICS",

@@ -9,6 +9,39 @@
 }
 
 .content {
-  padding: 24px;
+  padding: 16px;
+  transition: margin-left 0.2s;
   min-height: 100vh;
 }
+
+.spinnerContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+
+/* XL*/
+@media only screen and (max-width: 1599.98px) {}
+
+/* LG*/
+@media only screen and (max-width: 1199.98px) {
+  .sider {
+    width: 250px;
+  }
+}
+
+/* MD*/
+@media only screen and (max-width: 991.98px) {}
+
+/* SM*/
+@media only screen and (max-width: 767.98px) {
+  .content {
+    padding: 16px;
+    padding-bottom: 80px;
+  }
+}
+
+/* XS*/
+@media only screen and (max-width: 575.98px) {}

@@ -113,7 +113,7 @@ const HomePage = () => {
 
     return (
         <ThemeProvider theme={muiTheme}>
-            <Row gutter={[24, 24]} className={styles.container}>
+            <Row gutter={[16, 16]} className={styles.container}>
                 <Col xs={24} lg={16}>
                     <Card title={<h2 style={{ textAlign: 'center', marginTop: 10 }}><strong>{t('homepage.vocabStatsTitle')}</strong></h2>}
                         className={styles.mainCard}
@@ -168,7 +168,7 @@ const HomePage = () => {
                 </Col>
 
                 <Col xs={24} lg={8}>
-                    <Space direction="vertical" size="large" style={{ width: '100%' }}>
+                    <Space direction="vertical" size="middle" style={{ width: '100%' }}>
                         <Card bordered={false} className={styles.statsCard}>
                             <div className={styles.statisc}>
                                 <div className={styles.statiscItem}>

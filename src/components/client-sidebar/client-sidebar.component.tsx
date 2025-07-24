@@ -10,9 +10,10 @@ import {
     PlaySquareOutlined,
     TeamOutlined,
     ShopOutlined,
-    UserOutlined
+    UserOutlined,
+    HomeOutlined,
+    PicLeftOutlined
 } from '@ant-design/icons';
-
 import styles from './client-sidebar.module.scss';
 import LanguageSwitcher from '@/components/common/language-switcher/language-switcher.component';
 import ThemeSwitcher from '@/components/common/theme-switcher/theme-switcher.component';
@@ -23,22 +24,23 @@ const ClientSidebar = () => {
     const navigate = useNavigate();
 
     const menuItems = [
-        { key: '/', icon: <CustomerServiceOutlined />, label: t('sidebar.home') },
+        { key: '/', icon: <HomeOutlined />, label: t('sidebar.home') },
         { key: '/dictionary', icon: <TranslationOutlined />, label: t('sidebar.dictionary') },
         { key: '/vocabularies', icon: <BulbOutlined />, label: t('sidebar.vocabulary') },
         { key: '/notebook', icon: <BookOutlined />, label: t('sidebar.notebook') },
         { key: '/grammars', icon: <ReadOutlined />, label: t('sidebar.grammar') },
-        { key: '/articles', icon: <MessageOutlined />, label: t('sidebar.blog') },
+        { key: '/articles', icon: <PicLeftOutlined />, label: t('sidebar.blog') },
         { key: '/videos', icon: <PlaySquareOutlined />, label: t('sidebar.video') },
         { key: '/community', icon: <TeamOutlined />, label: t('sidebar.community') },
         { key: '/store', icon: <ShopOutlined />, label: t('sidebar.store') },
         { key: '/profile', icon: <UserOutlined />, label: t('sidebar.profile') },
     ];
 
+
     return (
         <div className={styles.sidebar}>
             <div className={styles.logo} onClick={() => navigate('/')}>
-                4stars
+                4Stars
             </div>
             <nav className={styles.menuContainer}>
                 {menuItems.map(item => (
@@ -50,7 +52,7 @@ const ClientSidebar = () => {
                         }
                     >
                         <span className={styles.icon}>{item.icon}</span>
-                        <span>{item.label}</span>
+                        <span >{item.label} </span>
                     </NavLink>
                 ))}
             </nav>
