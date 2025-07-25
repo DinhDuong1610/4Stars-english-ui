@@ -8,6 +8,7 @@ import type { IVideo } from 'types/video.type';
 import { fetchVideoDetailClientAPI, fetchVideosClientAPI } from 'services/video.service';
 import { parseSubtitle, type ParsedSubtitle } from 'utils/subtitle-parser';
 import SuggestedVideoCard from 'components/video/suggested-video-card.component';
+import { useMediaQuery } from 'react-responsive';
 
 const { Title, Paragraph } = Typography;
 
@@ -24,7 +25,7 @@ const VideoDetailPage = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [playing, setPlaying] = useState(false);
 
-
+    const md = useMediaQuery({ maxWidth: 991.98 });
 
     useEffect(() => {
         if (!id) return;
@@ -106,7 +107,7 @@ const VideoDetailPage = () => {
     }
 
     return (
-        <Row gutter={[24, 24]} className={styles.pageContainer}>
+        <Row gutter={[md ? 0 : 16, md ? 0 : 16]} className={styles.pageContainer}>
             <Col xs={24} lg={16}>
                 <Card className={styles.videoCard}>
                     <div className={styles.playerWrapper}>
@@ -123,7 +124,7 @@ const VideoDetailPage = () => {
                         />
                     </div>
                     <div className={styles.infoSection}>
-                        <Title level={3}>{video.title}</Title>
+                        <Title level={3} className={styles.videoTitle}>{video.title}</Title>
                         <Paragraph>{video.description}</Paragraph>
                     </div>
                 </Card>
