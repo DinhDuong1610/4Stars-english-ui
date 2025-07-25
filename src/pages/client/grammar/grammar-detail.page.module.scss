@@ -135,3 +135,52 @@
     border-top: 1px solid var(--ant-border-color-split, #f0f0f0);
     text-align: center;
 }
+
+
+/* XL*/
+@media only screen and (max-width: 1599.98px) {}
+
+/* LG*/
+@media only screen and (max-width: 1199.98px) {
+    .detailContainer {
+        padding: 24px 50px;
+
+        .backButton {
+            left: -15px;
+            top: 0;
+        }
+    }
+}
+
+/* MD*/
+@media only screen and (max-width: 991.98px) {
+    .detailContainer {
+        width: 100vw !important;
+        min-height: calc(100vh - 65px) !important;
+        border: none;
+        border-radius: 0 !important;
+    }
+}
+
+/* SM*/
+@media only screen and (max-width: 767.98px) {
+    .detailContainer {
+        padding: 24px 0px;
+
+        .backButton {
+            left: -15px;
+            top: 0;
+        }
+
+        .grammarTitle {
+            font-size: 2.5rem !important;
+        }
+
+        :global(.ant-card-body) {
+            padding: 0 10px !important;
+        }
+    }
+}
+
+/* XS*/
+@media only screen and (max-width: 575.98px) {}
