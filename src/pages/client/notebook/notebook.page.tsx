@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Row, Col, Card, Typography, message, Skeleton, Tabs, List, Empty, Tag } from 'antd';
+import { Row, Col, Card, Typography, message, Skeleton, Tabs, List, Empty, Tag, Popconfirm, Button } from 'antd';
 import { useTranslation } from 'react-i18next';
 import styles from './notebook.page.module.scss';
 import type { IVocabulary } from 'types/vocabulary.type';
@@ -7,6 +7,8 @@ import { fetchNotebookByLevelAPI, removeNotebookItemAPI } from 'services/noteboo
 import TextToSpeech from 'components/common/text-to-speech/text-to-speech.component';
 import NotebookDetail from 'components/notebook/notebook-detail.component';
 import Logo from 'assets/images/logo.png';
+import { useMediaQuery } from 'react-responsive';
+import { DeleteOutlined } from '@ant-design/icons';
 
 const { Title, Text } = Typography;
 
@@ -16,6 +18,8 @@ const NotebookPage = () => {
     const [vocabularies, setVocabularies] = useState<IVocabulary[]>([]);
     const [selectedVocabulary, setSelectedVocabulary] = useState<IVocabulary | null>(null);
     const [isLoading, setIsLoading] = useState(true);
+
+    const sm = useMediaQuery({ maxWidth: 767.98 });
 
     useEffect(() => {
         const getNotebookData = async () => {
@@ -69,8 +73,8 @@ const NotebookPage = () => {
     }));
 
     return (
-        <Row gutter={[24, 24]} className={styles.pageContainer}>
-            <Col xs={24} md={16} lg={14}>
+        <Row gutter={[16, 16]} className={styles.pageContainer}>
+            <Col xs={24} md={14} lg={14}>
                 <Card className={styles.vocabCard}>
                     <Title level={2} className={styles.pageTitle}>{t('notebook.pageTitle')}</Title>
                     <Tabs centered defaultActiveKey="1" items={tabItems} onChange={handleTabChange} />
@@ -101,6 +105,18 @@ const NotebookPage = () => {
                                         }
                                         description={<span>{item.pronunciation} - <b>{item.meaningVi}</b></span>}
                                     />
+                                    {
+                                        sm &&
+                                        <Popconfirm
+                                            title={t('notebook.deleteConfirmTitle')}
+                                            description={t('notebook.deleteConfirmDesc')}
+                                            onConfirm={() => handleRemoveVocabulary(item.id)}
+                                            okText={t('common.yes')}
+                                            cancelText={t('common.no')}
+                                        >
+                                            <Button type="text" danger icon={<DeleteOutlined />} />
+                                        </Popconfirm>
+                                    }
                                     <TextToSpeech text={item.word} />
                                 </List.Item>
                             )}
@@ -109,19 +125,21 @@ const NotebookPage = () => {
                 </Card>
             </Col>
 
-            <Col xs={24} md={8} lg={10}>
-                {selectedVocabulary ? (
-                    <NotebookDetail vocabulary={selectedVocabulary} onDelete={handleRemoveVocabulary} />
-                ) : (
-                    !isLoading && <Card style={{ height: '100%' }}>
-                        <Empty
-                            image={Logo}
-                            imageStyle={{ height: 100 }}
-                            description={t('notebook.noVocabSelected')}
-                        />
-                    </Card>
-                )}
-            </Col>
+            {!sm &&
+                <Col xs={24} md={10} lg={10}>
+                    {selectedVocabulary ? (
+                        <NotebookDetail vocabulary={selectedVocabulary} onDelete={handleRemoveVocabulary} />
+                    ) : (
+                        !isLoading && <Card style={{ height: '100%' }}>
+                            <Empty
+                                image={Logo}
+                                imageStyle={{ height: 100 }}
+                                description={t('notebook.noVocabSelected')}
+                            />
+                        </Card>
+                    )}
+                </Col>
+            }
         </Row>
     );
 };
