@@ -1,27 +1,28 @@
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import {
-    CustomerServiceOutlined,
     BookOutlined,
     BulbOutlined,
     TranslationOutlined,
     ReadOutlined,
-    MessageOutlined,
     PlaySquareOutlined,
     TeamOutlined,
     ShopOutlined,
     UserOutlined,
     HomeOutlined,
-    PicLeftOutlined
+    PicLeftOutlined,
+    OrderedListOutlined
 } from '@ant-design/icons';
 import styles from './client-sidebar.module.scss';
 import LanguageSwitcher from '@/components/common/language-switcher/language-switcher.component';
 import ThemeSwitcher from '@/components/common/theme-switcher/theme-switcher.component';
 import NotificationBell from '@/components/notification/notification-bell.component';
+import { useMediaQuery } from 'react-responsive';
 
 const ClientSidebar = () => {
     const { t } = useTranslation();
     const navigate = useNavigate();
+    const md = useMediaQuery({ minWidth: 992 });
 
     const menuItems = [
         { key: '/', icon: <HomeOutlined />, label: t('sidebar.home') },
@@ -35,6 +36,8 @@ const ClientSidebar = () => {
         { key: '/store', icon: <ShopOutlined />, label: t('sidebar.store') },
         { key: '/profile', icon: <UserOutlined />, label: t('sidebar.profile') },
     ];
+
+    !md && menuItems.push({ key: '/leaderboard', icon: <OrderedListOutlined />, label: t('sidebar.leaderboard') });
 
 
     return (

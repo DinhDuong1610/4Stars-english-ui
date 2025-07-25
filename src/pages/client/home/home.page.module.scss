@@ -10,9 +10,14 @@
 }
 
 .mainCard {
+    h2 {
+        font-size: 2.4rem;
+    }
+
     :global(.ant-card-body) {
         padding-top: 40px;
     }
+
 }
 
 .vocabSummary {
@@ -24,14 +29,14 @@
     >span {
         display: block;
         margin-bottom: 16px;
-        font-size: 16px;
+        font-size: 1.6rem;
     }
 }
 
 .button {
     padding: 10px 40px;
     background-color: #00BE1D;
-    font-size: 20px;
+    font-size: 2rem;
     font-weight: 600;
     color: #fff;
     border-radius: 20px;
@@ -53,12 +58,12 @@
     }
 
     :global(.ant-statistic-title) {
-        font-size: 14px;
+        font-size: 1.4rem;
         color: var(--ant-color-text-secondary);
     }
 
     :global(.ant-statistic-content) {
-        font-size: 20px;
+        font-size: 2rem;
     }
 
     .statisc {
@@ -86,20 +91,20 @@
             }
 
             .statiscItemValue {
-                font-size: 40px;
+                font-size: 4rem;
                 font-weight: bold;
                 line-height: 1;
             }
 
             .statiscItemValueRank {
-                font-size: 30px;
+                font-size: 3rem;
                 font-weight: bold;
                 line-height: 1;
                 padding: 5px 0;
             }
 
             .statiscItemTitle {
-                font-size: 16px;
+                font-size: 1.6rem;
                 color: var(--ant-color-text-secondary, #8c8c8c);
             }
         }
@@ -114,7 +119,35 @@
 }
 
 .rankNumber {
-    font-size: 16px;
+    font-size: 1.6rem;
     font-weight: bold;
     color: var(--ant-color-text-tertiary);
 }
+
+
+
+/* XL*/
+@media only screen and (max-width: 1599.98px) {}
+
+/* LG*/
+@media only screen and (max-width: 1199.98px) {}
+
+/* MD*/
+@media only screen and (max-width: 991.98px) {
+    .mainCard {
+        width: 100vw !important;
+        height: calc(100vh - 65px) !important;
+        border: none;
+        border-radius: 0;
+
+        :global(.ant-card-body) {
+            padding-top: 20px;
+        }
+    }
+}
+
+/* SM*/
+@media only screen and (max-width: 767.98px) {}
+
+/* XS*/
+@media only screen and (max-width: 575.98px) {}

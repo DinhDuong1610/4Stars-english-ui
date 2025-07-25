@@ -11,7 +11,7 @@ const { Content } = Layout;
 
 const ClientLayout = () => {
 
-    const isMobile = useMediaQuery({ maxWidth: 767.98 });
+    const isMobile = useMediaQuery({ maxWidth: 991.98 });
 
     const xl = useMediaQuery({ maxWidth: 1599.98 });
     const lg = useMediaQuery({ maxWidth: 1199.98 });

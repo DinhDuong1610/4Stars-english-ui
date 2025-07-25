@@ -7,7 +7,8 @@ import {
     BookOutlined, ReadOutlined, PlaySquareOutlined, ShopOutlined, UserOutlined,
     MenuOutlined,
     HomeOutlined,
-    PicLeftOutlined
+    PicLeftOutlined,
+    OrderedListOutlined
 } from '@ant-design/icons';
 import styles from './mobile-bottom-nav.module.scss';
 
@@ -29,6 +30,7 @@ const MobileBottomNav = () => {
         { key: '/community', icon: <TeamOutlined />, label: t('sidebar.community') },
         { key: '/store', icon: <ShopOutlined />, label: t('sidebar.store') },
         { key: '/profile', icon: <UserOutlined />, label: t('sidebar.profile') },
+        { key: '/leaderboard', icon: <OrderedListOutlined />, label: t('sidebar.leaderboard') }
     ];
 
     const NavItem = ({ to, icon, label }: { to: string, icon: React.ReactNode, label: string }) => (
