@@ -22,4 +22,52 @@
 .searchBar {
     margin-bottom: 24px;
     border-radius: var(--ant-border-radius-lg);
+    width: 80%;
+}
+
+.learnButton {
+    margin-bottom: 24px;
+}
+
+
+/* XL*/
+@media only screen and (max-width: 1599.98px) {}
+
+/* LG*/
+@media only screen and (max-width: 1199.98px) {}
+
+/* MD*/
+@media only screen and (max-width: 991.98px) {
+    .pageContainer {
+        width: 100vw !important;
+        min-height: calc(100vh - 65px) !important;
+        border: none;
+        border-radius: 0;
+
+        :global(.ant-card-body) {
+            padding-bottom: 65px;
+        }
+    }
+}
+
+/* SM*/
+@media only screen and (max-width: 767.98px) {
+    .searchBar {
+        margin-bottom: 22px;
+        width: 50%;
+    }
+}
+
+/* XS*/
+@media only screen and (max-width: 575.98px) {
+    .searchBar {
+        width: 100%;
+    }
+
+    .learnButton {
+        margin-bottom: 24px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
 }
