@@ -10,6 +10,7 @@ import TextToSpeech from '@/components/common/text-to-speech/text-to-speech.comp
 import Logo from 'assets/images/logo.png';
 import { addVocabularyToNotebookAPI } from 'services/notebook.service';
 import Accept from 'components/common/share/accept.component';
+import { useMediaQuery } from 'react-responsive';
 
 const { Title, Text, Paragraph } = Typography;
 
@@ -21,6 +22,9 @@ const VocabularyDetailPage = () => {
     const [synonyms, setSynonyms] = useState<string[]>([]);
     const [relatedWords, setRelatedWords] = useState<string[]>([]);
     const [isLoading, setIsLoading] = useState(true);
+
+    const md = useMediaQuery({ maxWidth: 767.98 });
+
 
     useEffect(() => {
         if (!id) return;
@@ -124,7 +128,7 @@ const VocabularyDetailPage = () => {
                 {t('common.back')}
             </Button>
             <div className={styles.vocabContainer}>
-                <Row gutter={[32, 24]}>
+                <Row gutter={[md ? 0 : 32, md ? 0 : 24]}>
                     <Col xs={24} md={10}>
                         <Image
                             src={vocabulary.image || 'https://placehold.co/600x400?text=No+Image'}

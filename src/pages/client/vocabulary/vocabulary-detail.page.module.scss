@@ -33,6 +33,7 @@
     border-radius: 8px;
     object-fit: cover;
     border: 1px solid #f0f0f0;
+    margin-bottom: 15px;
 }
 
 .posTag {
@@ -167,3 +168,57 @@
         border: 1px solid #91d5ff;
     }
 }
+
+
+/* XL*/
+@media only screen and (max-width: 1599.98px) {}
+
+/* LG*/
+@media only screen and (max-width: 1199.98px) {
+    .detailContainer {
+        padding: 24px 50px;
+        position: relative;
+
+        .backButton {
+            margin-bottom: 16px;
+            font-weight: 600;
+            color: #555;
+            position: relative;
+            left: -80px;
+            top: -30px
+        }
+    }
+}
+
+/* MD*/
+@media only screen and (max-width: 991.98px) {
+    .detailContainer {
+        width: 100vw !important;
+        min-height: calc(100vh - 65px) !important;
+        border: none;
+        border-radius: 0 !important;
+    }
+}
+
+/* SM*/
+@media only screen and (max-width: 767.98px) {
+
+    .addToNotebookButton {
+        top: 30px;
+        right: 0;
+    }
+
+    .detailContainer {
+        padding: 24px 0px;
+        position: relative;
+
+        .backButton {
+            position: relative;
+            left: -10px;
+            top: -25px
+        }
+    }
+}
+
+/* XS*/
+@media only screen and (max-width: 575.98px) {}
