@@ -7,6 +7,7 @@ import styles from './article-detail.page.module.scss';
 import type { IArticle } from 'types/article.type';
 import { fetchArticleDetailClientAPI } from 'services/article.service';
 import Logo from 'assets/images/logo.png';
+import { useMediaQuery } from 'react-responsive';
 
 const { Title } = Typography;
 
@@ -16,6 +17,8 @@ const ArticleDetailPage = () => {
     const { t } = useTranslation();
     const [article, setArticle] = useState<IArticle | null>(null);
     const [isLoading, setIsLoading] = useState(true);
+
+    const sm = useMediaQuery({ maxWidth: 767.98 });
 
     useEffect(() => {
         if (!id) return;
@@ -65,7 +68,7 @@ const ArticleDetailPage = () => {
             </Button>
 
             <div className={styles.articleDetail}>
-                <Image className={styles.articleImage} width="100%" height={400} src={`${import.meta.env.VITE_BACKEND_URL}${article.image}`} />
+                <Image className={styles.articleImage} width="100%" height={sm ? 250 : 400} src={`${import.meta.env.VITE_BACKEND_URL}${article.image}`} />
                 <Title level={2} className={styles.articleTitle}>{article.title}</Title>
                 <audio className={styles.articleAudio} controls src={`${import.meta.env.VITE_BACKEND_URL}${article.audio}`} />
                 <div
