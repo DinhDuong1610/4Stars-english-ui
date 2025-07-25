@@ -11,6 +11,9 @@ import {
     OrderedListOutlined
 } from '@ant-design/icons';
 import styles from './mobile-bottom-nav.module.scss';
+import LanguageSwitcher from 'components/common/language-switcher/language-switcher.component';
+import ThemeSwitcher from 'components/common/theme-switcher/theme-switcher.component';
+import NotificationBell from 'components/notification/notification-bell.component';
 
 const MobileBottomNav = () => {
     const { t } = useTranslation();
@@ -68,6 +71,11 @@ const MobileBottomNav = () => {
                         </List.Item>
                     )}
                 />
+                <div className={styles.bottomControls}>
+                    <LanguageSwitcher />
+                    <ThemeSwitcher />
+                    <NotificationBell />
+                </div>
             </Drawer>
         </>
     );

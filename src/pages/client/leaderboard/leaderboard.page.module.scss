@@ -219,7 +219,16 @@
         border-radius: 12px 12px 0 0 !important;
 
         :global(.ant-card-body) {
-            padding: 10px ! important;
+            padding-left: 10px ! important;
+            padding-right: 10px ! important;
+            padding-bottom: 65px ! important;
+        }
+
+
+        .rankList {
+            max-height: 30vh;
+            overflow-y: auto;
+            padding-right: 0 10px 0 0;
         }
 
         .leagueInfo {
@@ -229,12 +238,6 @@
                 font-size: 2rem;
             }
         }
-
-        .rankList {
-            max-height: auto;
-            overflow-y: auto;
-            padding-right: 0 10px 0 0;
-        }
     }
 
     .statsCard {
@@ -243,6 +246,8 @@
         margin-bottom: 8px !important;
         border-radius: 0 0 12px 12px !important;
     }
+
+
 }
 
 /* SM*/
