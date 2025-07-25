@@ -12,6 +12,7 @@ import icon_streak from '@/assets/icons/dashboard/streak.png';
 import { fetchUserDashboardAPI } from 'services/user-dashboard.service';
 import type { IUserDashboard } from 'types/user-dashboard.type';
 import { useAuthStore } from 'stores/auth.store';
+import { useMediaQuery } from 'react-responsive';
 
 const LeaderboardPage = () => {
     const { t } = useTranslation();
@@ -22,6 +23,8 @@ const LeaderboardPage = () => {
     const [currentUser, setCurrentUser] = useState<IUserDashboard | null>(null);
     const [isLoading, setIsLoading] = useState(true);
     const [timeRemaining, setTimeRemaining] = useState('');
+
+    const md = useMediaQuery({ maxWidth: 991.98 });
 
     useEffect(() => {
         const calculateTimeRemaining = () => {
@@ -128,8 +131,37 @@ const LeaderboardPage = () => {
 
     return (
         <div className={styles.leaderboardContainer}>
-            <Row gutter={[24, 24]} className={styles.container}>
+            <Row gutter={[md ? 0 : 16, md ? 0 : 16]} className={styles.container}>
                 <Col xs={24} lg={16}>
+                    {
+                        md &&
+                        <Card bordered={false} className={styles.statsCard}>
+                            <div className={styles.statisc}>
+                                <div className={styles.statiscItem}>
+                                    <div className={styles.statiscItemIcon}>
+                                        <img src={icon_point} alt="point" />
+                                    </div>
+                                    <div className={styles.statiscItemValue}>{currentUser?.userPoints}</div>
+                                    <div className={styles.statiscItemTitle}>{t('homepage.points')}</div>
+                                </div>
+                                <div className={styles.statiscItem}>
+                                    <div className={styles.statiscItemIcon}>
+                                        <img src={icon_streak} alt="streak" />
+                                    </div>
+                                    <div className={styles.statiscItemValue}>{currentUser?.currentStreak}</div>
+                                    <div className={styles.statiscItemTitle}>{t('homepage.streak')}</div>
+                                </div>
+                                <div className={styles.statiscItem}>
+                                    <div className={styles.statiscItemIcon}>
+                                        <img src={`${import.meta.env.VITE_BACKEND_URL}${currentUser?.badges?.image}`} alt="badge" />
+                                    </div>
+                                    <div className={styles.statiscItemValueRank}>{currentUser?.badges?.name}</div>
+                                    <div className={styles.statiscItemTitle}>{t('homepage.rank')}</div>
+                                </div>
+                            </div>
+                        </Card>
+                    }
+
                     <Card bordered={false} className={styles.mainCard}>
                         <div className={styles.header}>
                             <h1>{t('leaderboard.weeklyRanking')}</h1>
@@ -184,40 +216,43 @@ const LeaderboardPage = () => {
                     </Card>
                 </Col>
 
-                <Col xs={24} lg={8}>
-                    <Space direction="vertical" size="large" style={{ width: '100%' }}>
-                        <Card bordered={false} className={styles.statsCard}>
-                            <div className={styles.statisc}>
-                                <div className={styles.statiscItem}>
-                                    <div className={styles.statiscItemIcon}>
-                                        <img src={icon_point} alt="point" />
+                {
+                    !md &&
+                    <Col xs={24} lg={8}>
+                        <Space direction="vertical" size="large" style={{ width: '100%' }}>
+                            <Card bordered={false} className={styles.statsCard}>
+                                <div className={styles.statisc}>
+                                    <div className={styles.statiscItem}>
+                                        <div className={styles.statiscItemIcon}>
+                                            <img src={icon_point} alt="point" />
+                                        </div>
+                                        <div className={styles.statiscItemValue}>{currentUser?.userPoints}</div>
+                                        <div className={styles.statiscItemTitle}>{t('homepage.points')}</div>
                                     </div>
-                                    <div className={styles.statiscItemValue}>{currentUser?.userPoints}</div>
-                                    <div className={styles.statiscItemTitle}>{t('homepage.points')}</div>
-                                </div>
-                                <div className={styles.statiscItem}>
-                                    <div className={styles.statiscItemIcon}>
-                                        <img src={icon_streak} alt="streak" />
+                                    <div className={styles.statiscItem}>
+                                        <div className={styles.statiscItemIcon}>
+                                            <img src={icon_streak} alt="streak" />
+                                        </div>
+                                        <div className={styles.statiscItemValue}>{currentUser?.currentStreak}</div>
+                                        <div className={styles.statiscItemTitle}>{t('homepage.streak')}</div>
                                     </div>
-                                    <div className={styles.statiscItemValue}>{currentUser?.currentStreak}</div>
-                                    <div className={styles.statiscItemTitle}>{t('homepage.streak')}</div>
-                                </div>
-                                <div className={styles.statiscItem}>
-                                    <div className={styles.statiscItemIcon}>
-                                        <img src={`${import.meta.env.VITE_BACKEND_URL}${currentUser?.badges?.image}`} alt="badge" />
+                                    <div className={styles.statiscItem}>
+                                        <div className={styles.statiscItemIcon}>
+                                            <img src={`${import.meta.env.VITE_BACKEND_URL}${currentUser?.badges?.image}`} alt="badge" />
+                                        </div>
+                                        <div className={styles.statiscItemValueRank}>{currentUser?.badges?.name}</div>
+                                        <div className={styles.statiscItemTitle}>{t('homepage.rank')}</div>
                                     </div>
-                                    <div className={styles.statiscItemValueRank}>{currentUser?.badges?.name}</div>
-                                    <div className={styles.statiscItemTitle}>{t('homepage.rank')}</div>
                                 </div>
-                            </div>
-                        </Card>
+                            </Card>
 
-                        <Card bordered={false} className={styles.infoCard}>
-                            <h3>{t('leaderboard.whatIsRanking')}</h3>
-                            <p>{t('leaderboard.explanation')}</p>
-                        </Card>
-                    </Space>
-                </Col>
+                            <Card bordered={false} className={styles.infoCard}>
+                                <h3>{t('leaderboard.whatIsRanking')}</h3>
+                                <p>{t('leaderboard.explanation')}</p>
+                            </Card>
+                        </Space>
+                    </Col>
+                }
             </Row>
         </div>
     );
