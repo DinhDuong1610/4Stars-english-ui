@@ -118,7 +118,7 @@ const VideoListPage = () => {
                 <Card className={styles.pageContainer}>
                     <Row gutter={[24, 24]} style={{ marginTop: 32 }}>
                         {skeletons.map(item => (
-                            <Col key={item} xs={24} sm={12} md={8} lg={8}>
+                            <Col key={item} xs={24} sm={12} md={8} lg={8} xl={6}>
                                 <Skeleton active paragraph={{ rows: 2 }} className={styles.pageContainer} />;
                             </Col>
                         ))}
@@ -150,7 +150,7 @@ const VideoListPage = () => {
                     <Row gutter={[12, 12]} className={styles.videoCards}>
                         {
                             videos.map(item => (
-                                <Col key={item.id} xs={24} sm={12} md={8} lg={6}>
+                                <Col key={item.id} xs={24} sm={12} md={8} lg={8} xl={6}>
                                     <VideoCard video={item} />
                                 </Col>
                             ))}
