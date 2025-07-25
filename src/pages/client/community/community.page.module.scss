@@ -309,6 +309,10 @@
 
         .postCard {
             margin-bottom: 5px !important;
+
+            :global(.ant-card-body) {
+                padding: 10px !important;
+            }
         }
     }
 }

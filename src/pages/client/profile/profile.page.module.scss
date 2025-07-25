@@ -368,11 +368,19 @@
 /* MD*/
 @media only screen and (max-width: 991.98px) {
     .pageContainer {
-        padding: 5px !important;
-    }
+        padding: 5px;
 
-    .postCard {
-        margin-bottom: 5px;
+        .createPostTrigger {
+            margin-bottom: 5px !important;
+        }
+
+        .postCard {
+            margin-bottom: 5px !important;
+
+            :global(.ant-card-body) {
+                padding: 10px !important;
+            }
+        }
     }
 }
 

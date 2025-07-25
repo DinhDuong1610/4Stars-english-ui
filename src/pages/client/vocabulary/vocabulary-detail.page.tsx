@@ -108,7 +108,7 @@ const VocabularyDetailPage = () => {
             <div className={styles.tagSection}>
                 <Title level={4}>{icon} {title}</Title>
                 <div>
-                    {words.slice(0, 15).map((word, index) => (
+                    {words.slice(0, md ? 6 : 15).map((word, index) => (
                         <Tag key={index} className={type === 'synonyms' ? styles.synonymTag : styles.wordTag}>{word}</Tag>
                     ))}
                 </div>
