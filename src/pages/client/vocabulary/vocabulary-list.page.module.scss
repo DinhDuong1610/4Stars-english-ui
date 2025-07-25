@@ -43,10 +43,6 @@
         min-height: calc(100vh - 65px) !important;
         border: none;
         border-radius: 0;
-
-        :global(.ant-card-body) {
-            padding-bottom: 65px;
-        }
     }
 }
 
