@@ -3,7 +3,7 @@
 }
 
 .bannerContainer {
-    margin-bottom: 24px;
+    margin-bottom: 16px;
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -119,7 +119,7 @@
 .countCard {
     text-align: center;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    margin-bottom: 24px;
+    margin-bottom: 16px;
     border-radius: 12px !important;
 
     .title {
@@ -188,4 +188,110 @@
             color: #fcae1e;
         }
     }
+}
+
+/* XL*/
+@media only screen and (max-width: 1599.98px) {}
+
+/* LG*/
+@media only screen and (max-width: 1199.98px) {
+    .ctaButton {
+        font-size: 1.6rem !important;
+    }
+
+    .countCard {
+        .digitBox {
+            width: 30px;
+            height: 40px;
+            border-radius: 8px;
+            font-size: 24px;
+            line-height: 40px;
+        }
+
+    }
+}
+
+/* MD*/
+@media only screen and (max-width: 991.98px) {
+    .bannerContainer {
+        margin-bottom: 0px;
+        border-radius: 0px;
+    }
+
+    .bannerImage {
+        width: 100%;
+        display: block;
+    }
+
+    .mainCard {
+        border-radius: 0px !important;
+    }
+
+    .promoIcon {
+        width: 4rem;
+        height: 4rem;
+    }
+
+    .countCard {
+        width: 100%;
+        margin-bottom: 0px;
+        border-radius: 0px !important;
+
+        .digitBox {
+            width: 40px;
+            height: 50px;
+            border-radius: 8px;
+            font-size: 28px;
+            line-height: 50px;
+        }
+    }
+
+    .widgetCard {
+        border-radius: 0px !important;
+    }
+}
+
+/* SM*/
+@media only screen and (max-width: 767.98px) {}
+
+/* XS*/
+@media only screen and (max-width: 575.98px) {
+    .pageContainer {
+
+        :global(.ant-card-body) {
+            padding: 10px !important;
+        }
+
+        .promotion {
+            gap: 0px;
+            margin-top: 0px;
+        }
+
+        .featureIcon {
+            width: 2.5rem;
+            height: 2.5rem;
+            margin-right: 0px;
+            display: none;
+        }
+
+        .promoText {
+            font-size: 1.8rem;
+            font-weight: 600;
+            line-height: 1.3;
+            white-space: wrap;
+        }
+
+        .digitBox {
+            width: 35px;
+            height: 45px;
+            border-radius: 8px;
+            font-size: 24px;
+            line-height: 45px;
+        }
+
+        .ctaButton {
+            font-size: 1.8rem !important;
+        }
+    }
+
 }

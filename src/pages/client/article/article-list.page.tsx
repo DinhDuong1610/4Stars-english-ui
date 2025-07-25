@@ -150,7 +150,7 @@ const ArticleListPage = () => {
                     <Row gutter={[12, 12]} className={styles.articleCards}>
                         {
                             articles.map(item => (
-                                <Col key={item.id} xs={24} sm={12} md={8} lg={6}>
+                                <Col key={item.id} xs={24} sm={12} md={8} lg={8} xl={6}>
                                     <ArticleCard article={item} />
                                 </Col>
                             ))}

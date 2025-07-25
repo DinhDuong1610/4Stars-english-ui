@@ -141,3 +141,59 @@
         border-radius: 8px;
     }
 }
+
+
+/* XL*/
+@media only screen and (max-width: 1599.98px) {}
+
+/* LG*/
+@media only screen and (max-width: 1199.98px) {
+    .detailContainer {
+        padding: 24px 50px;
+
+        .backButton {
+            left: -15px;
+            top: 0;
+        }
+    }
+}
+
+/* MD*/
+@media only screen and (max-width: 991.98px) {
+    .detailContainer {
+        width: 100vw !important;
+        min-height: calc(100vh - 65px) !important;
+        border: none;
+        border-radius: 0 !important;
+    }
+}
+
+/* SM*/
+@media only screen and (max-width: 767.98px) {
+    .detailContainer {
+        padding: 24px 0px;
+
+
+        .backButton {
+            left: -15px;
+            top: 0;
+        }
+
+        .articleTitle {
+            font-size: 2.5rem !important;
+        }
+
+        .articleAudio {
+            width: 80%;
+        }
+
+        :global(.ant-card-body) {
+            padding: 0 10px !important;
+            padding-top: 0 !important;
+            margin-top: -24px !important;
+        }
+    }
+}
+
+/* XS*/
+@media only screen and (max-width: 575.98px) {}

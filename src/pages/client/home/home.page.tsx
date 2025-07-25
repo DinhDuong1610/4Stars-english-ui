@@ -15,6 +15,7 @@ import { useTranslation } from 'react-i18next';
 import NotFoundPage from 'pages/error/404.page';
 import { generateReviewQuizAPI } from 'services/quiz.service';
 import Accept from 'components/common/share/accept.component';
+import { useMediaQuery } from 'react-responsive';
 
 const HomePage = () => {
     const { t } = useTranslation();
@@ -25,6 +26,8 @@ const HomePage = () => {
 
     const navigate = useNavigate();
     const [isGeneratingQuiz, setIsGeneratingQuiz] = useState(false);
+
+    const md = useMediaQuery({ maxWidth: 991.98 });
 
     useEffect(() => {
         const fetchData = async () => {
@@ -86,16 +89,18 @@ const HomePage = () => {
                         <Skeleton active paragraph={{ rows: 8 }} />
                     </Card>
                 </Col>
-                <Col xs={24} lg={8}>
-                    <Space direction="vertical" size="large" style={{ width: '100%' }}>
-                        <Card>
-                            <Skeleton active avatar={false} paragraph={{ rows: 2 }} />
-                        </Card>
-                        <Card>
-                            <Skeleton active avatar paragraph={{ rows: 4 }} />
-                        </Card>
-                    </Space>
-                </Col>
+                {
+                    <Col xs={24} lg={8}>
+                        <Space direction="vertical" size="large" style={{ width: '100%' }}>
+                            <Card>
+                                <Skeleton active avatar={false} paragraph={{ rows: 2 }} />
+                            </Card>
+                            <Card>
+                                <Skeleton active avatar paragraph={{ rows: 4 }} />
+                            </Card>
+                        </Space>
+                    </Col>
+                }
             </Row>
         );
     }
@@ -113,7 +118,7 @@ const HomePage = () => {
 
     return (
         <ThemeProvider theme={muiTheme}>
-            <Row gutter={[24, 24]} className={styles.container}>
+            <Row gutter={[md ? 0 : 16, md ? 0 : 16]} className={styles.container}>
                 <Col xs={24} lg={16}>
                     <Card title={<h2 style={{ textAlign: 'center', marginTop: 10 }}><strong>{t('homepage.vocabStatsTitle')}</strong></h2>}
                         className={styles.mainCard}
@@ -152,7 +157,7 @@ const HomePage = () => {
                             borderRadius={15}
                             height={450}
                             grid={{ vertical: false, horizontal: false }}
-                            margin={{ top: 40, bottom: 30, left: 20, right: 20 }}
+                            margin={{ top: 40, bottom: 30, left: md ? 20 : 0, right: md ? 20 : 0 }}
                         />
                         <div className={styles.vocabSummary}>
                             <h2 className={styles.vocabCount}>{t('homepage.wordsToReview')} <strong>{dashboardData.wordsToReviewCount ?? 0} {t('homepage.wordsUnit')}</strong></h2>
@@ -167,58 +172,61 @@ const HomePage = () => {
                     </Card>
                 </Col>
 
-                <Col xs={24} lg={8}>
-                    <Space direction="vertical" size="large" style={{ width: '100%' }}>
-                        <Card bordered={false} className={styles.statsCard}>
-                            <div className={styles.statisc}>
-                                <div className={styles.statiscItem}>
-                                    <div className={styles.statiscItemIcon}>
-                                        <img src={icon_point} alt="point" />
+                {
+                    !md &&
+                    <Col xs={24} lg={8}>
+                        <Space direction="vertical" size="middle" style={{ width: '100%' }}>
+                            <Card bordered={false} className={styles.statsCard}>
+                                <div className={styles.statisc}>
+                                    <div className={styles.statiscItem}>
+                                        <div className={styles.statiscItemIcon}>
+                                            <img src={icon_point} alt="point" />
+                                        </div>
+                                        <div className={styles.statiscItemValue}>{dashboardData.userPoints}</div>
+                                        <div className={styles.statiscItemTitle}>{t('homepage.points')}</div>
                                     </div>
-                                    <div className={styles.statiscItemValue}>{dashboardData.userPoints}</div>
-                                    <div className={styles.statiscItemTitle}>{t('homepage.points')}</div>
-                                </div>
-                                <div className={styles.statiscItem}>
-                                    <div className={styles.statiscItemIcon}>
-                                        <img src={icon_streak} alt="streak" />
+                                    <div className={styles.statiscItem}>
+                                        <div className={styles.statiscItemIcon}>
+                                            <img src={icon_streak} alt="streak" />
+                                        </div>
+                                        <div className={styles.statiscItemValue}>{dashboardData.currentStreak}</div>
+                                        <div className={styles.statiscItemTitle}>{t('homepage.streak')}</div>
                                     </div>
-                                    <div className={styles.statiscItemValue}>{dashboardData.currentStreak}</div>
-                                    <div className={styles.statiscItemTitle}>{t('homepage.streak')}</div>
-                                </div>
-                                <div className={styles.statiscItem}>
-                                    <div className={styles.statiscItemIcon}>
-                                        <img src={`${import.meta.env.VITE_BACKEND_URL}${dashboardData.badges?.image}`} alt="badge" />
+                                    <div className={styles.statiscItem}>
+                                        <div className={styles.statiscItemIcon}>
+                                            <img src={`${import.meta.env.VITE_BACKEND_URL}${dashboardData.badges?.image}`} alt="badge" />
+                                        </div>
+                                        <div className={styles.statiscItemValueRank}>{dashboardData.badges?.name}</div>
+                                        <div className={styles.statiscItemTitle}>{t('homepage.rank')}</div>
                                     </div>
-                                    <div className={styles.statiscItemValueRank}>{dashboardData.badges?.name}</div>
-                                    <div className={styles.statiscItemTitle}>{t('homepage.rank')}</div>
                                 </div>
-                            </div>
-                        </Card>
-                        <Card title={t('homepage.leaderboardTitle')} bordered={false} className={styles.rankCard} extra={<Link to="/leaderboard">{t('homepage.viewAll')} <RightOutlined /></Link>}>
-                            <List
-                                itemLayout="horizontal"
-                                size="small"
-                                className={styles.rankList}
-                                dataSource={leaderboardData.slice(0, 5)}
-                                renderItem={(item, index) => (
-                                    <List.Item>
-                                        <List.Item.Meta
-                                            avatar={<Avatar size={45} style={{
-                                                backgroundColor: avatarColors[index % avatarColors.length],
-                                                color: '#fff',
-                                                fontSize: 20,
-                                                fontWeight: 'bold'
-                                            }}>{item.name.charAt(0).toUpperCase()}</Avatar>}
-                                            title={<b>{item.name}</b>}
-                                            description={`${item.point} ${t('homepage.points')}`}
-                                        />
-                                        <div className={styles.rankNumber}><b>{index + 1}</b></div>
-                                    </List.Item>
-                                )}
-                            />
-                        </Card>
-                    </Space>
-                </Col>
+                            </Card>
+                            <Card title={t('homepage.leaderboardTitle')} bordered={false} className={styles.rankCard} extra={<Link to="/leaderboard">{t('homepage.viewAll')} <RightOutlined /></Link>}>
+                                <List
+                                    itemLayout="horizontal"
+                                    size="small"
+                                    className={styles.rankList}
+                                    dataSource={leaderboardData.slice(0, 5)}
+                                    renderItem={(item, index) => (
+                                        <List.Item>
+                                            <List.Item.Meta
+                                                avatar={<Avatar size={45} style={{
+                                                    backgroundColor: avatarColors[index % avatarColors.length],
+                                                    color: '#fff',
+                                                    fontSize: 20,
+                                                    fontWeight: 'bold'
+                                                }}>{item.name.charAt(0).toUpperCase()}</Avatar>}
+                                                title={<b>{item.name}</b>}
+                                                description={`${item.point} ${t('homepage.points')}`}
+                                            />
+                                            <div className={styles.rankNumber}><b>{index + 1}</b></div>
+                                        </List.Item>
+                                    )}
+                                />
+                            </Card>
+                        </Space>
+                    </Col>
+                }
             </Row>
         </ThemeProvider>
     );

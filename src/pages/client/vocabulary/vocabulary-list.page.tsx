@@ -191,7 +191,6 @@ const VocabularyListPage = () => {
                             className={styles.searchBar}
                             loading={isLoading}
                             allowClear
-                            style={{ width: '80%' }}
                         />
 
                         <Accept apiPath="/api/v1/quizzes/{id}/start" method="POST">
@@ -201,6 +200,7 @@ const VocabularyListPage = () => {
                                 icon={<EditOutlined />}
                                 onClick={handleStartQuiz}
                                 loading={isGeneratingQuiz}
+                                className={styles.learnButton}
                             >
                                 {t('vocabulary.learnNewVocab')}
                             </Button>
@@ -208,7 +208,7 @@ const VocabularyListPage = () => {
                     </Row>
                     <Row gutter={[12, 12]} className={styles.vocabCards}>
                         {filteredVocabularies.map(vocab => (
-                            <Col key={vocab.id} xs={24} sm={12} md={8} lg={6}>
+                            <Col key={vocab.id} xs={24} sm={12} md={8} lg={8} xl={6}>
                                 <VocabularyCard vocabulary={vocab} />
                             </Col>
                         ))}

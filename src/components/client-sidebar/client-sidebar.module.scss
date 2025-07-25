@@ -10,7 +10,7 @@
 
 .logo {
     padding: 12px 15px;
-    font-size: 36px;
+    font-size: 3.6rem;
     font-weight: bold;
     color: var(--ant-color-primary, #1677ff);
     cursor: pointer;
@@ -27,18 +27,17 @@
     display: flex;
     align-items: center;
     width: 100%;
-    padding: 12px 12px;
-    // margin-bottom: 8px;
+    padding: 8px 12px;
     border-radius: 16px;
     text-decoration: none;
     color: var(--ant-color-text, #595959);
     font-weight: 600;
-    font-size: 20px;
+    font-size: 2rem;
     transition: background-color 0.3s, color 0.3s, border 0.3s;
     border: 3px solid transparent;
 
     .icon {
-        font-size: 20px;
+        font-size: 2rem;
         margin-right: 16px;
     }
 
@@ -67,3 +66,33 @@
     gap: 8px;
     border-top: 1px solid var(--ant-color-border-secondary, #E3F0FF);
 }
+
+
+/* XL*/
+@media only screen and (max-width: 1599.98px) {}
+
+/* LG*/
+@media only screen and (max-width: 1199.98px) {
+    .sidebar {
+        width: 200px;
+        padding: 12px;
+    }
+
+    .menuItem {
+        padding: 7px 12px;
+    }
+}
+
+/* MD*/
+@media only screen and (max-width: 991.98px) {}
+
+/* SM*/
+@media only screen and (max-width: 767.98px) {
+    .content {
+        padding: 16px;
+        padding-bottom: 80px;
+    }
+}
+
+/* XS*/
+@media only screen and (max-width: 575.98px) {}

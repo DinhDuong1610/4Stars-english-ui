@@ -77,3 +77,43 @@
 .suggestedSection {
     margin-top: 15px;
 }
+
+/* XL*/
+@media only screen and (max-width: 1599.98px) {}
+
+/* LG*/
+@media only screen and (max-width: 1199.98px) {}
+
+/* MD*/
+@media only screen and (max-width: 991.98px) {
+    .videoCard {
+        border-radius: 0 !important;
+
+        .playerWrapper {
+            border-radius: 0px;
+        }
+
+        :global(.ant-card-body) {
+            padding: 0 !important;
+        }
+    }
+
+    .subtitleCard {
+        border-radius: 0 !important;
+    }
+
+    .videoTitle {
+        font-size: 2.4rem !important;
+    }
+
+    .suggestedSection {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}
+
+/* SM*/
+@media only screen and (max-width: 767.98px) {}
+
+/* XS*/
+@media only screen and (max-width: 575.98px) {}

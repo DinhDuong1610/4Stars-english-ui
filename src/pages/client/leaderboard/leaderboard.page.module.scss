@@ -17,6 +17,10 @@
         }
     }
 
+    :global(.ant-tabs-nav-more) {
+        display: none;
+    }
+
     .tabLabel {
         display: flex;
         flex-direction: column;
@@ -197,3 +201,56 @@
         }
     }
 }
+
+
+
+/* XL*/
+@media only screen and (max-width: 1599.98px) {}
+
+/* LG*/
+@media only screen and (max-width: 1199.98px) {}
+
+/* MD*/
+@media only screen and (max-width: 991.98px) {
+    .mainCard {
+        width: 100vw !important;
+        height: calc(100vh - 65px - 170px) !important;
+        border: none;
+        border-radius: 12px 12px 0 0 !important;
+
+        :global(.ant-card-body) {
+            padding-left: 10px ! important;
+            padding-right: 10px ! important;
+        }
+
+
+        .rankList {
+            max-height: 30vh;
+            overflow-y: auto;
+            padding-right: 0 10px 0 0;
+        }
+
+        .leagueInfo {
+            margin: 1rem 0;
+
+            h2 {
+                font-size: 2rem;
+            }
+        }
+    }
+
+    .statsCard {
+        width: 100vw !important;
+        padding: 0 50px !important;
+        margin-bottom: 8px !important;
+        border-radius: 0 0 12px 12px !important;
+    }
+
+
+}
+
+/* SM*/
+@media only screen and (max-width: 767.98px) {}
+
+/* XS*/
+@media only screen and (max-width: 575.98px) {}

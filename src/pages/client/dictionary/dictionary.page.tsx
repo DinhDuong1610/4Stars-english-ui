@@ -9,6 +9,7 @@ import { fetchRecentNotebookAPI } from 'services/notebook.service';
 import type { IVocabulary } from 'types/vocabulary.type';
 import SearchResult from 'components/vocabulary/search-result.component';
 import VocabularyCard from 'components/vocabulary/vocabulary-card.component';
+import { useMediaQuery } from 'react-responsive';
 
 const { Title, Text } = Typography;
 
@@ -29,10 +30,11 @@ const DictionaryPage = () => {
     const [options, setOptions] = useState<{ value: string }[]>([]);
     const [qoute, setQoute] = useState<IQuote | null>(null);
 
+    const md = useMediaQuery({ maxWidth: 991.98 });
     useEffect(() => {
         try {
             const storedHistory = localStorage.getItem(LOCAL_STORAGE_KEY);
-            if (storedHistory) setSearchHistory(JSON.parse(storedHistory));
+            if (storedHistory) setSearchHistory(JSON.parse(storedHistory).slice(0, md ? 10 : 30));
         } catch (error) {
             console.error("Failed to parse search history", error);
         }
@@ -68,7 +70,7 @@ const DictionaryPage = () => {
             const term = newSearchTerm.toLowerCase().trim();
             if (!term) return prevHistory;
             const filteredHistory = prevHistory.filter(item => item.toLowerCase() !== term);
-            const updatedHistory = [term, ...filteredHistory].slice(0, 30);
+            const updatedHistory = [term, ...filteredHistory].slice(0, md ? 10 : 30);
             localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updatedHistory));
             return updatedHistory;
         });
@@ -160,10 +162,13 @@ const DictionaryPage = () => {
             </Title>
             <Row gutter={[10, 10]} className={styles.vocabCards}>
                 {words.length > 0 ? (
-                    words.slice(0, 3).map((item, index) => {
+                    words.slice(0, md ? 2 : 3).map((item, index) => {
                         const word = typeof item === 'string' ? item : item.word;
                         return (
-                            <VocabularyCard key={`${type}-${index}`} vocabulary={item as IVocabulary} />
+                            <Col key={`${type}-${index}`} xs={24} sm={24} md={12} lg={8} xl={8}>
+                                <VocabularyCard key={`${type}-${index}`} vocabulary={item as IVocabulary} />
+                            </Col>
+
                         )
                     })
                 ) : <Text type="secondary"></Text>}
