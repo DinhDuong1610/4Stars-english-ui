@@ -10,6 +10,7 @@ import img_feature from 'assets/images/feature_big_store.png';
 import { formatCurrency, formatISODate } from 'utils/format.util';
 import type { IPlan } from 'types/plan.type';
 import { fetchPlansClientAPI } from 'services/plan.service';
+import { useMediaQuery } from 'react-responsive';
 
 const { Title, Text } = Typography;
 
@@ -26,6 +27,8 @@ const StorePage = () => {
     const now = new Date();
     const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59);
     const dayEnd = formatISODate(endOfMonth.toISOString(), 'dd/MM');
+
+    const md = useMediaQuery({ maxWidth: 991.98 });
 
     useEffect(() => {
         const loadPlans = async () => {
@@ -168,32 +171,9 @@ const StorePage = () => {
                 <img src={img_banner} alt="Premium Subscription Banner" className={styles.bannerImage} />
             </div>
 
-            <Row gutter={[24, 24]}>
-                <Col xs={24} lg={14}>
-                    <Card className={styles.mainCard}>
-                        <Title className={styles.premiumTitle} level={3} >{t('store.premiumTitle')}</Title>
-                        <List
-                            dataSource={premiumFeatures}
-                            renderItem={item => (
-                                <List.Item className={styles.featureItem}>
-                                    <img src={img_item_feature} alt="Premium Feature" className={styles.featureIcon} />
-                                    <Text className={styles.featureText}>{t(`store.features.${item}`)}</Text>
-                                </List.Item>
-                            )}
-                        />
-                        <div className={styles.promotion}>
-                            <img src={img_feature} alt="Premium Feature" className={styles.promoIcon} />
-                            <Text className={styles.promoText} strong>{t('store.promoText', { date: dayEnd })}</Text>
-                        </div>
-                        <Link to="/premium">
-                            <button className={styles.ctaButton}>
-                                {t('store.ctaButton')}
-                            </button>
-                        </Link>
-                    </Card>
-                </Col>
-
-                <Col xs={24} lg={10}>
+            <Row gutter={[md ? 0 : 16, md ? 0 : 16]}>
+                {
+                    md &&
                     <Card className={styles.countCard}>
                         <div className={styles.title}>{t('store.subscriberCountTitle')}</div>
                         <div className={styles.countdownContainer}>
@@ -219,6 +199,60 @@ const StorePage = () => {
                             {subscriber}
                         </div>
                     </Card>
+                }
+                <Col xs={24} lg={14}>
+                    <Card className={styles.mainCard}>
+                        <Title className={styles.premiumTitle} level={3} >{t('store.premiumTitle')}</Title>
+                        <List
+                            dataSource={premiumFeatures}
+                            renderItem={item => (
+                                <List.Item className={styles.featureItem}>
+                                    <img src={img_item_feature} alt="Premium Feature" className={styles.featureIcon} />
+                                    <Text className={styles.featureText}>{t(`store.features.${item}`)}</Text>
+                                </List.Item>
+                            )}
+                        />
+                        <div className={styles.promotion}>
+                            <img src={img_feature} alt="Premium Feature" className={styles.promoIcon} />
+                            <Text className={styles.promoText} strong>{t('store.promoText', { date: dayEnd })}</Text>
+                        </div>
+                        <Link to="/premium">
+                            <button className={styles.ctaButton}>
+                                {t('store.ctaButton')}
+                            </button>
+                        </Link>
+                    </Card>
+                </Col>
+
+                <Col xs={24} lg={10}>
+                    {
+                        !md &&
+                        <Card className={styles.countCard}>
+                            <div className={styles.title}>{t('store.subscriberCountTitle')}</div>
+                            <div className={styles.countdownContainer}>
+                                <div className={styles.timeBlock}>
+                                    <div className={styles.digitWrapper}>{renderDigits(timeLeft.days)}</div>
+                                    <div className={styles.label}>Ngày</div>
+                                </div>
+                                <div className={styles.timeBlock}>
+                                    <div className={styles.digitWrapper}>{renderDigits(timeLeft.hours)}</div>
+                                    <div className={styles.label}>Giờ</div>
+                                </div>
+                                <div className={styles.timeBlock}>
+                                    <div className={styles.digitWrapper}>{renderDigits(timeLeft.minutes)}</div>
+                                    <div className={styles.label}>Phút</div>
+                                </div>
+                                <div className={styles.timeBlock}>
+                                    <div className={styles.digitWrapper}>{renderDigits(timeLeft.seconds)}</div>
+                                    <div className={styles.label}>Giây</div>
+                                </div>
+                            </div>
+                            <div className={styles.notification}>
+                                <GiftOutlined className={styles.icon} />
+                                {subscriber}
+                            </div>
+                        </Card>
+                    }
 
                     <Card className={styles.widgetCard}>
                         {isLoadingPlans ? (
