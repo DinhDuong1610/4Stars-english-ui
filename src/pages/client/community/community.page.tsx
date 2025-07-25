@@ -57,7 +57,7 @@ const CommunityPage = () => {
 
     return (
         <div className={styles.pageContainer}>
-            <Row gutter={[16, 16]}>
+            <Row gutter={[md ? 0 : 16, md ? 0 : 16]}>
                 <Col xs={24} sm={24} md={24} lg={16}>
                     <Accept apiPath="/api/v1/posts" method="POST" hide>
                         <Card className={styles.createPostTrigger}>

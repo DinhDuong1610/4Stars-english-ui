@@ -13,6 +13,7 @@ import type { IUserDashboard } from 'types/user-dashboard.type';
 import { fetchUserDashboardAPI } from 'services/user-dashboard.service';
 import Logo from 'assets/images/logo.png';
 import { Link } from 'react-router-dom';
+import { useMediaQuery } from 'react-responsive';
 
 const ProfilePage = () => {
     const { t } = useTranslation();
@@ -21,10 +22,11 @@ const ProfilePage = () => {
     const [hasMore, setHasMore] = useState(true);
     const [dashboardData, setDashboardData] = useState<IUserDashboard | null>(null);
 
+    const md = useMediaQuery({ maxWidth: 991.98 });
 
     const fetchPosts = async () => {
         try {
-            const res = await fetchMyPostsAPI(page, 10);
+            const res = await fetchMyPostsAPI(page, 20);
             if (res && res.data) {
                 setPosts(prev => {
                     if (prev != res.data.result)
@@ -43,10 +45,6 @@ const ProfilePage = () => {
     };
 
     useEffect(() => {
-        fetchPosts();
-    }, []);
-
-    useEffect(() => {
         const fetchData = async () => {
             try {
                 const dashboardRes = await fetchUserDashboardAPI();
@@ -61,14 +59,27 @@ const ProfilePage = () => {
         fetchData();
     }, []);
 
+    useEffect(() => {
+        fetchPosts();
+    }, []);
+
     const handlePostDeleted = (postId: number) => {
         setPosts(prev => prev.filter(p => p.id !== postId));
     };
 
     return (
         <div className={styles.pageContainer}>
-            <Row gutter={[24, 24]}>
-                <Col xs={24} sm={24} md={16} lg={16}>
+            <Row gutter={[md ? 0 : 16, md ? 0 : 16]}>
+
+                {
+                    md &&
+                    <Col xs={24} sm={24} md={24} lg={8} className={styles.rightContainer}>
+                        <div className={styles.accountCardContainer}>
+                            <AccountCard />
+                        </div>
+                    </Col>
+                }
+                <Col xs={24} sm={24} md={24} lg={16}>
                     <InfiniteScroll
                         dataLength={posts.length}
                         next={fetchPosts}
@@ -98,37 +109,40 @@ const ProfilePage = () => {
                     </InfiniteScroll>
                 </Col>
 
-                <Col xs={24} sm={24} md={8} lg={8} className={styles.rightContainer}>
-                    <div className={styles.accountCardContainer}>
-                        <AccountCard />
+                {
+                    !md &&
+                    <Col xs={24} sm={24} md={24} lg={8} className={styles.rightContainer}>
+                        <div className={styles.accountCardContainer}>
+                            <AccountCard />
 
-                        <Card bordered={false} className={styles.statsCard}>
-                            <div className={styles.statisc}>
-                                <div className={styles.statiscItem}>
-                                    <div className={styles.statiscItemIcon}>
-                                        <img src={icon_point} alt="point" />
+                            <Card bordered={false} className={styles.statsCard}>
+                                <div className={styles.statisc}>
+                                    <div className={styles.statiscItem}>
+                                        <div className={styles.statiscItemIcon}>
+                                            <img src={icon_point} alt="point" />
+                                        </div>
+                                        <div className={styles.statiscItemValue}>{dashboardData?.userPoints}</div>
+                                        <div className={styles.statiscItemTitle}>{t('homepage.points')}</div>
                                     </div>
-                                    <div className={styles.statiscItemValue}>{dashboardData?.userPoints}</div>
-                                    <div className={styles.statiscItemTitle}>{t('homepage.points')}</div>
-                                </div>
-                                <div className={styles.statiscItem}>
-                                    <div className={styles.statiscItemIcon}>
-                                        <img src={icon_streak} alt="streak" />
+                                    <div className={styles.statiscItem}>
+                                        <div className={styles.statiscItemIcon}>
+                                            <img src={icon_streak} alt="streak" />
+                                        </div>
+                                        <div className={styles.statiscItemValue}>{dashboardData?.currentStreak}</div>
+                                        <div className={styles.statiscItemTitle}>{t('homepage.streak')}</div>
                                     </div>
-                                    <div className={styles.statiscItemValue}>{dashboardData?.currentStreak}</div>
-                                    <div className={styles.statiscItemTitle}>{t('homepage.streak')}</div>
-                                </div>
-                                <div className={styles.statiscItem}>
-                                    <div className={styles.statiscItemIcon}>
-                                        <img src={`${import.meta.env.VITE_BACKEND_URL}${dashboardData?.badges?.image}`} alt="badge" />
+                                    <div className={styles.statiscItem}>
+                                        <div className={styles.statiscItemIcon}>
+                                            <img src={`${import.meta.env.VITE_BACKEND_URL}${dashboardData?.badges?.image}`} alt="badge" />
+                                        </div>
+                                        <div className={styles.statiscItemValueRank}>{dashboardData?.badges?.name}</div>
+                                        <div className={styles.statiscItemTitle}>{t('homepage.rank')}</div>
                                     </div>
-                                    <div className={styles.statiscItemValueRank}>{dashboardData?.badges?.name}</div>
-                                    <div className={styles.statiscItemTitle}>{t('homepage.rank')}</div>
                                 </div>
-                            </div>
-                        </Card>
-                    </div>
-                </Col>
+                            </Card>
+                        </div>
+                    </Col>
+                }
             </Row>
         </div>
     );
