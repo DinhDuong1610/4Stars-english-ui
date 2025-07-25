@@ -290,3 +290,31 @@
     }
 
 }
+
+
+/* XL*/
+@media only screen and (max-width: 1599.98px) {}
+
+/* LG*/
+@media only screen and (max-width: 1199.98px) {}
+
+/* MD*/
+@media only screen and (max-width: 991.98px) {
+    .pageContainer {
+        padding: 5px;
+
+        .createPostTrigger {
+            margin-bottom: 5px !important;
+        }
+
+        .postCard {
+            margin-bottom: 5px !important;
+        }
+    }
+}
+
+/* SM*/
+@media only screen and (max-width: 767.98px) {}
+
+/* XS*/
+@media only screen and (max-width: 575.98px) {}
