@@ -67,6 +67,14 @@
     border-top: 1px solid var(--ant-color-border-secondary, #E3F0FF);
 }
 
+.logoutIcon {
+    color: var(--ant-error-color, #ff4d4f);
+
+    &:hover {
+        color: var(--ant-error-color-hover, #ff4d4f);
+    }
+}
+
 
 /* XL*/
 @media only screen and (max-width: 1599.98px) {}

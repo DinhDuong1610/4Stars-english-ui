@@ -1,4 +1,4 @@
-import { Link, Outlet, useLocation } from 'react-router-dom';
+import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import ProLayout from '@ant-design/pro-layout';
 import {
     AppstoreOutlined,
@@ -8,6 +8,7 @@ import {
     FileDoneOutlined,
     LineChartOutlined,
     LockOutlined,
+    LogoutOutlined,
     PicCenterOutlined,
     PicLeftOutlined,
     TrophyOutlined,
@@ -17,6 +18,8 @@ import {
 import styles from './admin.layout.module.scss';
 import Logo from 'assets/images/logo.png';
 import { useAuthStore } from 'stores/auth.store';
+import { Button, message, Popconfirm } from 'antd';
+import { useTranslation } from 'react-i18next';
 
 const menuItems = [
     { path: '/admin', name: 'Dashboard', icon: <DashboardOutlined /> },
@@ -34,8 +37,16 @@ const menuItems = [
 ];
 
 const AdminLayout = () => {
+    const { t } = useTranslation();
     const location = useLocation();
-    const { user } = useAuthStore();
+    const { user, logout } = useAuthStore();
+    const navigate = useNavigate();
+
+    const handleLogout = async () => {
+        await logout();
+        message.success(t('logout.success'));
+        navigate('/login');
+    };
 
     return (
         <div className={styles.container}>
@@ -54,6 +65,23 @@ const AdminLayout = () => {
                 avatarProps={{
                     title: user?.name,
                     icon: <UserOutlined />
+                }}
+                actionsRender={(props) => {
+                    return [
+                        <Popconfirm
+                            title={t('logout.confirmTitle')}
+                            onConfirm={handleLogout}
+                            okText={t('common.yes')}
+                            cancelText={t('common.no')}
+                        >
+                            <Button
+                                type="text"
+                                size="large"
+                                icon={<LogoutOutlined className={styles.logoutIcon} />}
+                                title={t('sidebar.logout')}
+                            />
+                        </Popconfirm>
+                    ];
                 }}
             >
                 <div className={styles.content}>

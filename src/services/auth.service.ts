@@ -30,3 +30,7 @@ export const forgotPasswordAPI = (payload: IForgotPasswordPayload) => {
 export const resetPasswordAPI = (payload: IResetPasswordPayload) => {
     return instance.post<IResponse<any>>('/api/v1/auth/reset-password', payload);
 }
+
+export const logoutAPI = () => {
+    return instance.post<IResponse<any>>(`/api/v1/auth/logout`);
+}

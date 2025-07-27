@@ -30,7 +30,12 @@
         "store": "Store",
         "profile": "Profile",
         "more": "Menu",
-        "leaderboard": "Leaderboard"
+        "leaderboard": "Leaderboard",
+        "logout": "Logout"
+    },
+    "logout": {
+        "confirmTitle": "Are you sure you want to log out?",
+        "success": "Logged out successfully!"
     },
     "homepage": {
         "vocabStatsTitle": "LEARNED VOCABULARY STATISTICS",
@@ -357,6 +362,7 @@
         "registerFailed": "Registration failed. The email may already exist.",
         "forgotPasswordError": "Failed to send OTP. Please try again.",
         "resetPasswordError": "Failed to reset password. The OTP may be incorrect or expired.",
-        "noFlashcardData": "No vocabulary data found. Returning."
+        "noFlashcardData": "No vocabulary data found. Returning.",
+        "logoutError": "Logout failed. Please try again."
     }
 }

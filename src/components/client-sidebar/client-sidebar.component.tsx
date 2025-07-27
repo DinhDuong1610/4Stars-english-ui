@@ -11,18 +11,28 @@ import {
     UserOutlined,
     HomeOutlined,
     PicLeftOutlined,
-    OrderedListOutlined
+    OrderedListOutlined,
+    LogoutOutlined
 } from '@ant-design/icons';
 import styles from './client-sidebar.module.scss';
 import LanguageSwitcher from '@/components/common/language-switcher/language-switcher.component';
 import ThemeSwitcher from '@/components/common/theme-switcher/theme-switcher.component';
 import NotificationBell from '@/components/notification/notification-bell.component';
 import { useMediaQuery } from 'react-responsive';
+import { useAuthStore } from 'stores/auth.store';
+import { Button, message, Popconfirm } from 'antd';
 
 const ClientSidebar = () => {
     const { t } = useTranslation();
     const navigate = useNavigate();
+    const { logout } = useAuthStore();
     const md = useMediaQuery({ minWidth: 992 });
+
+    const handleLogout = async () => {
+        await logout();
+        message.success(t('logout.success'));
+        navigate('/login');
+    };
 
     const menuItems = [
         { key: '/', icon: <HomeOutlined />, label: t('sidebar.home') },
@@ -60,6 +70,19 @@ const ClientSidebar = () => {
                 ))}
             </nav>
             <div className={styles.bottomControls}>
+                <Popconfirm
+                    title={t('logout.confirmTitle')}
+                    onConfirm={handleLogout}
+                    okText={t('common.yes')}
+                    cancelText={t('common.no')}
+                >
+                    <Button
+                        type="text"
+                        size="large"
+                        icon={<LogoutOutlined className={styles.logoutIcon} />}
+                        title={t('sidebar.logout')}
+                    />
+                </Popconfirm>
                 <LanguageSwitcher />
                 <ThemeSwitcher />
                 <NotificationBell />
