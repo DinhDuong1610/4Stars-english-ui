@@ -14,6 +14,7 @@ import TranslateEnToViQuestion from 'components/quiz/question/translate-en-to-vi
 import TranslateViToEnQuestion from 'components/quiz/question/translate-vi-to-en.component';
 import ListeningTranscriptionQuestion from 'components/quiz/question/listening-transcript.component';
 import ArrangeWordsQuestion from 'components/quiz/question/arrange-word.component';
+import { useMediaQuery } from 'react-responsive';
 
 const { Title, Text } = Typography;
 
@@ -31,6 +32,8 @@ const ReviewPage = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [answerStatus, setAnswerStatus] = useState<'correct' | 'incorrect' | null>(null);
     const [correctAnswer, setCorrectAnswer] = useState<IChoice | string | null>(null);
+
+    const md = useMediaQuery({ maxWidth: 991.98 });
 
     useEffect(() => {
         if (!quizData) {
@@ -148,7 +151,7 @@ const ReviewPage = () => {
                 mask={true}
                 getContainer={false}
                 style={{ position: 'absolute' }}
-                height={300}
+                height={md ? 250 : 300}
                 className={answerStatus === 'correct' ? styles.correctDrawer : styles.incorrectDrawer}
             >
                 {answerStatus === 'correct' && (

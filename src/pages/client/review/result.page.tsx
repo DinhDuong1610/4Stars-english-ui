@@ -27,7 +27,7 @@ const ResultPage = () => {
     if (!result) return <Spin size="large" fullscreen />;
 
     return (
-        <Card style={{ height: '100%' }}>
+        <Card style={{ height: '100%', minHeight: 'calc(100vh - 65px)' }}>
             <Result
                 status="success"
                 title={t('quiz.resultTitle')}
