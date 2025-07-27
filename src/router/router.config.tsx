@@ -41,6 +41,7 @@ import ProcessingPage from 'pages/client/review/processing.page';
 import ResultPage from 'pages/client/review/result.page';
 import RegisterPage from 'pages/auth/register.page';
 import ForgotPasswordPage from 'pages/auth/forgot-password.page';
+import FlashcardPage from 'pages/client/review/flashcard.page';
 
 const routes = [
     {
@@ -261,6 +262,14 @@ const routes = [
                         element: (
                             <PermissionGuard apiPath="/api/v1/quizzes/attempts/{attemptId}" method="GET">
                                 <ResultPage />
+                            </PermissionGuard>
+                        ),
+                    },
+                    {
+                        path: 'review/flashcards',
+                        element: (
+                            <PermissionGuard apiPath="/api/v1/vocabularies" method="GET">
+                                <FlashcardPage />
                             </PermissionGuard>
                         ),
                     },
