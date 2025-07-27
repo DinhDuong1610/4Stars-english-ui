@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { Row, Col, Typography, Input, Breadcrumb, message, Skeleton, Card, Button } from 'antd';
-import { EditOutlined, HomeOutlined, SearchOutlined } from '@ant-design/icons';
+import { EditOutlined, HomeOutlined, IdcardOutlined, SearchOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
 import styles from './vocabulary-list.page.module.scss';
 import type { ICategory } from 'types/category.type';
@@ -127,6 +127,14 @@ const VocabularyListPage = () => {
         }
     };
 
+    const handleStartFlashcards = () => {
+        if (vocabularies.length === 0) {
+            message.info(t('vocabulary.noVocabForFlashcards'));
+            return;
+        }
+        navigate('/review/flashcards', { state: { vocabularies } });
+    };
+
     const renderBreadcrumb = () => (
         <>
             <Breadcrumb className={styles.breadcrumb}>
@@ -193,18 +201,28 @@ const VocabularyListPage = () => {
                             allowClear
                         />
 
-                        <Accept apiPath="/api/v1/quizzes/{id}/start" method="POST">
+                        <div className={styles.learnButtons}>
                             <Button
-                                type="primary"
+                                type="default"
                                 size="large"
-                                icon={<EditOutlined />}
-                                onClick={handleStartQuiz}
-                                loading={isGeneratingQuiz}
-                                className={styles.learnButton}
+                                icon={<IdcardOutlined />}
+                                onClick={handleStartFlashcards}
                             >
-                                {t('vocabulary.learnNewVocab')}
+                                {t('vocabulary.learnWithFlashcards')}
                             </Button>
-                        </Accept>
+                            <Accept apiPath="/api/v1/quizzes/{id}/start" method="POST">
+                                <Button
+                                    type="primary"
+                                    size="large"
+                                    icon={<EditOutlined />}
+                                    onClick={handleStartQuiz}
+                                    loading={isGeneratingQuiz}
+                                    className={styles.learnButton}
+                                >
+                                    {t('vocabulary.learnNewVocab')}
+                                </Button>
+                            </Accept>
+                        </div>
                     </Row>
                     <Row gutter={[12, 12]} className={styles.vocabCards}>
                         {filteredVocabularies.map(vocab => (

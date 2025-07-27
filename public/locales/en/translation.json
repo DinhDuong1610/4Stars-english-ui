@@ -79,7 +79,9 @@
         "pageTitle": "Vocabulary topics",
         "searchPlaceholder": "Search for vocabularies in this category...",
         "learnNewVocab": "Learn New Vocabulary",
-        "noQuizAvailable": "No exercises are available for this topic yet."
+        "noQuizAvailable": "No exercises are available for this topic yet.",
+        "learnWithFlashcards": "Flashcards",
+        "noVocabForFlashcards": "No vocabularies available for flashcards yet."
     },
     "notebook": {
         "pageTitle": "Your Notebook",
@@ -90,6 +92,13 @@
         "addSuccess": "Word added successfully!",
         "addToNotebook": "Save",
         "noVocabSelected": "Select a word to see details"
+    },
+    "flashcard": {
+        "title": "Flashcard Review",
+        "shuffle": "Shuffle",
+        "shuffled": "Cards have been shuffled!",
+        "previous": "Previous",
+        "next": "Next"
     },
     "grammar": {
         "pageTitle": "Explore Grammar",
@@ -347,6 +356,7 @@
         "googleLoginFailed": "Google login failed.",
         "registerFailed": "Registration failed. The email may already exist.",
         "forgotPasswordError": "Failed to send OTP. Please try again.",
-        "resetPasswordError": "Failed to reset password. The OTP may be incorrect or expired."
+        "resetPasswordError": "Failed to reset password. The OTP may be incorrect or expired.",
+        "noFlashcardData": "No vocabulary data found. Returning."
     }
 }

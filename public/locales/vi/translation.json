@@ -78,8 +78,17 @@
         "relatedWords": "Từ và cụm từ liên quan",
         "pageTitle": "Chủ đề từ vựng",
         "searchPlaceholder": "Tìm kiếm từ vựng trong danh mục này...",
-        "learnNewVocab": "HỌC TỪ MỚI",
-        "noQuizAvailable": "Hiện chưa có bài tập cho chủ đề này."
+        "learnNewVocab": "Học từ mới",
+        "noQuizAvailable": "Hiện chưa có bài tập cho chủ đề này.",
+        "learnWithFlashcards": "Flashcard",
+        "noVocabForFlashcards": "Chưa có từ vựng để học bằng flashcard."
+    },
+    "flashcard": {
+        "title": "Ôn tập Flashcard",
+        "shuffle": "Xáo trộn",
+        "shuffled": "Đã xáo trộn bộ thẻ!",
+        "previous": "Trước",
+        "next": "Tiếp theo"
     },
     "notebook": {
         "pageTitle": "Sổ tay của bạn",
@@ -347,6 +356,7 @@
         "googleLoginFailed": "Đăng nhập bằng Google thất bại.",
         "registerFailed": "Đăng ký thất bại. Email có thể đã tồn tại.",
         "forgotPasswordError": "Gửi OTP thất bại. Vui lòng thử lại.",
-        "resetPasswordError": "Đặt lại mật khẩu thất bại. Mã OTP có thể không đúng hoặc đã hết hạn."
+        "resetPasswordError": "Đặt lại mật khẩu thất bại. Mã OTP có thể không đúng hoặc đã hết hạn.",
+        "noFlashcardData": "Không có dữ liệu từ vựng. Đang quay lại."
     }
 }

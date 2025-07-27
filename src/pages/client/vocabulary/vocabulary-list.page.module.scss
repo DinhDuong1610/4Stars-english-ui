@@ -22,7 +22,12 @@
 .searchBar {
     margin-bottom: 24px;
     border-radius: var(--ant-border-radius-lg);
-    width: 80%;
+    width: 70%;
+}
+
+.learnButtons {
+    display: flex;
+    gap: 16px;
 }
 
 .learnButton {
