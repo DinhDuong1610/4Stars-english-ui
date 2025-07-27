@@ -4,6 +4,7 @@ import {
     AppstoreOutlined,
     BookOutlined,
     CodeOutlined,
+    CustomerServiceOutlined,
     DashboardOutlined,
     FileDoneOutlined,
     LineChartOutlined,
@@ -34,6 +35,7 @@ const menuItems = [
     { path: '/admin/videos', name: 'Video', icon: <VideoCameraOutlined /> },
     { path: '/admin/grammars', name: 'Grammar', icon: <PicLeftOutlined /> },
     { path: '/admin/vocabularies', name: 'Vocabulary', icon: <PicCenterOutlined /> },
+    { path: '/admin/dictations', name: 'Dictation', icon: <CustomerServiceOutlined /> },
 ];
 
 const AdminLayout = () => {

@@ -2,7 +2,7 @@ export interface ICategory {
     id: number;
     name: string;
     description: string;
-    type: 'VIDEO' | 'ARTICLE' | 'GRAMMAR' | 'VOCABULARY';
+    type: 'VIDEO' | 'ARTICLE' | 'GRAMMAR' | 'VOCABULARY' | 'DICTATION';
     orderIndex?: number | null;
     parentId: number | null;
     subCategories: ICategory[];
@@ -15,7 +15,7 @@ export interface ICategory {
 export interface ICreateCategory {
     name: string;
     description: string;
-    type: 'VIDEO' | 'ARTICLE' | 'GRAMMAR' | 'VOCABULARY';
+    type: 'VIDEO' | 'ARTICLE' | 'GRAMMAR' | 'VOCABULARY' | 'DICTATION';
     orderIndex?: number | null;
     parentId?: number | null;
 }

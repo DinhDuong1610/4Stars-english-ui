@@ -42,6 +42,7 @@ import ResultPage from 'pages/client/review/result.page';
 import RegisterPage from 'pages/auth/register.page';
 import ForgotPasswordPage from 'pages/auth/forgot-password.page';
 import FlashcardPage from 'pages/client/review/flashcard.page';
+import DictationPage from 'pages/admin/dictation.page';
 
 const routes = [
     {
@@ -377,6 +378,10 @@ const routes = [
                     {
                         path: 'logging',
                         element: <LoggingPage />
+                    },
+                    {
+                        path: 'dictations',
+                        element: <DictationPage />
                     }
                 ],
             }

@@ -9,7 +9,7 @@ interface CreateCategoryModalProps {
     onClose: () => void;
     onFinish: () => void;
     treeData: DataNode[];
-    type: 'VIDEO' | 'ARTICLE' | 'GRAMMAR' | 'VOCABULARY';
+    type: 'VIDEO' | 'ARTICLE' | 'GRAMMAR' | 'VOCABULARY' | 'DICTATION';
 }
 
 const CreateCategoryModal = ({ open, onClose, onFinish, treeData, type }: CreateCategoryModalProps) => {

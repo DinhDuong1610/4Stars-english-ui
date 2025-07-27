@@ -123,7 +123,7 @@ const PremiumPage = () => {
     return (
         <div className={styles.premiumPage}>
             <div className={`${styles.section} ${styles.heroSection}`}>
-                <Row align="middle" gutter={32}>
+                <Row align="middle">
                     <Col xs={24} md={12} className={styles.heroContent}>
                         <span className={styles.heroLogo}>4Stars</span>
                         <span className={styles.heroTag}>Premium</span>
@@ -143,7 +143,7 @@ const PremiumPage = () => {
                 <Divider plain>
                     <Title level={2} className={styles.featuresTitle}>{t('premium.featuresTitle')}</Title>
                 </Divider>
-                <Row gutter={[24, 24]} justify={'space-between'} className={styles.featuresRow}>
+                <Row justify={'space-between'} className={styles.featuresRow}>
                     {featuresData.map(feature => (
                         <Col key={feature.title} xs={24} sm={12} md={7}>
                             <FeatureBlock {...feature} />
