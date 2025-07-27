@@ -14,6 +14,7 @@ import CreateCategoryModal from "../../components/category/create-category-modal
 import UpdateCategoryModal from "../../components/category/update-category-modal.component";
 import CreateDictationModal from "../../components/dictation/create-dictation-modal.component";
 import UpdateDictationModal from "../../components/dictation/update-dictation-modal.component";
+import DictationDetailDrawer from "../../components/dictation/dictation-detail-drawer.component";
 
 const DictationPage = () => {
     const actionRef = useRef<ActionType>(null);
@@ -116,6 +117,16 @@ const DictationPage = () => {
         actionRef.current?.reload();
     };
 
+    const handleViewDictation = (article: IDictationTopic) => {
+        setSelectedTopic(article);
+        setIsDrawerOpen(true);
+    };
+
+    const handleCloseDrawer = () => {
+        setIsDrawerOpen(false);
+        setSelectedTopic(null);
+    };
+
 
     const columns: ProColumns<IDictationTopic>[] = [
         {
@@ -131,7 +142,7 @@ const DictationPage = () => {
             ellipsis: true,
             sorter: true,
             render: (_, record) => (
-                <a onClick={() => ''}>
+                <a onClick={() => handleViewDictation(record)}>
                     {record.title}
                 </a>
             )
@@ -180,7 +191,7 @@ const DictationPage = () => {
                         onClick={() => handleOpenUpdateModal(record)}>
                     </Button>
                     <Popconfirm
-                        title="Delete the article"
+                        title="Delete the Dictation"
                         description={`Are you sure to delete dictation": ${record.title}?`}
                         onConfirm={() => ''}
                         icon={<QuestionCircleOutlined />}
@@ -317,6 +328,12 @@ const DictationPage = () => {
                 onClose={() => setIsUpdateModalOpen(false)}
                 onFinish={handleFinishUpdate}
                 initialData={selectedTopic}
+            />
+
+            <DictationDetailDrawer
+                open={isDrawerOpen}
+                onClose={() => handleCloseDrawer()}
+                topic={selectedTopic}
             />
         </>
     );
