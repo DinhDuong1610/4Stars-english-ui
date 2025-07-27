@@ -12,6 +12,7 @@ import type { IDictationTopic } from "types/dictation.type";
 import type { IconType } from "antd/es/notification/interface";
 import CreateCategoryModal from "../../components/category/create-category-modal.component";
 import UpdateCategoryModal from "../../components/category/update-category-modal.component";
+import CreateDictationModal from "../../components/dictation/create-dictation-modal.module";
 
 const DictationPage = () => {
     const actionRef = useRef<ActionType>(null);
@@ -98,6 +99,12 @@ const DictationPage = () => {
         setIsUpdateCategoryModalOpen(false);
         fetchCategories();
     };
+
+    const handleFinishCreate = () => {
+        setIsCreateModalOpen(false);
+        actionRef.current?.reload();
+    };
+
 
     const columns: ProColumns<IDictationTopic>[] = [
         {
@@ -285,6 +292,13 @@ const DictationPage = () => {
                 onFinish={handleFinishUpdateCategory}
                 treeData={categories}
                 initialData={categoryToUpdate}
+            />
+
+            <CreateDictationModal
+                open={isCreateModalOpen}
+                onClose={() => setIsCreateModalOpen(false)}
+                onFinish={handleFinishCreate}
+                categoryId={selectedCategoryId}
             />
         </>
     );

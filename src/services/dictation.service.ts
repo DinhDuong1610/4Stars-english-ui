@@ -4,7 +4,7 @@ import instance from "services/axios.customize";
 
 export const fetchDictationsAPI = (query: string) => {
     const url_backend = `/api/v1/admin/dictations?${query}`;
-    return instance.get<IBackendRes<IBackendRes<IDictationTopic>>>(url_backend);
+    return instance.get<IBackendRes<IDictationTopic[]>>(url_backend);
 }
 
 export const createDictationAPI = (data: ICreateDictationTopic) => {
