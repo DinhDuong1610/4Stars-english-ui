@@ -91,3 +91,84 @@
         background-color: #b41119 !important;
     }
 }
+
+
+/* XL*/
+@media only screen and (max-width: 1599.98px) {}
+
+/* LG*/
+@media only screen and (max-width: 1199.98px) {}
+
+/* MD*/
+@media only screen and (max-width: 991.98px) {
+    .reviewContainer {
+        width: 100%;
+        min-height: calc(100vh - 65px) !important;
+        border: none;
+        border-radius: 0 !important;
+
+        :global(.ant-card-body) {
+            padding: 24px 50px !important;
+        }
+    }
+}
+
+/* SM*/
+@media only screen and (max-width: 767.98px) {
+    .reviewContainer {
+
+        :global(.ant-card-body) {
+            padding: 10px 10px !important;
+        }
+    }
+
+    .correctDrawer {
+        padding: 0px 10px !important;
+
+        .drawerTitle {
+            font-size: 2.5rem;
+        }
+
+        .drawerIcon {
+            font-size: 2.5rem;
+            margin-right: 0.5rem;
+        }
+
+        .answerCorrect {
+            font-size: 2rem;
+        }
+
+        .continueButton {
+            bottom: 24px;
+        }
+    }
+
+    .incorrectDrawer {
+        padding: 0px 10px !important;
+
+        .drawerTitle {
+            font-size: 2.5rem;
+        }
+
+        .drawerIcon {
+            font-size: 2.5rem;
+            margin-right: 0.5rem;
+        }
+
+        .answerCorrect {
+            font-size: 2rem;
+        }
+
+        .answerImage {
+            width: 120px;
+            height: 80px;
+        }
+
+        .continueButton {
+            bottom: 24px;
+        }
+    }
+}
+
+/* XS*/
+@media only screen and (max-width: 575.98px) {}

@@ -70,7 +70,7 @@ const DictionaryPage = () => {
             const term = newSearchTerm.toLowerCase().trim();
             if (!term) return prevHistory;
             const filteredHistory = prevHistory.filter(item => item.toLowerCase() !== term);
-            const updatedHistory = [term, ...filteredHistory].slice(0, md ? 10 : 30);
+            const updatedHistory = [term, ...filteredHistory].slice(0, 30);
             localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updatedHistory));
             return updatedHistory;
         });
