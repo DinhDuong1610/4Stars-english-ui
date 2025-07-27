@@ -12,7 +12,8 @@ import type { IDictationTopic } from "types/dictation.type";
 import type { IconType } from "antd/es/notification/interface";
 import CreateCategoryModal from "../../components/category/create-category-modal.component";
 import UpdateCategoryModal from "../../components/category/update-category-modal.component";
-import CreateDictationModal from "../../components/dictation/create-dictation-modal.module";
+import CreateDictationModal from "../../components/dictation/create-dictation-modal.component";
+import UpdateDictationModal from "../../components/dictation/update-dictation-modal.component";
 
 const DictationPage = () => {
     const actionRef = useRef<ActionType>(null);
@@ -105,6 +106,16 @@ const DictationPage = () => {
         actionRef.current?.reload();
     };
 
+    const handleOpenUpdateModal = (record: IDictationTopic) => {
+        setSelectedTopic(record);
+        setIsUpdateModalOpen(true);
+    };
+
+    const handleFinishUpdate = () => {
+        setIsUpdateModalOpen(false);
+        actionRef.current?.reload();
+    };
+
 
     const columns: ProColumns<IDictationTopic>[] = [
         {
@@ -166,7 +177,7 @@ const DictationPage = () => {
             render: (_, record) => (
                 <Space size="middle">
                     <Button icon={<EditOutlined />} color="primary"
-                        onClick={() => ''}>
+                        onClick={() => handleOpenUpdateModal(record)}>
                     </Button>
                     <Popconfirm
                         title="Delete the article"
@@ -299,6 +310,13 @@ const DictationPage = () => {
                 onClose={() => setIsCreateModalOpen(false)}
                 onFinish={handleFinishCreate}
                 categoryId={selectedCategoryId}
+            />
+
+            <UpdateDictationModal
+                open={isUpdateModalOpen}
+                onClose={() => setIsUpdateModalOpen(false)}
+                onFinish={handleFinishUpdate}
+                initialData={selectedTopic}
             />
         </>
     );
