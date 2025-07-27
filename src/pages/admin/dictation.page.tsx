@@ -10,12 +10,16 @@ import type { IMeta } from "types/backend";
 import { deleteDictationAPI, fetchDictationsAPI } from "services/dictation.service";
 import type { IDictationTopic } from "types/dictation.type";
 import type { IconType } from "antd/es/notification/interface";
+import CreateCategoryModal from "../../components/category/create-category-modal.component";
 
 const DictationPage = () => {
     const actionRef = useRef<ActionType>(null);
     const [meta, setMeta] = useState<IMeta>({ page: 1, pageSize: 10, pages: 1, total: 0 });
     const [selectedCategoryId, setSelectedCategoryId] = useState<number | null>(null);
     const [categories, setCategories] = useState<DataNode[]>([]);
+    const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
+    const [isUpdateCategoryModalOpen, setIsUpdateCategoryModalOpen] = useState(false);
+    const [categoryToUpdate, setCategoryToUpdate] = useState<ICategory | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [isCreateModalOpen, setIsCreateModalOpen] = useState<boolean>(false);
     const [selectedTopic, setSelectedTopic] = useState<IDictationTopic | null>(null);
@@ -79,29 +83,43 @@ const DictationPage = () => {
         setSelectedCategoryId(selectedKeys.length > 0 ? selectedKeys[0] as number : null);
     };
 
-    return (
-        <Row gutter={[16, 16]}>
-            <Col span={6}>
-                <Card title="Categories" bordered={false} extra={<Button icon={<PlusOutlined />} onClick={() => ''} />}>
-                    {isLoading ? <Spin /> : (
-                        <Tree
-                            defaultExpandAll
-                            showLine
-                            onSelect={onSelectCategory}
-                            treeData={categories}
-                        />
-                    )}
-                </Card>
-            </Col>
-            <Col span={18}>
-                {selectedCategoryId ? (
-                    <></>
-                ) : (
-                    <Card><p>Please select a category to view dictation topics.</p></Card>
-                )}
-            </Col>
+    const handleFinishCreateCategory = () => {
+        setIsCategoryModalOpen(false);
+        fetchCategories();
+    };
 
-        </Row>
+    return (
+        <>
+            <Row gutter={[16, 16]}>
+                <Col span={6}>
+                    <Card title="Categories" bordered={false} extra={<Button icon={<PlusOutlined />} onClick={() => setIsCategoryModalOpen(true)} />}>
+                        {isLoading ? <Spin /> : (
+                            <Tree
+                                defaultExpandAll
+                                showLine
+                                onSelect={onSelectCategory}
+                                treeData={categories}
+                            />
+                        )}
+                    </Card>
+                </Col>
+                <Col span={18}>
+                    {selectedCategoryId ? (
+                        <></>
+                    ) : (
+                        <Card><p>Please select a category to view dictation topics.</p></Card>
+                    )}
+                </Col>
+
+            </Row>
+            <CreateCategoryModal
+                open={isCategoryModalOpen}
+                onClose={() => setIsCategoryModalOpen(false)}
+                onFinish={handleFinishCreateCategory}
+                treeData={categories}
+                type="DICTATION"
+            />
+        </>
     );
 };
 export default DictationPage;
