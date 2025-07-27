@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Button, Typography, Row, Col, Card, Divider, message } from 'antd';
 import { useTranslation } from 'react-i18next';
 import styles from './premium.page.module.scss';
-import featureCommunity from 'assets/images/premium/feature-community.png';
+import featureCommunity from 'assets/images/premium/community.png';
 import FeatureBlock from 'components/premium/feature-block.component';
 import DetailedFeature from 'components/premium/detailed-feature.component';
 import { Link, useNavigate } from 'react-router-dom';
@@ -13,9 +13,9 @@ import heroImage from 'assets/images/premium/hero-image.png';
 import iconLearn from 'assets/images/premium/icon-learn.png';
 import iconSearch from 'assets/images/premium/icon-search.png';
 import iconCommunity from 'assets/images/premium/icon-community.png';
-import featureLearn from 'assets/images/premium/feature-learn.png';
-import featureSearch from 'assets/images/premium/feature-search.png';
-import featureVideo from 'assets/images/premium/feature-video.png';
+import featureLearn from 'assets/images/premium/review.png';
+import featureSearch from 'assets/images/premium/dictionary.png';
+import featureVideo from 'assets/images/premium/video.png';
 import { useAuthStore } from 'stores/auth.store';
 import { createSubscriptionAPI } from 'services/subscription.service';
 import { createVNPayPaymentAPI } from 'services/payment.service';
@@ -161,8 +161,8 @@ const PremiumPage = () => {
             <div className={`${styles.section} ${styles.pricingSection}`}>
                 <Card className={styles.pricingCard}>
                     <Row align="middle" gutter={[32, 24]}>
-                        <Col xs={24} md={12}>
-                            <Title level={3}>{t('premium.pricing.title')}</Title>
+                        <Col xs={24} md={12} className={styles.pricingContent}>
+                            <Title level={3} className={styles.pricingTitle}>{t('premium.pricing.title')}</Title>
                             <div className={styles.countdown}>
                                 <TimeBlock value={timeLeft.days} label={t('premium.pricing.days')} />
                                 <TimeBlock value={timeLeft.hours} label={t('premium.pricing.hours')} />
