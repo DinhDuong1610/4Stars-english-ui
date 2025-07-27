@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import type { IUser } from 'types/user.type';
+import { logoutAPI } from 'services/auth.service';
 
 interface AuthState {
     isAuthenticated: boolean;
@@ -19,10 +20,14 @@ export const useAuthStore = create<AuthState>()(
             accessToken: null,
             setAccessToken: (token) => set({ accessToken: token, isAuthenticated: !!token }),
             setUser: (user) => set({ user }),
-            logout: () => {
-                set({ isAuthenticated: false, user: null, accessToken: null });
-                window.history.pushState({}, '', '/login');
-                window.location.reload();
+            logout: async () => {
+                try {
+                    await logoutAPI();
+                } catch (error) {
+                    console.error("Logout API call failed, but clearing client state anyway.", error);
+                } finally {
+                    set({ isAuthenticated: false, accessToken: null, user: null });
+                }
             },
         }),
         {

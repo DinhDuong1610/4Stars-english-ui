@@ -30,7 +30,12 @@
         "store": "Cửa hàng",
         "profile": "Hồ sơ",
         "more": "Menu",
-        "leaderboard": "Xếp hạng"
+        "leaderboard": "Xếp hạng",
+        "logout": "Đăng xuất"
+    },
+    "logout": {
+        "confirmTitle": "Bạn có chắc chắn muốn đăng xuất?",
+        "success": "Đăng xuất thành công!"
     },
     "homepage": {
         "vocabStatsTitle": "THỐNG KÊ TỪ VỰNG ĐÃ HỌC",
@@ -357,6 +362,7 @@
         "registerFailed": "Đăng ký thất bại. Email có thể đã tồn tại.",
         "forgotPasswordError": "Gửi OTP thất bại. Vui lòng thử lại.",
         "resetPasswordError": "Đặt lại mật khẩu thất bại. Mã OTP có thể không đúng hoặc đã hết hạn.",
-        "noFlashcardData": "Không có dữ liệu từ vựng. Đang quay lại."
+        "noFlashcardData": "Không có dữ liệu từ vựng. Đang quay lại.",
+        "logoutError": "Đăng xuất thất bại. Vui lòng thử lại."
     }
 }

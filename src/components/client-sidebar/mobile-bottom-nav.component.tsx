@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import { Drawer, List } from 'antd';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { Button, Drawer, List, message, Popconfirm } from 'antd';
 import { useTranslation } from 'react-i18next';
 import {
     TranslationOutlined, BulbOutlined, TeamOutlined,
@@ -8,16 +8,27 @@ import {
     MenuOutlined,
     HomeOutlined,
     PicLeftOutlined,
-    OrderedListOutlined
+    OrderedListOutlined,
+    LogoutOutlined
 } from '@ant-design/icons';
 import styles from './mobile-bottom-nav.module.scss';
 import LanguageSwitcher from 'components/common/language-switcher/language-switcher.component';
 import ThemeSwitcher from 'components/common/theme-switcher/theme-switcher.component';
 import NotificationBell from 'components/notification/notification-bell.component';
+import { useAuthStore } from 'stores/auth.store';
 
 const MobileBottomNav = () => {
     const { t } = useTranslation();
+    const navigate = useNavigate();
+    const { logout } = useAuthStore();
     const [drawerVisible, setDrawerVisible] = useState(false);
+
+    const handleLogout = async () => {
+        await logout();
+        message.success(t('logout.success'));
+        navigate('/login');
+    };
+
 
     const mainItems = [
         { key: '/dictionary', icon: <TranslationOutlined />, label: t('sidebar.dictionary') },
@@ -72,6 +83,19 @@ const MobileBottomNav = () => {
                     )}
                 />
                 <div className={styles.bottomControls}>
+                    <Popconfirm
+                        title={t('logout.confirmTitle')}
+                        onConfirm={handleLogout}
+                        okText={t('common.yes')}
+                        cancelText={t('common.no')}
+                    >
+                        <Button
+                            type="text"
+                            size="large"
+                            icon={<LogoutOutlined className={styles.logoutIcon} />}
+                            title={t('sidebar.logout')}
+                        />
+                    </Popconfirm>
                     <LanguageSwitcher />
                     <ThemeSwitcher />
                     <NotificationBell />
