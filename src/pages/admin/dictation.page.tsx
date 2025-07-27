@@ -10,11 +10,11 @@ import type { IMeta } from "types/backend";
 import { deleteDictationAPI, fetchDictationsAPI } from "services/dictation.service";
 import type { IDictationTopic } from "types/dictation.type";
 import type { IconType } from "antd/es/notification/interface";
-import CreateCategoryModal from "../../components/category/create-category-modal.component";
-import UpdateCategoryModal from "../../components/category/update-category-modal.component";
-import CreateDictationModal from "../../components/dictation/create-dictation-modal.component";
-import UpdateDictationModal from "../../components/dictation/update-dictation-modal.component";
-import DictationDetailDrawer from "../../components/dictation/dictation-detail-drawer.component";
+import CreateCategoryModal from "components/category/create-category-modal.component";
+import UpdateCategoryModal from "components/category/update-category-modal.component";
+import CreateDictationModal from "components/dictation/create-dictation-modal.component";
+import UpdateDictationModal from "components/dictation/update-dictation-modal.component";
+import DictationDetailDrawer from "components/dictation/dictation-detail-drawer.component";
 
 const DictationPage = () => {
     const actionRef = useRef<ActionType>(null);
@@ -127,6 +127,20 @@ const DictationPage = () => {
         setSelectedTopic(null);
     };
 
+    const handleDeleteDictation = async (id: number) => {
+        try {
+            const res = await deleteDictationAPI(id);
+            if (res.status === 204) {
+                openNotification(true, res.message || 'Dictation deleted successfully!', 'success')();
+                actionRef.current?.reload();
+            } else {
+                openNotification(true, res.message || 'Failed to delete Dictation.', 'error')();
+            }
+        } catch (error) {
+            openNotification(true, 'An error occurred while deleting Dictation.', 'error')();
+        }
+    };
+
 
     const columns: ProColumns<IDictationTopic>[] = [
         {
@@ -193,7 +207,7 @@ const DictationPage = () => {
                     <Popconfirm
                         title="Delete the Dictation"
                         description={`Are you sure to delete dictation": ${record.title}?`}
-                        onConfirm={() => ''}
+                        onConfirm={() => handleDeleteDictation(record.id)}
                         icon={<QuestionCircleOutlined />}
                         okText="Yes"
                         cancelText="No"
@@ -335,6 +349,8 @@ const DictationPage = () => {
                 onClose={() => handleCloseDrawer()}
                 topic={selectedTopic}
             />
+
+            {contextHolder}
         </>
     );
 };
