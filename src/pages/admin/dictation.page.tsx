@@ -11,6 +11,7 @@ import { deleteDictationAPI, fetchDictationsAPI } from "services/dictation.servi
 import type { IDictationTopic } from "types/dictation.type";
 import type { IconType } from "antd/es/notification/interface";
 import CreateCategoryModal from "../../components/category/create-category-modal.component";
+import UpdateCategoryModal from "../../components/category/update-category-modal.component";
 
 const DictationPage = () => {
     const actionRef = useRef<ActionType>(null);
@@ -44,7 +45,7 @@ const DictationPage = () => {
             title: (
                 <Space>
                     <span>{cat.name}</span>
-                    <Button icon={<EditOutlined />} size="small" type="text" onClick={() => ''} />
+                    <Button icon={<EditOutlined />} size="small" type="text" onClick={() => handleOpenUpdateCategoryModal(cat)} />
                 </Space>
             ),
             key: cat.id,
@@ -88,6 +89,16 @@ const DictationPage = () => {
         fetchCategories();
     };
 
+    const handleOpenUpdateCategoryModal = (category: ICategory) => {
+        setCategoryToUpdate(category);
+        setIsUpdateCategoryModalOpen(true);
+    };
+
+    const handleFinishUpdateCategory = () => {
+        setIsUpdateCategoryModalOpen(false);
+        fetchCategories();
+    };
+
     return (
         <>
             <Row gutter={[16, 16]}>
@@ -118,6 +129,14 @@ const DictationPage = () => {
                 onFinish={handleFinishCreateCategory}
                 treeData={categories}
                 type="DICTATION"
+            />
+
+            <UpdateCategoryModal
+                open={isUpdateCategoryModalOpen}
+                onClose={() => setIsUpdateCategoryModalOpen(false)}
+                onFinish={handleFinishUpdateCategory}
+                treeData={categories}
+                initialData={categoryToUpdate}
             />
         </>
     );
