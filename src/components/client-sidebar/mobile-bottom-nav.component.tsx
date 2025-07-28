@@ -9,7 +9,8 @@ import {
     HomeOutlined,
     PicLeftOutlined,
     OrderedListOutlined,
-    LogoutOutlined
+    LogoutOutlined,
+    CustomerServiceOutlined
 } from '@ant-design/icons';
 import styles from './mobile-bottom-nav.module.scss';
 import LanguageSwitcher from 'components/common/language-switcher/language-switcher.component';
@@ -41,6 +42,7 @@ const MobileBottomNav = () => {
         { key: '/grammars', icon: <ReadOutlined />, label: t('sidebar.grammar') },
         { key: '/articles', icon: <PicLeftOutlined />, label: t('sidebar.blog') },
         { key: '/videos', icon: <PlaySquareOutlined />, label: t('sidebar.video') },
+        { key: '/dictations', icon: <CustomerServiceOutlined />, label: t('sidebar.dictation') },
         { key: '/community', icon: <TeamOutlined />, label: t('sidebar.community') },
         { key: '/store', icon: <ShopOutlined />, label: t('sidebar.store') },
         { key: '/profile', icon: <UserOutlined />, label: t('sidebar.profile') },
