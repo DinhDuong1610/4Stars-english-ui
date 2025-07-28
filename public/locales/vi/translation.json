@@ -123,7 +123,17 @@
     "dictation": {
         "pageTitle": "Luyện Nghe",
         "searchPlaceholder": "Tìm kiếm bài nghe chép...",
-        "startPractice": "Bắt đầu"
+        "startPractice": "Bắt đầu",
+        "practiceTab": "Luyện tập",
+        "transcriptTab": "Toàn bộ bài",
+        "slow": "Nghe chậm",
+        "inputPlaceholder": "Nhập những gì bạn nghe được...",
+        "check": "Kiểm tra",
+        "nextSentence": "Câu tiếp theo",
+        "analysisResult": "Kết quả phân tích",
+        "yourScore": "Điểm của bạn",
+        "explanations": "Giải thích",
+        "notFound": "Không tìm thấy bài nghe chép này."
     },
     "notifications": {
         "title": "Thông báo",
@@ -369,6 +379,7 @@
         "forgotPasswordError": "Gửi OTP thất bại. Vui lòng thử lại.",
         "resetPasswordError": "Đặt lại mật khẩu thất bại. Mã OTP có thể không đúng hoặc đã hết hạn.",
         "noFlashcardData": "Không có dữ liệu từ vựng. Đang quay lại.",
-        "logoutError": "Đăng xuất thất bại. Vui lòng thử lại."
+        "logoutError": "Đăng xuất thất bại. Vui lòng thử lại.",
+        "submissionError": "Lỗi khi nộp bài. Vui lòng thử lại."
     }
 }

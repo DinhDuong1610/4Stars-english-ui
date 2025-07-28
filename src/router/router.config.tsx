@@ -44,6 +44,7 @@ import ForgotPasswordPage from 'pages/auth/forgot-password.page';
 import FlashcardPage from 'pages/client/review/flashcard.page';
 import DictationPage from 'pages/admin/dictation.page';
 import DictationListPage from 'pages/client/dictation/dictation-list.page';
+import DictationDetailPage from 'pages/client/dictation/dictation-detail.page';
 
 const routes = [
     {
@@ -213,6 +214,12 @@ const routes = [
                         path: 'dictations/category/:categoryId',
                         element: (
                             <DictationListPage />
+                        ),
+                    },
+                    {
+                        path: 'dictations/:id',
+                        element: (
+                            <DictationDetailPage />
                         ),
                     },
                     {
