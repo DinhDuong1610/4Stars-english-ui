@@ -31,7 +31,8 @@
         "profile": "Hồ sơ",
         "more": "Menu",
         "leaderboard": "Xếp hạng",
-        "logout": "Đăng xuất"
+        "logout": "Đăng xuất",
+        "dictation": "Nghe"
     },
     "logout": {
         "confirmTitle": "Bạn có chắc chắn muốn đăng xuất?",
@@ -118,6 +119,11 @@
         "pageTitle": "Video",
         "subtitles": "Phụ đề",
         "suggestedVideos": "Video gợi ý"
+    },
+    "dictation": {
+        "pageTitle": "Luyện Nghe",
+        "searchPlaceholder": "Tìm kiếm bài nghe chép...",
+        "startPractice": "Bắt đầu"
     },
     "notifications": {
         "title": "Thông báo",

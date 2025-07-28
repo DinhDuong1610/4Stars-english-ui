@@ -31,7 +31,8 @@
         "profile": "Profile",
         "more": "Menu",
         "leaderboard": "Leaderboard",
-        "logout": "Logout"
+        "logout": "Logout",
+        "dictation": "Dictation"
     },
     "logout": {
         "confirmTitle": "Are you sure you want to log out?",
@@ -118,6 +119,11 @@
         "pageTitle": "Video",
         "subtitles": "Subtitles",
         "suggestedVideos": "Suggested Videos"
+    },
+    "dictation": {
+        "pageTitle": "Dictation Practice",
+        "searchPlaceholder": "Search for a dictation...",
+        "startPractice": "Start"
     },
     "notifications": {
         "title": "Notifications",

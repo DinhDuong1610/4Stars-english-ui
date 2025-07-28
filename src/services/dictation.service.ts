@@ -21,3 +21,8 @@ export const deleteDictationAPI = (id: number) => {
     const url_backend = `/api/v1/admin/dictations/${id}`;
     return instance.delete(url_backend);
 }
+
+export const fetchDictationsClientAPI = (query: string) => {
+    const url_backend = `/api/v1/dictations?${query}`;
+    return instance.get<IBackendRes<IDictationTopic[]>>(url_backend);
+}
