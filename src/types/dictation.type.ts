@@ -38,3 +38,17 @@ export interface ICreateDictationTopic {
 export interface IUpdateDictationTopic extends ICreateDictationTopic {
     id: number;
 }
+
+export interface ISubmissionPayload {
+    sentenceId: number;
+    userText: string;
+}
+
+export interface INlpAnalysis {
+    score: number;
+    diffs: {
+        type: 'equal' | 'insert' | 'delete';
+        text: string;
+    }[];
+    explanations: string[];
+}

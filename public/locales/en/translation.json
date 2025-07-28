@@ -31,7 +31,8 @@
         "profile": "Profile",
         "more": "Menu",
         "leaderboard": "Leaderboard",
-        "logout": "Logout"
+        "logout": "Logout",
+        "dictation": "Dictation"
     },
     "logout": {
         "confirmTitle": "Are you sure you want to log out?",
@@ -118,6 +119,21 @@
         "pageTitle": "Video",
         "subtitles": "Subtitles",
         "suggestedVideos": "Suggested Videos"
+    },
+    "dictation": {
+        "pageTitle": "Dictation Practice",
+        "searchPlaceholder": "Search for a dictation...",
+        "startPractice": "Start",
+        "practiceTab": "Practice",
+        "transcriptTab": "Full Transcript",
+        "slow": "Slow",
+        "inputPlaceholder": "Type what you hear...",
+        "check": "Check",
+        "nextSentence": "Next Sentence",
+        "analysisResult": "Analysis Result",
+        "yourScore": "Your Score",
+        "explanations": "Explanations",
+        "notFound": "Dictation topic not found."
     },
     "notifications": {
         "title": "Notifications",
@@ -363,6 +379,7 @@
         "forgotPasswordError": "Failed to send OTP. Please try again.",
         "resetPasswordError": "Failed to reset password. The OTP may be incorrect or expired.",
         "noFlashcardData": "No vocabulary data found. Returning.",
-        "logoutError": "Logout failed. Please try again."
+        "logoutError": "Logout failed. Please try again.",
+        "submissionError": "Error submitting your answer. Please try again."
     }
 }
