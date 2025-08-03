@@ -15,10 +15,6 @@
     border-radius: 20px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-
-    @media (max-width: 768px) {
-        flex-direction: column;
-    }
 }
 
 .illustrationWrapper {
@@ -32,10 +28,6 @@
     img {
         max-width: 100%;
         height: auto;
-    }
-
-    @media (max-width: 768px) {
-        display: none;
     }
 }
 
@@ -81,3 +73,41 @@
 .stepContent {
     margin-top: 24px;
 }
+
+/* XL*/
+@media only screen and (max-width: 1599.98px) {}
+
+/* LG*/
+@media only screen and (max-width: 1199.98px) {}
+
+/* MD*/
+@media only screen and (max-width: 991.98px) {
+    .loginBox {
+        flex-direction: column;
+    }
+
+    .illustrationWrapper {
+        display: none;
+    }
+
+    .loginBox {
+        height: 100vh;
+        width: 100vw;
+        padding-left: 100px;
+        padding-right: 100px;
+    }
+
+}
+
+/* SM*/
+@media only screen and (max-width: 767.98px) {
+    .loginBox {
+        height: 100vh;
+        width: 100vw;
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+}
+
+/* XS*/
+@media only screen and (max-width: 575.98px) {}
