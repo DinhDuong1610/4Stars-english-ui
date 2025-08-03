@@ -107,6 +107,7 @@
     text-align: center;
     border: 2px solid var(--ant-border-color-split, #1677ff);
     height: 100%;
+    margin-bottom: 10px !important;
 
     .featureBlockIcon {
         height: 100px;
@@ -345,8 +346,10 @@
         .featuresRow {
             padding: 0 50px;
             margin: 30px 0;
+
         }
     }
+
 }
 
 /* SM*/
@@ -374,6 +377,7 @@
         .featuresRow {
             padding: 0 50px;
             margin: 20px 0;
+            gap: 10px;
         }
     }
 

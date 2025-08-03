@@ -155,9 +155,9 @@ const HomePage = () => {
                                 return `${item.value?.toString()} ${t('homepage.wordsUnit')}`;
                             }}
                             borderRadius={15}
-                            height={450}
+                            height={md ? 350 : 450}
                             grid={{ vertical: false, horizontal: false }}
-                            margin={{ top: 40, bottom: 30, left: md ? 20 : 0, right: md ? 20 : 0 }}
+                            margin={{ top: 40, bottom: 30, left: md ? 0 : 20, right: md ? 0 : 20 }}
                         />
                         <div className={styles.vocabSummary}>
                             <h2 className={styles.vocabCount}>{t('homepage.wordsToReview')} <strong>{dashboardData.wordsToReviewCount ?? 0} {t('homepage.wordsUnit')}</strong></h2>
