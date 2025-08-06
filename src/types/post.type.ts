@@ -18,3 +18,9 @@ export interface ICreatePost {
     caption: string;
     attachments: ICreateAttachment[];
 }
+
+export interface ILikeUpdatePost {
+    postId: number;
+    totalLikes: number;
+    isLikedByCurrentUser: boolean;
+}

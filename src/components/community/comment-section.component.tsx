@@ -10,7 +10,6 @@ import dayjs from 'dayjs';
 import { useAuthStore } from 'stores/auth.store';
 import type { IUser } from 'types/user.type';
 import { useWebSocket } from 'context/websocket.context';
-import type { INotification } from 'types/notification.type';
 import Accept from 'components/common/share/accept.component';
 
 const CommentItem = ({
@@ -147,12 +146,10 @@ const CommentSection = ({ postId, onCommentPosted, onCommentDeleted }: CommentSe
 
     useEffect(() => {
         if (isConnected && stompClient) {
-            const userSpecificTopic = `/topic/notifications.${user?.id}`;
-            const subscription = stompClient.subscribe(userSpecificTopic, (message) => {
-                const notification: INotification = JSON.parse(message.body);
-                if (notification.type === 'NEW_REPLY') {
-                    fetchComments();
-                }
+            const commentTopic = `/topic/posts/${postId}/comments`;
+            const subscription = stompClient.subscribe(commentTopic, (message) => {
+                const newComment: IComment = JSON.parse(message.body);
+                fetchComments();
             });
 
             return () => {
@@ -171,7 +168,7 @@ const CommentSection = ({ postId, onCommentPosted, onCommentDeleted }: CommentSe
             } else {
                 setNewCommentContent('');
             }
-            onCommentPosted();
+            // onCommentPosted();
             fetchComments();
         } catch (error) {
             message.error(t('errors.createCommentError'));
