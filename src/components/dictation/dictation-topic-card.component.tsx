@@ -11,7 +11,7 @@ interface DictationTopicCardProps {
     dictation: IDictationTopic;
 }
 
-const DictationTopicCard: React.FC<DictationTopicCardProps> = ({ dictation }) => {
+const DictationTopicCard = ({ dictation }: DictationTopicCardProps) => {
     const { t } = useTranslation();
 
     return (
