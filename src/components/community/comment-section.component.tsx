@@ -63,14 +63,14 @@ const CommentItem = ({
             className={styles.commentItem}
             actions={actions}
             author={<a className={styles.commentAuthor}>{comment.user.name}</a>}
-            avatar={<Avatar>{comment.user.name.charAt(0)}</Avatar>}
+            avatar={<Avatar style={{ backgroundColor: user?.id === comment.user.id ? '#1677ff' : 'default' }}>{comment.user.name.charAt(0)}</Avatar>}
             content={<p>{comment.content}</p>}
             datetime={<span className={styles.commentDatetime}>{dayjs(comment.createdAt).fromNow()}</span>}
             key={comment.id}
         >
             {replyingTo === comment.id && (
                 <Comment
-                    avatar={<Avatar>{user?.name?.charAt(0)}</Avatar>}
+                    avatar={<Avatar style={{ backgroundColor: '#1677ff' }}>{user?.name?.charAt(0)}</Avatar>}
                     content={
                         <>
                             <Input.TextArea
@@ -236,7 +236,7 @@ const CommentSection = ({ postId, onCommentPosted, onCommentDeleted }: CommentSe
             />
             <Accept apiPath="/api/v1/comments" method="POST" hide>
                 <Comment
-                    avatar={<Avatar>{user?.name?.charAt(0)}</Avatar>}
+                    avatar={<Avatar style={{ backgroundColor: '#1677ff' }}>{user?.name?.charAt(0)}</Avatar>}
                     content={
                         <>
                             <Input.TextArea
