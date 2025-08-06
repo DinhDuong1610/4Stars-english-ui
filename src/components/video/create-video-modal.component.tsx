@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { ModalForm, ProFormText, ProFormTextArea } from '@ant-design/pro-form';
 import { Button, Form, notification, Upload } from 'antd';
 import { uploadFileAPI } from 'services/file.service';
@@ -7,6 +7,8 @@ import type { UploadProps } from 'antd/lib';
 import type { RcFile } from 'antd/es/upload';
 import { UploadOutlined } from "@ant-design/icons";
 import type { ICreateVideo } from 'types/video.type';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 import { createVideoAPI } from 'services/video.service';
 
 interface CreateVideoModalProps {
@@ -20,6 +22,7 @@ const CreateVideoModal = ({ open, onClose, onFinish, categoryId }: CreateVideoMo
     const [form] = Form.useForm<ICreateVideo>();
     const [loadingSubtitle, setLoadingSubtitle] = useState(false);
     const [subTitleName, setSubtitleName] = useState<string>();
+    const quillRef = useRef<ReactQuill>(null);
 
     const [api, contextHolder] = notification.useNotification();
 
@@ -71,6 +74,60 @@ const CreateVideoModal = ({ open, onClose, onFinish, categoryId }: CreateVideoMo
         finally { setLoadingSubtitle(false); }
     };
 
+    const imageHandler = () => {
+        const input = document.createElement('input');
+        input.setAttribute('type', 'file');
+        input.setAttribute('accept', 'image/*');
+        input.click();
+
+        input.onchange = async () => {
+            const file = input.files?.[0];
+            if (file) {
+                try {
+                    const res = await uploadFileAPI(file);
+                    if (res && res.data) {
+                        const imageUrl = `${import.meta.env.VITE_BACKEND_URL}${res.data.fileUrl}`;
+                        const editor = quillRef.current?.getEditor();
+                        const range = editor?.getSelection();
+                        if (range) {
+                            editor?.insertEmbed(range.index, 'image', imageUrl);
+                        }
+                    }
+                } catch (error) {
+                    console.error('Error uploading image:', error);
+                }
+            }
+        };
+    };
+
+    const modules = useMemo(() => ({
+        toolbar: {
+            container: [
+                [{ 'font': [] }],
+                [{ 'size': ['small', false, 'large', 'huge'] }],
+                [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+
+                [{ 'color': [] }, { 'background': [] }],
+
+                ['bold', 'italic', 'underline', 'strike'],
+                ['blockquote', 'code-block'],
+
+                [{ 'script': 'sub' }, { 'script': 'super' }],
+                [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+                [{ 'indent': '-1' }, { 'indent': '+1' }],
+                [{ 'direction': 'rtl' }],
+                [{ 'align': [] }],
+
+                ['link', 'image', 'video'],
+
+                ['clean']
+            ],
+            handlers: {
+                image: imageHandler,
+            },
+        },
+    }), []);
+
     return (
         <>
             <ModalForm
@@ -89,8 +146,6 @@ const CreateVideoModal = ({ open, onClose, onFinish, categoryId }: CreateVideoMo
             >
                 <ProFormText name="title" label="Video Title" rules={[{ required: true }]} />
                 <ProFormText name="url" label="Url" rules={[{ required: true }]} />
-                <ProFormTextArea name="description" label="Description"
-                    rules={[{ required: true, message: 'Please enter description!' }]} />
                 <Form.Item label="SubTitle File">
                     <Upload name="subtitle" customRequest={handleAudioUpload} showUploadList={false}>
                         <Button icon={<UploadOutlined />} loading={loadingSubtitle}>Click to Upload</Button>
@@ -99,6 +154,22 @@ const CreateVideoModal = ({ open, onClose, onFinish, categoryId }: CreateVideoMo
                 </Form.Item>
 
                 <ProFormText name="subtitle" hidden />
+
+                {/* <ProFormTextArea name="description" label="Description"
+                    rules={[{ required: true, message: 'Please enter description!' }]} /> */}
+
+                <Form.Item
+                    label="Description"
+                    name="description"
+                    rules={[{ required: true, message: 'Please enter the description!' }]}
+                >
+                    <ReactQuill
+                        ref={quillRef}
+                        theme="snow"
+                        modules={modules}
+                        style={{ minHeight: '500px' }}
+                    />
+                </Form.Item>
             </ModalForm>
             {contextHolder}
         </>

@@ -125,7 +125,9 @@ const VideoDetailPage = () => {
                     </div>
                     <div className={styles.infoSection}>
                         <Title level={3} className={styles.videoTitle}>{video.title}</Title>
-                        <Paragraph>{video.description}</Paragraph>
+                        <Paragraph>
+                            <div dangerouslySetInnerHTML={{ __html: video.description }} />
+                        </Paragraph>
                     </div>
                 </Card>
             </Col>

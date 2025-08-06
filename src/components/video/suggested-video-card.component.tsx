@@ -43,7 +43,9 @@ const SuggestedVideoCard = ({ video }: SuggestedVideoCardProps) => {
                     </div>
                     <div className={styles.meta}>
                         <Title level={5} className={styles.title}>{video.title}</Title>
-                        <Text className={styles.description}>{video.description}</Text>
+                        <Text className={styles.description}>
+                            <div dangerouslySetInnerHTML={{ __html: video.description }} />
+                        </Text>
                     </div>
                 </div>
             </Card>

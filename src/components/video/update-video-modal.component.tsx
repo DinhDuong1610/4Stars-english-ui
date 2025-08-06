@@ -8,6 +8,7 @@ import type { RcFile } from 'antd/es/upload';
 import { UploadOutlined } from "@ant-design/icons";
 import type { IUpdateVideo, IVideo } from 'types/video.type';
 import { updateVideoAPI } from 'services/video.service';
+import TiptapEditor from 'components/common/tiptap-editor/tiptap-editor.component';
 
 interface UpdateVideoModalProps {
     open: boolean;
@@ -101,8 +102,6 @@ const UpdateVideoModal = ({ open, onClose, onFinish, initialData }: UpdateVideoM
             >
                 <ProFormText name="title" label="Video Title" rules={[{ required: true }]} />
                 <ProFormText name="url" label="Url" rules={[{ required: true }]} />
-                <ProFormTextArea name="description" label="Description"
-                    rules={[{ required: true, message: 'Please enter description!' }]} />
                 <Form.Item label="SubTitle File">
                     <Upload name="subtitle" customRequest={handleAudioUpload} showUploadList={false}>
                         <Button icon={<UploadOutlined />} loading={loadingSubtitle}>Click to Upload</Button>
@@ -111,6 +110,14 @@ const UpdateVideoModal = ({ open, onClose, onFinish, initialData }: UpdateVideoM
                 </Form.Item>
 
                 <ProFormText name="subtitle" hidden />
+
+                <Form.Item
+                    label="Description"
+                    name="description"
+                    rules={[{ required: true, message: 'Please enter the content!' }]}
+                >
+                    <TiptapEditor onChange={(description) => form.setFieldsValue({ description })} value={form.getFieldValue('description')} />
+                </Form.Item>
             </ModalForm>
             {contextHolder}
         </>

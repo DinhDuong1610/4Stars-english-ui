@@ -3,6 +3,9 @@ import type { IVideo } from 'types/video.type';
 import ReactPlayer from 'react-player'
 import { formatISODate } from 'utils/format.util';
 import styles from './video-detail-drawer.module.scss';
+import { useMemo } from 'react';
+import DOMPurify from 'dompurify';
+
 
 const { Title, Paragraph } = Typography;
 
@@ -13,6 +16,13 @@ interface VideoDetailDrawerProps {
 }
 
 const VideoDetailDrawer = ({ open, onClose, video }: VideoDetailDrawerProps) => {
+    const sanitizedContent = useMemo(() => {
+        if (video?.description) {
+            return DOMPurify.sanitize(video.description);
+        }
+        return '';
+    }, [video]);
+
     if (!video) return null;
 
     return (
@@ -34,7 +44,10 @@ const VideoDetailDrawer = ({ open, onClose, video }: VideoDetailDrawerProps) => 
             </div>
 
             <Title level={3} style={{ marginTop: 24 }}>{video.title}</Title>
-            <Paragraph type="secondary">{video.description}</Paragraph>
+            <div
+                className={styles.content}
+                dangerouslySetInnerHTML={{ __html: sanitizedContent }}
+            />
 
             <Divider />
 
