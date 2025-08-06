@@ -92,7 +92,7 @@ const PostCard = ({ post, onDelete }: PostCardProps) => {
 
     const menu = (
         <Menu>
-            {user?.id === post.user.id && (
+            {(user?.id === post.user.id || user?.role.name === 'ADMIN') && (
                 <Menu.Item key="delete" danger onClick={handleDelete}>
                     <DeleteOutlined /> {t('common.delete')}
                 </Menu.Item>
@@ -113,7 +113,7 @@ const PostCard = ({ post, onDelete }: PostCardProps) => {
                     </div>
                 </div>
                 {
-                    user?.id === post.user.id && (
+                    (user?.id === post.user.id || user?.role.name === 'ADMIN') && (
                         <Dropdown className={styles.postDropdown} overlay={menu} placement="bottomRight">
                             <Button type="text" icon={<MoreOutlined size={20} style={{ transform: 'rotate(90deg)' }} />} />
                         </Dropdown>
