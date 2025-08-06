@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Tooltip } from 'antd';
 import { SoundOutlined } from '@ant-design/icons';
 
@@ -8,6 +8,21 @@ interface TextToSpeechProps {
 }
 
 const TextToSpeech = ({ text, lang = 'en-US' }: TextToSpeechProps) => {
+    const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
+
+    useEffect(() => {
+        const loadVoices = () => {
+            setVoices(window.speechSynthesis.getVoices());
+        };
+
+        window.speechSynthesis.onvoiceschanged = loadVoices;
+        loadVoices();
+
+        return () => {
+            window.speechSynthesis.onvoiceschanged = null;
+        };
+    }, []);
+
     const handleSpeak = (e: React.MouseEvent) => {
         e.stopPropagation();
 
@@ -17,6 +32,11 @@ const TextToSpeech = ({ text, lang = 'en-US' }: TextToSpeechProps) => {
             const utterance = new SpeechSynthesisUtterance(text);
             utterance.lang = lang;
             utterance.rate = 0.9;
+
+            const preferredVoice = voices.find(voice => voice.name === 'Google US English');
+            const englishVoice = voices.find(voice => voice.lang === lang);
+
+            utterance.voice = preferredVoice || englishVoice || null;
 
             window.speechSynthesis.speak(utterance);
         } else {
