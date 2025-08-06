@@ -3,13 +3,12 @@ import { Card, Avatar, Typography, Button, Image, Dropdown, Menu, message } from
 import { LikeOutlined, LikeFilled, CommentOutlined, MoreOutlined, DeleteOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
 import dayjs from 'dayjs';
-import type { IPost } from 'types/post.type';
+import type { ILikeUpdatePost, IPost } from 'types/post.type';
 import { useAuthStore } from 'stores/auth.store';
 import { deletePostAPI, likePostAPI, unlikePostAPI } from 'services/post.service';
 import CommentSection from './comment-section.component';
 import styles from 'pages/client/community/community.page.module.scss';
 import { useWebSocket } from 'context/websocket.context';
-import type { INotification } from 'types/notification.type';
 
 const { Text } = Typography;
 
@@ -34,15 +33,23 @@ const PostCard = ({ post, onDelete }: PostCardProps) => {
 
     useEffect(() => {
         if (isConnected && stompClient) {
-            const userSpecificTopic = `/topic/notifications.${user?.id}`;
-            const subscription = stompClient.subscribe(userSpecificTopic, (message) => {
-                const notification: INotification = JSON.parse(message.body);
-                const postId = notification.link.split('/').pop();
-                if (notification.type === 'NEW_LIKE_ON_POST') {
-                    if (postId === post.id.toString()) {
-                        setLikeCount(prev => prev + 1);
-                    }
-                }
+            const postLikeTopic = `/topic/posts/${post.id}/likes`;
+            const subscription = stompClient.subscribe(postLikeTopic, (message) => {
+                const likeUpdate: ILikeUpdatePost = JSON.parse(message.body);
+                setLikeCount(likeUpdate.totalLikes);
+            });
+
+            return () => {
+                subscription.unsubscribe();
+            };
+        }
+    }, [isConnected, stompClient, t]);
+
+    useEffect(() => {
+        if (isConnected && stompClient) {
+            const commentTopic = `/topic/posts/${post.id}/comments`;
+            const subscription = stompClient.subscribe(commentTopic, (message) => {
+                setCommentCount(prev => prev + 1);
             });
 
             return () => {
@@ -92,7 +99,7 @@ const PostCard = ({ post, onDelete }: PostCardProps) => {
 
     const menu = (
         <Menu>
-            {user?.id === post.user.id && (
+            {(user?.id === post.user.id || user?.role.name === 'ADMIN') && (
                 <Menu.Item key="delete" danger onClick={handleDelete}>
                     <DeleteOutlined /> {t('common.delete')}
                 </Menu.Item>
@@ -113,7 +120,7 @@ const PostCard = ({ post, onDelete }: PostCardProps) => {
                     </div>
                 </div>
                 {
-                    user?.id === post.user.id && (
+                    (user?.id === post.user.id || user?.role.name === 'ADMIN') && (
                         <Dropdown className={styles.postDropdown} overlay={menu} placement="bottomRight">
                             <Button type="text" icon={<MoreOutlined size={20} style={{ transform: 'rotate(90deg)' }} />} />
                         </Dropdown>
