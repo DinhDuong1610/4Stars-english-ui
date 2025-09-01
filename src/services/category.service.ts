@@ -3,7 +3,7 @@ import type { ICategory, ICreateCategory, IUpdateCategory } from "types/category
 import instance from "services/axios.customize";
 
 export const fetchCategoriesAPI = (query: string) => {
-    const url_backend = `/api/v1/admin/categories/tree?${query}`;
+    const url_backend = `/api/v1/admin/categories/tree?size=100&${query}`;
     return instance.get<IBackendRes<ICategory[]>>(url_backend);
 }
 
@@ -23,7 +23,7 @@ export const deleteCategoryAPI = (id: number) => {
 }
 
 export const fetchCategoriesClientAPI = (query: string) => {
-    const url_backend = `/api/v1/categories/tree?${query}`;
+    const url_backend = `/api/v1/categories/tree?size=100&${query}`;
     return instance.get<IBackendRes<ICategory[]>>(url_backend);
 }
 

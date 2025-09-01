@@ -30,7 +30,7 @@ export const bulkCreateVocabularyAPI = (data: ICreateVocabulary[]) => {
 
 
 export const fetchVocabulariesClientAPI = (query: string) => {
-    const url_backend = `/api/v1/vocabularies?${query}`;
+    const url_backend = `/api/v1/vocabularies?size=100&${query}`;
     return instance.get<IBackendRes<IVocabulary[]>>(url_backend);
 }
 

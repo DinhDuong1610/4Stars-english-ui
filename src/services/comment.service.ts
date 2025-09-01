@@ -4,7 +4,7 @@ import instance from "services/axios.customize";
 
 
 export const fetchCommentsByPostIdAPI = (postId: number) => {
-    const url_backend = `/api/v1/comments/post/${postId}`;
+    const url_backend = `/api/v1/comments/post/${postId}?size=1000`;
     return instance.get<IBackendRes<IComment[]>>(url_backend);
 }
 

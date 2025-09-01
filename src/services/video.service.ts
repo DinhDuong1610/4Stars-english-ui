@@ -23,7 +23,7 @@ export const deleteVideoAPI = (id: number) => {
 }
 
 export const fetchVideosClientAPI = (query: string) => {
-    const url_backend = `/api/v1/videos?${query}`;
+    const url_backend = `/api/v1/videos?size=100&${query}`;
     return instance.get<IBackendRes<IVideo[]>>(url_backend);
 }
 
