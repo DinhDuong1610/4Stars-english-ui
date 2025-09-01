@@ -8,7 +8,7 @@ export const fetchRecentNotebookAPI = () => {
 }
 
 export const fetchNotebookByLevelAPI = (level: number) => {
-    const url_backend = `/api/v1/notebook/level/${level}`;
+    const url_backend = `/api/v1/notebook/level/${level}?size=100`;
     return instance.get<IBackendRes<IVocabulary[]>>(url_backend);
 }
 

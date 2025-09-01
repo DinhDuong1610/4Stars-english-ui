@@ -23,7 +23,7 @@ export const deleteDictationAPI = (id: number) => {
 }
 
 export const fetchDictationsClientAPI = (query: string) => {
-    const url_backend = `/api/v1/dictations?${query}`;
+    const url_backend = `/api/v1/dictations?size=100&${query}`;
     return instance.get<IBackendRes<IDictationTopic[]>>(url_backend);
 }
 

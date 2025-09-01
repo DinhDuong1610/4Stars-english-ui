@@ -23,7 +23,7 @@ export const deleteGrammarAPI = (id: number) => {
 }
 
 export const fetchGrammarsClientAPI = (query: string) => {
-    const url_backend = `/api/v1/grammars?${query}`;
+    const url_backend = `/api/v1/grammars?size=100&${query}`;
     return instance.get<IBackendRes<IGrammar[]>>(url_backend);
 }
 

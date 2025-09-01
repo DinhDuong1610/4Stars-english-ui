@@ -23,7 +23,7 @@ export const deleteArticleAPI = (id: number) => {
 }
 
 export const fetchArticlesClientAPI = (query: string) => {
-    const url_backend = `/api/v1/articles?${query}`;
+    const url_backend = `/api/v1/articles?size=100&${query}`;
     return instance.get<IBackendRes<IArticle[]>>(url_backend);
 }
 

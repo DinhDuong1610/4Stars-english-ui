@@ -3,7 +3,7 @@ import type { INotification } from "types/notification.type";
 import instance from "services/axios.customize";
 
 export const fetchNotificationsAPI = () => {
-    const url_backend = `/api/v1/notifications`;
+    const url_backend = `/api/v1/notifications?size=100`;
     return instance.get<IBackendRes<INotification[]>>(url_backend);
 }
 
